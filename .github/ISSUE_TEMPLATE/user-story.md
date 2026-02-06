@@ -1,7 +1,7 @@
 ---
 name: User story
 about: Requirement from an user's POV
-title: ''
+title: New User Story
 labels: design
 assignees: ''
 
