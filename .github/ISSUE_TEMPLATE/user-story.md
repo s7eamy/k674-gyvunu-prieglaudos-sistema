@@ -7,11 +7,14 @@ assignees: ''
 
 ---
 
-As an *type of user*,
-I want *some goal*,
-so that *some reason*
+As an **type of user**,
+I want **some goal**,
+so that **some reason**
 
 Acceptance criteria:
 - [ ] AC1
 - [ ] AC2
 - [ ] ...
+
+Prerequisites:
+link to prerequisite issues
