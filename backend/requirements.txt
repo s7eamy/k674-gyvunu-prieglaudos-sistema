@@ -1,0 +1,1 @@
+# Python dependencies — Flask, Flask-SQLAlchemy, Flask-CORS, Flask-Migrate
