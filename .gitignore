@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Python
 backend/venv/
 backend/__pycache__/
@@ -10,3 +11,7 @@ backend/**/*.db
 # Environment
 .env
 .env.local
+=======
+backend/venv/
+__pycache__/
+>>>>>>> b844412e72058fe6d01fd4e06c3cb5e261b9eb76
