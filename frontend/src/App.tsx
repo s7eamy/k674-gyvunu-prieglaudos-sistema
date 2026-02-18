@@ -16,7 +16,6 @@ function App() {
     fetchAPI()
   },[])
   
-console.log(animals);
   return (
     <>
       <h1>Vite + React</h1>
