@@ -1,5 +1,5 @@
 # Animal controller - business logic for animal CRUD operations
-from app.models.animal import Animal, db
+from app.models.animal import Animal
 
 def get_all_animals():
     """
