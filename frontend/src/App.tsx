@@ -1,21 +1,28 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import './App.css'
 import axios from "axios"
+import { getAll } from './services/animalService';
 import type { Animal } from './types/Animal'
 
 function App() {
-  const [animals, setAnimals] = useState<Animal[]>([])
 
-  const fetchAPI = async() => {
-    const response = await axios.get("http://localhost:8081/api/animals");
-    console.log(response.data)
-    setAnimals(response.data)
-  }
+const [animals, setAnimals] = useState<Animal[]>([]);
+
+  // We use useCallback to "memoize" the function
+  // This tells React the function doesn't change on every render
+  const loadAnimals = useCallback(async () => {
+    try {
+      const data = await getAll();
+      setAnimals(data);
+    } catch (error) {
+      console.error("Fetch failed", error);
+    }
+  }, []); // Empty array means this function is created once
 
   useEffect(() => {
-    fetchAPI()
-  },[])
-  
+    loadAnimals();
+  }, [loadAnimals]); // Now loadAnimals is a stable dependency
+
   return (
     <>
       <h1>Vite + React</h1>

@@ -7,8 +7,8 @@ animal_bp = Blueprint('animals', __name__)
 @animal_bp.route('', methods=['GET'])
 def get_animals():
     # GET /api/animals - get all animals
-    animals = animal_controller.get_all_animals()
-    return jsonify(animals), 200
+    animals_list = animal_controller.get_all_animals()
+    return jsonify({"animals": animals_list}), 200
 
 @animal_bp.route('/<int:animal_id>', methods=['GET'])
 def get_animal(animal_id):
