@@ -1,14 +1,10 @@
 # Animal model
 from flask_sqlalchemy import SQLAlchemy
-<<<<<<< HEAD
 from datetime import datetime
-=======
->>>>>>> b844412e72058fe6d01fd4e06c3cb5e261b9eb76
 
 db = SQLAlchemy()
 
 class Animal(db.Model):
-<<<<<<< HEAD
     __tablename__ = 'animals'
     
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -38,11 +34,3 @@ class Animal(db.Model):
             'adopted': bool(self.adopted),
             'created_at': self.created_at.isoformat() if self.created_at else None
         }
-=======
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), nullable=False)
-    species = db.Column(db.String(80), nullable=False)
-
-    def to_dict(self):
-        return {"id": self.id, "name": self.name, "species": self.species}
->>>>>>> b844412e72058fe6d01fd4e06c3cb5e261b9eb76
