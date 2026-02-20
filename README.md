@@ -2,6 +2,9 @@
 
 A CRUD web application for managing an animal shelter, built with **React (TypeScript)**, **Flask (Python)**, and **SQLite**, following the **MVC architecture**.
 
+hello, world!
+
+
 ## Project Structure
 
 ```
