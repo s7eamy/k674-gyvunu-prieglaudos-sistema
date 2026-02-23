@@ -1,8 +1,7 @@
 # Animal model
-from flask_sqlalchemy import SQLAlchemy
+from app.models import db
 from datetime import datetime
 
-db = SQLAlchemy()
 
 class Animal(db.Model):
     __tablename__ = 'animals'
