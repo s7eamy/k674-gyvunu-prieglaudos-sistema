@@ -1,19 +1,33 @@
 # Flask app setup - configurations, extensions, blueprint registration, etc
+from datetime import timedelta
 from flask import Flask
 from flask_cors import CORS
+from flask_jwt_extended import JWTManager
 from app.models import db
+
+jwt = JWTManager()
 
 def create_app():
     app = Flask(__name__)
-    
+
     # Configuration
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///shelter.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SECRET_KEY'] = 'dev-secret-key' # Change later for production
-    
+    app.config['JWT_SECRET_KEY'] = 'dev-jwt-secret-key' # Change later for production
+    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=1)
+
     # Initialize extensions
     db.init_app(app)
+    jwt.init_app(app)
     CORS(app)
+
+    # Register token blocklist checker for logout support
+    from app.blocklist import BLOCKLIST
+
+    @jwt.token_in_blocklist_loader
+    def check_if_token_revoked(jwt_header, jwt_payload):
+        return jwt_payload['jti'] in BLOCKLIST
     
     # Register blueprints
     from app.routes.animal_routes import animal_bp
