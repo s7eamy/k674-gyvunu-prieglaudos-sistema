@@ -13,14 +13,18 @@ export default function RegisterPage() {
   const validateForm = (): boolean => {
     const newErrors: { name?: string; password?: string } = {};
 
-    // name min 3 characters
+    // name 3-50 characters
     if (!name || name.length < 3) {
       newErrors.name = 'Username must be at least 3 characters';
+    } else if (name.length > 50) {
+      newErrors.name = 'Username must be at most 50 characters';
     }
 
-    // pass min 8 characters + complexity
+    // pass 8-128 characters + complexity
     if (!password || password.length < 8) {
       newErrors.password = 'Password must be at least 8 characters';
+    } else if (password.length > 128) {
+      newErrors.password = 'Password must be at most 128 characters';
     } else {
       // 1 uppercase, 1 lowercase, 1 digit
       const hasUpperCase = /[A-Z]/.test(password);
