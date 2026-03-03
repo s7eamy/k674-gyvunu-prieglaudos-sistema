@@ -1,8 +1,6 @@
-import './App.css'
-import AnimalsPage from './pages/Animals/AnimalsPage';
+import { RouterProvider } from 'react-router';
+import { router } from './routes';
 
-function App() {
-  return <AnimalsPage />;
+export default function App() {
+  return <RouterProvider router={router} />;
 }
-
-export default App

@@ -6,7 +6,25 @@ backend/*.pyc
 backend/**/*.pyc
 backend/*.db
 backend/**/*.db
+backend/instance/
+
+# Node/Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.vite/
+**/node_modules/
 
 # Environment
 .env
 .env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
