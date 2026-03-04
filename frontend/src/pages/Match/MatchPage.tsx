@@ -208,6 +208,7 @@ export default function MatchPage() {
         maxWidth: '800px',
         margin: '0 auto',
         padding: '40px 20px',
+        color: '#1f2937',
       }}>
         <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>
           Your Best Matches 🐾
@@ -237,6 +238,7 @@ export default function MatchPage() {
                     padding: '20px',
                     marginBottom: '20px',
                     backgroundColor: '#f9f9f9',
+                    color: '#1f2937',
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
@@ -355,6 +357,7 @@ export default function MatchPage() {
       maxWidth: '600px',
       margin: '0 auto',
       padding: '40px 20px',
+      color: '#1f2937',
     }}>
       {/* Progress bar */}
       <div style={{
@@ -396,6 +399,7 @@ export default function MatchPage() {
               fontSize: '16px',
               cursor: 'pointer',
               backgroundColor: '#f0f0f0',
+              color: '#1f2937',
               border: '2px solid #ddd',
               borderRadius: '8px',
               textAlign: 'left',
@@ -424,6 +428,7 @@ export default function MatchPage() {
             fontSize: '16px',
             cursor: 'pointer',
             backgroundColor: '#ccc',
+            color: '#1f2937',
             border: 'none',
             borderRadius: '4px',
           }}
