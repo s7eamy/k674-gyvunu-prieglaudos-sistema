@@ -21,7 +21,7 @@ export function AnimalDetail() {
           const backendAnimal = await getById(Number(id));
           setAnimal(backendAnimal);
         }
-      } catch (error) {
+      } catch {
         console.log('Using mock data as fallback');
         // Fall back to mock data
         if (id) {

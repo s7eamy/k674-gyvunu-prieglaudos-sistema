@@ -23,7 +23,7 @@ export function Companions() {
       try {
         const backendAnimals = await getAll();
         setAnimals(backendAnimals);
-      } catch (error) {
+      } catch {
         console.log('Using mock animals as fallback');
         setAnimals(mockAnimals);
       } finally {
