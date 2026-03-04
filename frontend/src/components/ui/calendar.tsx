@@ -60,6 +60,7 @@ function Calendar({
         ...classNames,
       }}
       components={{
+        // @ts-expect-error - DayPicker IconLeft/IconRight typing mismatch
         IconLeft: ({ className, ...props }) => (
           <ChevronLeft className={cn("size-4", className)} {...props} />
         ),
