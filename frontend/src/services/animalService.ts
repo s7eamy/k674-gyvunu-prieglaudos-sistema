@@ -1,10 +1,8 @@
 // Animal service — API calls for animal CRUD (getAll, getById, create, update, delete)
-import axios from 'axios';
+import api from './api';
 import type { Animal } from '../types/Animal';
 
-const API_URL = "http://localhost:8081/api/animals";
-
 export const getAll = async (): Promise<Animal[]> => {
-    const response = await axios.get<{ animals: Animal[] }>(API_URL);
+    const response = await api.get<{ animals: Animal[] }>('/api/animals');
     return response.data.animals;
 };
