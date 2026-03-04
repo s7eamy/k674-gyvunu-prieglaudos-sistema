@@ -33,6 +33,8 @@ def create_app():
     from app.routes.animal_routes import animal_bp
     from app.routes.auth_routes import auth_bp
     app.register_blueprint(animal_bp, url_prefix='/api/animals')
+    from app.routes.match_routes import match_bp
+    app.register_blueprint(match_bp, url_prefix='/api/animals')
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
 
     # Import all models so db.create_all() picks them up
