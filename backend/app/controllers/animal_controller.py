@@ -13,7 +13,7 @@ def get_animals(args):
     # created_at is not here because it needs special actions
     regular_filters = {
         'id', 'name', 'type', 'breed', 'size', 'age', 
-        'vaccinated', 'tem  perament', 'description', 
+        'vaccinated', 'temperament', 'description', 
         'adopted'
     }
 
