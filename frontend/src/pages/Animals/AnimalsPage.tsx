@@ -10,6 +10,8 @@ export default function AnimalsPage() {
   type: "",
   size: "",
   temperament: "",
+  vaccinated: undefined,
+  adopted: undefined,
 });
 
   useEffect(() => {
@@ -19,6 +21,8 @@ export default function AnimalsPage() {
   type: filters.type || undefined,
   size: filters.size || undefined,
   temperament: filters.temperament || undefined,
+  vaccinated: filters.vaccinated,
+  adopted: filters.adopted,
 });
         setAnimals(data);
       } catch (error) {
@@ -65,9 +69,47 @@ export default function AnimalsPage() {
     <option value="energetic">Energetic</option>
   </select>
 
-  <button onClick={() => setFilters({ type: "", size: "", temperament: "" })}>
-    Reset
-  </button>
+  <select
+  value={filters.vaccinated === undefined ? "" : String(filters.vaccinated)}
+  onChange={(e) =>
+    setFilters((f) => ({
+      ...f,
+      vaccinated: e.target.value === "" ? undefined : (Number(e.target.value) as 0 | 1),
+    }))
+  }
+>
+  <option value="">Vaccinated (all)</option>
+  <option value="1">Vaccinated</option>
+  <option value="0">Not vaccinated</option>
+</select>
+
+<select
+  value={filters.adopted === undefined ? "" : String(filters.adopted)}
+  onChange={(e) =>
+    setFilters((f) => ({
+      ...f,
+      adopted: e.target.value === "" ? undefined : (Number(e.target.value) as 0 | 1),
+    }))
+  }
+>
+  <option value="">Adoption status (all)</option>
+  <option value="0">Available</option>
+  <option value="1">Adopted</option>
+</select>
+
+  <button
+  onClick={() =>
+    setFilters({
+      type: "",
+      size: "",
+      temperament: "",
+      vaccinated: undefined,
+      adopted: undefined,
+    })
+  }
+>
+  Reset
+</button>
 </div>
         <p>
           {animals.map((animal) => (
