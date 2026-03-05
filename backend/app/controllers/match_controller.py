@@ -178,6 +178,34 @@ def score_animal(animal, answers):
     
     preferred_age_score = 5.0 * preferred_age_multiplier
     
+    # --- ENERGY MATCH (10pts) ---
+    energy_match = answers.get("energy_match", "moderate")
+    
+    energy_match_multiplier = 0.0
+    if energy_match == "calm":
+        if temperament == "calm":
+            energy_match_multiplier = 1.0
+        elif temperament == "friendly":
+            energy_match_multiplier = 0.7
+        elif temperament == "energetic":
+            energy_match_multiplier = 0.1
+    elif energy_match == "moderate":
+        if temperament == "calm":
+            energy_match_multiplier = 0.7
+        elif temperament == "friendly":
+            energy_match_multiplier = 1.0
+        elif temperament == "energetic":
+            energy_match_multiplier = 0.7
+    elif energy_match == "energetic":
+        if temperament == "calm":
+            energy_match_multiplier = 0.2
+        elif temperament == "friendly":
+            energy_match_multiplier = 0.7
+        elif temperament == "energetic":
+            energy_match_multiplier = 1.0
+    
+    energy_match_score = 10.0 * energy_match_multiplier
+    
     # --- TOTAL SCORE ---
     total_score = (
         animal_type_score +
@@ -188,7 +216,8 @@ def score_animal(animal, answers):
         children_score +
         other_pets_score +
         preferred_size_score +
-        preferred_age_score
+        preferred_age_score +
+        energy_match_score
     )
     
     return total_score
