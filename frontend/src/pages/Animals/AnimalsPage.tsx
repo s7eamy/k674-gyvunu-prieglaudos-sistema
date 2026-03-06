@@ -11,7 +11,6 @@ export default function AnimalsPage() {
   size: "",
   temperament: "",
   vaccinated: undefined,
-  adopted: undefined,
 });
 
   useEffect(() => {
@@ -22,7 +21,6 @@ export default function AnimalsPage() {
   size: filters.size || undefined,
   temperament: filters.temperament || undefined,
   vaccinated: filters.vaccinated,
-  adopted: filters.adopted,
 });
         setAnimals(data);
       } catch (error) {
@@ -83,19 +81,6 @@ export default function AnimalsPage() {
   <option value="0">Not vaccinated</option>
 </select>
 
-<select
-  value={filters.adopted === undefined ? "" : String(filters.adopted)}
-  onChange={(e) =>
-    setFilters((f) => ({
-      ...f,
-      adopted: e.target.value === "" ? undefined : (Number(e.target.value) as 0 | 1),
-    }))
-  }
->
-  <option value="">Adoption status (all)</option>
-  <option value="0">Available</option>
-  <option value="1">Adopted</option>
-</select>
 
   <button
   onClick={() =>
