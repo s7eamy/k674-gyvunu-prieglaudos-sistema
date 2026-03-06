@@ -8,6 +8,7 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.Text, unique=True, nullable=False)
+    email = db.Column(db.Text, unique=True, nullable=False)
     password_hash = db.Column(db.Text, nullable=False)
     role = db.Column(db.Text, default='user')
     donation_points = db.Column(db.Integer, default=0)
@@ -18,6 +19,7 @@ class User(db.Model):
         return {
             'id': self.id,
             'name': self.name,
+            'email': self.email,
             'role': self.role,
             'donation_points': self.donation_points,
             'volunteer_points': self.volunteer_points,
