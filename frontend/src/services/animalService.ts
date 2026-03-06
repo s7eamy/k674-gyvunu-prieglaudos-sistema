@@ -1,6 +1,6 @@
 // Animal service — API calls for animal CRUD (getAll, getById, create, update, delete)
-import api from "./api";
-import type { Animal } from "../types/Animal";
+import api from './api';
+import type { Animal } from '../types/Animal';
 
 export type AnimalFilters = {
   size?: string;
