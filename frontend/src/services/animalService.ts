@@ -6,9 +6,10 @@ export type AnimalFilters = {
   size?: string;
   temperament?: string;
   type?: string;
-  age?: number;
   vaccinated?: 0 | 1;
   adopted?: 0 | 1;
+  ageMin?: number;
+  ageMax?: number;
 };
 
 export const getAll = async (filters?: AnimalFilters): Promise<Animal[]> => {

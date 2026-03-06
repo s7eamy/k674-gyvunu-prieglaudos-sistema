@@ -11,6 +11,8 @@ export default function AnimalsPage() {
   size: "",
   temperament: "",
   vaccinated: undefined,
+  ageMin: undefined,
+  ageMax: undefined,
 });
 
   useEffect(() => {
@@ -21,6 +23,8 @@ export default function AnimalsPage() {
   size: filters.size || undefined,
   temperament: filters.temperament || undefined,
   vaccinated: filters.vaccinated,
+  ageMin: filters.ageMin,
+  ageMax: filters.ageMax,
 });
         setAnimals(data);
       } catch (error) {
@@ -81,6 +85,36 @@ export default function AnimalsPage() {
   <option value="0">Not vaccinated</option>
 </select>
 
+<select
+  value={
+    filters.ageMin === 0 && filters.ageMax === 2
+      ? "young"
+      : filters.ageMin === 3 && filters.ageMax === 7
+      ? "adult"
+      : filters.ageMin === 8 && filters.ageMax === undefined
+      ? "senior"
+      : ""
+  }
+  onChange={(e) => {
+    const value = e.target.value;
+
+    if (value === "young") {
+      setFilters((f) => ({ ...f, ageMin: 0, ageMax: 2 }));
+    } else if (value === "adult") {
+      setFilters((f) => ({ ...f, ageMin: 3, ageMax: 7 }));
+    } else if (value === "senior") {
+      setFilters((f) => ({ ...f, ageMin: 8, ageMax: undefined }));
+    } else {
+      setFilters((f) => ({ ...f, ageMin: undefined, ageMax: undefined }));
+    }
+  }}
+>
+  <option value="">All ages</option>
+  <option value="young">Young (0–2)</option>
+  <option value="adult">Adult (3–7)</option>
+  <option value="senior">Senior (8+)</option>
+</select>
+
 
   <button
   onClick={() =>
@@ -89,7 +123,8 @@ export default function AnimalsPage() {
       size: "",
       temperament: "",
       vaccinated: undefined,
-      adopted: undefined,
+      ageMin: undefined,
+      ageMax: undefined,
     })
   }
 >
