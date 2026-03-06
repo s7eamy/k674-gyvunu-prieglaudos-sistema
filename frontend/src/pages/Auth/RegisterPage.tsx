@@ -4,20 +4,26 @@ import { register } from '../../services/authService';
 
 export default function RegisterPage() {
   const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<{ name?: string; password?: string; general?: string }>({});
+  const [errors, setErrors] = useState<{ name?: string; email?: string; password?: string; general?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
 
-   // validate name/password on client before sending
+   // validate name/email/password on client before sending
   const validateForm = (): boolean => {
-    const newErrors: { name?: string; password?: string } = {};
+    const newErrors: { name?: string; email?: string; password?: string } = {};
 
     // name 3-50 characters
     if (!name || name.length < 3) {
       newErrors.name = 'Username must be at least 3 characters';
     } else if (name.length > 50) {
       newErrors.name = 'Username must be at most 50 characters';
+    }
+
+    // email basic validation
+    if (!email || !email.includes('@') || !email.includes('.')) {
+      newErrors.email = 'Please enter a valid email address';
     }
 
     // pass 8-128 characters + complexity
@@ -53,9 +59,10 @@ export default function RegisterPage() {
     setIsSubmitting(true);
 
     try {
-      await register({ name, password });
+      await register({ name, email, password });
       setSuccessMessage('Registration successful');
       setName('');
+      setEmail('');
       setPassword('');
     } catch (error: unknown) {
       const errorObj = error as { status: number; message: string };
@@ -86,6 +93,18 @@ export default function RegisterPage() {
             disabled={isSubmitting}
           />
           {errors.name && <p>{errors.name}</p>}
+        </div>
+
+        <div>
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={isSubmitting}
+          />
+          {errors.email && <p>{errors.email}</p>}
         </div>
 
         <div>

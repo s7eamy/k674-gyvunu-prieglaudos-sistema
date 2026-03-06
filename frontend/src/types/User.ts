@@ -2,6 +2,7 @@
 export interface User {
   id: number;
   name: string;
+  email: string;
   role: string;
   donation_points: number;
   volunteer_points: number;
@@ -10,6 +11,7 @@ export interface User {
 
 export interface RegisterRequest {
   name: string;
+  email: string;
   password: string;
 }
 

@@ -4,7 +4,7 @@ from app.models.user import User
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-def register_user(name, password):
+def register_user(name, email, password):
     """
     Register a new user.
     Returns (user_dict, None) on success or (None, error_message) on failure.
@@ -13,8 +13,12 @@ def register_user(name, password):
     if existing_user:
         return None, "Username already exists"
 
+    existing_email = User.query.filter_by(email=email).first()
+    if existing_email:
+        return None, "Email already exists"
+
     password_hash = generate_password_hash(password)
-    user = User(name=name, password_hash=password_hash)
+    user = User(name=name, email=email, password_hash=password_hash)
     db.session.add(user)
     db.session.commit()
 
