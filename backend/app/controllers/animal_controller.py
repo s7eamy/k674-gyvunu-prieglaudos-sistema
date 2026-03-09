@@ -12,14 +12,27 @@ def get_animals(args):
     # By which parameters animal entries can be filtered by
     # created_at is not here because it needs special actions
     regular_filters = {
-        'id', 'name', 'type', 'breed', 'size', 'age', 
-        'vaccinated', 'tem  perament', 'description', 
+        'id', 'name', 'type', 'breed', 'size', 
+        'vaccinated', 'temperament', 'description', 
         'adopted'
     }
 
     filter_data = {key: value for key, value in args.items() if key in regular_filters}
 
     query = Animal.query.filter_by(**filter_data)
+
+    # age range special actions
+    if 'ageMin' in args:
+        try:
+            query = query.filter(Animal.age >= int(args['ageMin']))
+        except ValueError:
+            abort(400, description="Invalid ageMin, use integer")
+
+    if 'ageMax' in args:
+        try:
+            query = query.filter(Animal.age <= int(args['ageMax']))
+        except ValueError:
+            abort(400, description="Invalid ageMax, use integer")
 
     # created_at special actions
     if 'created_at' in args:
