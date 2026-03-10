@@ -12,7 +12,7 @@ SEED_ANIMALS = [
         "age": 2,
         "vaccinated": 1,
         "temperament": "friendly",
-        "description": "Curious and affectionate, loves window naps.",
+        "description": "Curious and affectionate, loves window napsddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddasddsadsadsadsfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddnibba",
         "adopted": 0,
     },
     {
@@ -173,24 +173,31 @@ SEED_ANIMALS = [
 
 
 def seed_animals():
-    existing_keys = {
-        (animal.name, animal.type, animal.breed)
+    existing_animals = {
+        (animal.name, animal.type, animal.breed): animal
         for animal in Animal.query.all()
     }
 
     inserted = 0
+    updated = 0
     for animal_data in SEED_ANIMALS:
         animal_key = (animal_data["name"], animal_data["type"], animal_data["breed"])
-        if animal_key in existing_keys:
-            continue
-
-        db.session.add(Animal(**animal_data))
-        inserted += 1
+        
+        if animal_key in existing_animals:
+            # Update existing animal with new seed data
+            existing_animal = existing_animals[animal_key]
+            for key, value in animal_data.items():
+                setattr(existing_animal, key, value)
+            updated += 1
+        else:
+            # Insert new animal
+            db.session.add(Animal(**animal_data))
+            inserted += 1
 
     db.session.commit()
 
     total_count = Animal.query.count()
-    print(f"Seeding complete. Inserted {inserted} animals. Total animals in DB: {total_count}.")
+    print(f"Seeding complete. Inserted {inserted} animals, updated {updated} animals. Total animals in DB: {total_count}.")
 
 
 if __name__ == "__main__":

@@ -40,7 +40,7 @@ function Navbar() {
           <span className="navbar__brand-icon" aria-hidden="true">
             🏠
           </span>
-          <span className="navbar__brand-text">PawHaven</span>
+          <span className="navbar__brand-text">PawFinder</span>
         </Link>
 
         <button
