@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../services/authService';
+import Navbar from '../../components/layout/Navbar';
+import './AuthPage.css';
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -68,39 +70,47 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Username</label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            disabled={isSubmitting}
-          />
-          {errors.name && <p>{errors.name}</p>}
-        </div>
+    <>
+      <Navbar />
 
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            disabled={isSubmitting}
-          />
-          {errors.password && <p>{errors.password}</p>}
-        </div>
+      <main className="auth-page">
+        <section className="auth-card" aria-label="Login form">
+          <h1>Login</h1>
+          <p className="auth-card__subtitle">Welcome back. Continue your rescue journey.</p>
 
-        {errors.general && <div>{errors.general}</div>}
+          <form onSubmit={handleSubmit} className="auth-form">
+            <div className="auth-form__field">
+              <label htmlFor="name">Username</label>
+              <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                disabled={isSubmitting}
+              />
+              {errors.name && <p className="auth-error">{errors.name}</p>}
+            </div>
 
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Logging in...' : 'Login'}
-        </button>
-      </form>
-    </div>
+            <div className="auth-form__field">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                disabled={isSubmitting}
+              />
+              {errors.password && <p className="auth-error">{errors.password}</p>}
+            </div>
+
+            {errors.general && <p className="auth-error">{errors.general}</p>}
+
+            <button type="submit" disabled={isSubmitting} className="auth-form__submit">
+              {isSubmitting ? 'Logging in...' : 'Login'}
+            </button>
+          </form>
+        </section>
+      </main>
+    </>
   );
 }

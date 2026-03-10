@@ -1,6 +1,8 @@
 // Register page - user registration form with validation
 import { useState } from 'react';
 import { register } from '../../services/authService';
+import Navbar from '../../components/layout/Navbar';
+import './AuthPage.css';
 
 export default function RegisterPage() {
   const [name, setName] = useState('');
@@ -80,54 +82,62 @@ export default function RegisterPage() {
   };
 
   return (
-    <div>
-      <p>Register</p>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Username</label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            disabled={isSubmitting}
-          />
-          {errors.name && <p>{errors.name}</p>}
-        </div>
+    <>
+      <Navbar />
 
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            disabled={isSubmitting}
-          />
-          {errors.email && <p>{errors.email}</p>}
-        </div>
+      <main className="auth-page">
+        <section className="auth-card" aria-label="Register form">
+          <h1>Register</h1>
+          <p className="auth-card__subtitle">Create your account and help pets find homes.</p>
 
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            disabled={isSubmitting}
-          />
-          {errors.password && <p>{errors.password}</p>}
-        </div>
+          <form onSubmit={handleSubmit} className="auth-form">
+            <div className="auth-form__field">
+              <label htmlFor="name">Username</label>
+              <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                disabled={isSubmitting}
+              />
+              {errors.name && <p className="auth-error">{errors.name}</p>}
+            </div>
 
-        {errors.general && <div>{errors.general}</div>}
-        {successMessage && <div>{successMessage}</div>}
+            <div className="auth-form__field">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={isSubmitting}
+              />
+              {errors.email && <p className="auth-error">{errors.email}</p>}
+            </div>
 
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Registering...' : 'Register'}
-        </button>
-      </form>
+            <div className="auth-form__field">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                disabled={isSubmitting}
+              />
+              {errors.password && <p className="auth-error">{errors.password}</p>}
+            </div>
 
-      <p>Password must be at least 8 chars and contain upper/lower/digit</p>
-    </div>
+            {errors.general && <p className="auth-error">{errors.general}</p>}
+            {successMessage && <p className="auth-success">{successMessage}</p>}
+
+            <button type="submit" disabled={isSubmitting} className="auth-form__submit">
+              {isSubmitting ? 'Registering...' : 'Register'}
+            </button>
+          </form>
+
+          <p className="auth-card__subtitle">Password must be at least 8 chars and contain upper/lower/digit</p>
+        </section>
+      </main>
+    </>
   );
 }
