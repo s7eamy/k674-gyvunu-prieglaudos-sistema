@@ -11,10 +11,10 @@ def register():
     # POST /api/auth/register - register a new user
     data = request.get_json()
 
-    if not data or not data.get('name') or not data.get('password'):
-        return jsonify({'error': 'Name and password are required'}), 400
+    if not data or not data.get('name') or not data.get('email') or not data.get('password'):
+        return jsonify({'error': 'Name, email and password are required'}), 400
 
-    user, error = auth_controller.register_user(data['name'], data['password'])
+    user, error = auth_controller.register_user(data['name'], data['email'], data['password'])
 
     if error:
         return jsonify({'error': error}), 409

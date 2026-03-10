@@ -1,19 +1,22 @@
 // Animals page — main page component for listing, creating, editing, and deleting animals
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
+import { logout } from '../../services/authService';
 import { getAll, type AnimalFilters } from "../../services/animalService";
 import type { Animal } from '../../types/Animal';
 
 
 export default function AnimalsPage() {
-        const [animals, setAnimals] = useState<Animal[]>([]);
-        const [filters, setFilters] = useState<AnimalFilters>({
-  type: "",
-  size: "",
-  temperament: "",
-  vaccinated: undefined,
-  ageMin: undefined,
-  ageMax: undefined,
-});
+  const [animals, setAnimals] = useState<Animal[]>([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(Boolean(localStorage.getItem('access_token')));
+  const [filters, setFilters] = useState<AnimalFilters>({
+    type: "",
+    size: "",
+    temperament: "",
+    vaccinated: undefined,
+    ageMin: undefined,
+    ageMax: undefined,
+  });
 
   useEffect(() => {
     const fetchAnimals = async () => {
@@ -35,9 +38,32 @@ export default function AnimalsPage() {
     fetchAnimals();
   }, [filters]); 
 
+ // logout handling
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error('Logout failed', error);
+    } finally {
+      localStorage.removeItem('access_token');
+      setIsLoggedIn(false);
+    }
+  };
+
   return (
     <>
       <h1>Vite + React</h1>
+
+      {/* register + login status + logout option */}
+      <p>{isLoggedIn ? 'Logged in' : 'Not logged in'}</p>
+      {isLoggedIn && (
+        <button onClick={handleLogout}>
+          Logout
+        </button>
+      )}
+      <p><Link to="/register">Register</Link>  /  <Link to="/login">Login</Link></p>
+
+
       <div className="card">
         <div style={{ display: "flex", gap: 12, marginBottom: 16 }}>
   <select
