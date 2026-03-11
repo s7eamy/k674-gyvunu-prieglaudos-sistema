@@ -1,0 +1,152 @@
+.animal-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--color-card-bg);
+  box-shadow: 0 8px 24px rgba(44, 26, 14, 0.08);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.animal-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(193, 98, 63, 0.22);
+}
+
+.animal-card__media {
+  position: relative;
+  height: 180px;
+  background: linear-gradient(140deg, #ece9e4 0%, #ddd7cf 100%);
+  display: grid;
+  place-items: center;
+}
+
+.animal-card__emoji {
+  font-size: 5rem;
+  line-height: 1;
+  opacity: 0.4;
+}
+
+.animal-card__type-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  border-radius: 999px;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.78rem;
+  text-transform: capitalize;
+  font-weight: 500;
+  color: #fff;
+}
+
+.animal-card__type-badge--dog {
+  background: #7a4e2f;
+}
+
+.animal-card__type-badge--cat {
+  background: #4d6688;
+}
+
+.animal-card__type-badge--other {
+  background: var(--color-muted);
+}
+
+.animal-card__body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.animal-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.animal-card__name {
+  margin: 0;
+  color: var(--color-warm-dark);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  line-height: 1.15;
+}
+
+.animal-card__size-indicator {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: var(--color-cream);
+  color: var(--color-warm-dark);
+  font-size: 0.82rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.animal-card__breed {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+.animal-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.animal-card__tag {
+  border-radius: 999px;
+  padding: 0.25rem 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.animal-card__tag--calm {
+  color: #1d5f35;
+  background: #daf2e2;
+}
+
+.animal-card__tag--friendly {
+  color: #8d4f00;
+  background: #ffe8c6;
+}
+
+.animal-card__tag--energetic {
+  color: #9f2331;
+  background: #ffd7dd;
+}
+
+.animal-card__tag--age {
+  color: var(--color-warm-dark);
+  background: #efe3d9;
+}
+
+.animal-card__tag--vaccinated {
+  color: #1d5f35;
+  background: #d4f4e1;
+}
+
+.animal-card__about-btn {
+  margin-top: auto;
+  border: 1px solid var(--color-terracotta);
+  border-radius: 999px;
+  padding: 0.6rem 0.95rem;
+  background: transparent;
+  color: var(--color-terracotta);
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.animal-card__about-btn:hover {
+  background: var(--color-terracotta);
+  color: #fff;
+}

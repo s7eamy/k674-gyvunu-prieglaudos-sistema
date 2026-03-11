@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { getMatches } from '../../services/matchService';
 import type { QuestionnaireAnswers, AnimalMatch } from '../../types/Match';
+import Navbar from '../../components/layout/Navbar';
 
 const questions = [
   {
@@ -150,52 +151,58 @@ export default function MatchPage() {
   // Render loading state
   if (loading) {
     return (
-      <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100vh',
-        gap: '20px',
-        fontSize: '48px',
-      }}>
-        <div>🐾</div>
-        <div>Finding your perfect match…</div>
-      </div>
+      <>
+        <Navbar />
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100vh',
+          gap: '20px',
+          fontSize: '48px',
+        }}>
+          <div>🐾</div>
+          <div>Finding your perfect match…</div>
+        </div>
+      </>
     );
   }
 
   // Render error state
   if (error) {
     return (
-      <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100vh',
-        gap: '20px',
-      }}>
-        <div style={{ color: 'red', fontSize: '18px' }}>{error}</div>
-        <button
-          onClick={() => {
-            setError(null);
-            setStep(0);
-            setAnswers({});
-          }}
-          style={{
-            padding: '10px 20px',
-            fontSize: '16px',
-            cursor: 'pointer',
-            backgroundColor: '#007bff',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-          }}
-        >
-          Try again
-        </button>
-      </div>
+      <>
+        <Navbar />
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100vh',
+          gap: '20px',
+        }}>
+          <div style={{ color: 'red', fontSize: '18px' }}>{error}</div>
+          <button
+            onClick={() => {
+              setError(null);
+              setStep(0);
+              setAnswers({});
+            }}
+            style={{
+              padding: '10px 20px',
+              fontSize: '16px',
+              cursor: 'pointer',
+              backgroundColor: '#007bff',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+            }}
+          >
+            Try again
+          </button>
+        </div>
+      </>
     );
   }
 
@@ -204,15 +211,17 @@ export default function MatchPage() {
     const medals = ['🥇', '🥈', '🥉'];
 
     return (
-      <div style={{
-        maxWidth: '800px',
-        margin: '0 auto',
-        padding: '40px 20px',
-        color: '#1f2937',
-      }}>
-        <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>
-          Your Best Matches 🐾
-        </h1>
+      <>
+        <Navbar />
+        <div style={{
+          maxWidth: '800px',
+          margin: '0 auto',
+          padding: '40px 20px',
+          color: '#1f2937',
+        }}>
+          <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>
+            Your Best Matches 🐾
+          </h1>
 
         {results.length === 0 ? (
           <div style={{
@@ -331,52 +340,55 @@ export default function MatchPage() {
           </div>
         )}
 
-        <button
-          onClick={restart}
-          style={{
-            display: 'block',
-            width: '100%',
-            padding: '12px',
-            fontSize: '16px',
-            cursor: 'pointer',
-            backgroundColor: '#2196F3',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-          }}
-        >
-          ↩ Start over
-        </button>
-      </div>
+          <button
+            onClick={restart}
+            style={{
+              display: 'block',
+              width: '100%',
+              padding: '12px',
+              fontSize: '16px',
+              cursor: 'pointer',
+              backgroundColor: '#2196F3',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+            }}
+          >
+            ↩ Start over
+          </button>
+        </div>
+      </>
     );
   }
 
   // Render questionnaire state
   return (
-    <div style={{
-      maxWidth: '600px',
-      margin: '0 auto',
-      padding: '40px 20px',
-      color: '#1f2937',
-    }}>
-      {/* Progress bar */}
+    <>
+      <Navbar />
       <div style={{
-        width: '100%',
-        height: '8px',
-        backgroundColor: '#e0e0e0',
-        borderRadius: '4px',
-        marginBottom: '40px',
-        overflow: 'hidden',
+        maxWidth: '600px',
+        margin: '0 auto',
+        padding: '40px 20px',
+        color: '#1f2937',
       }}>
-        <div
-          style={{
-            width: `${progressPercent}%`,
-            height: '100%',
-            backgroundColor: '#4caf50',
-            transition: 'width 0.3s ease',
-          }}
-        />
-      </div>
+        {/* Progress bar */}
+        <div style={{
+          width: '100%',
+          height: '8px',
+          backgroundColor: '#e0e0e0',
+          borderRadius: '4px',
+          marginBottom: '40px',
+          overflow: 'hidden',
+        }}>
+          <div
+            style={{
+              width: `${progressPercent}%`,
+              height: '100%',
+              backgroundColor: '#4caf50',
+              transition: 'width 0.3s ease',
+            }}
+          />
+        </div>
 
       {/* Question title and subtitle */}
       <h2 style={{ marginBottom: '10px', fontSize: '24px' }}>
@@ -420,22 +432,23 @@ export default function MatchPage() {
       </div>
 
       {/* Back button */}
-      {step > 0 && (
-        <button
-          onClick={handleBack}
-          style={{
-            padding: '10px 20px',
-            fontSize: '16px',
-            cursor: 'pointer',
-            backgroundColor: '#ccc',
-            color: '#1f2937',
-            border: 'none',
-            borderRadius: '4px',
-          }}
-        >
-          Back
-        </button>
-      )}
-    </div>
+        {step > 0 && (
+          <button
+            onClick={handleBack}
+            style={{
+              padding: '10px 20px',
+              fontSize: '16px',
+              cursor: 'pointer',
+              backgroundColor: '#ccc',
+              color: '#1f2937',
+              border: 'none',
+              borderRadius: '4px',
+            }}
+          >
+            Back
+          </button>
+        )}
+      </div>
+    </>
   );
 }
