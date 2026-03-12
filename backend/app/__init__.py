@@ -16,6 +16,7 @@ def create_app():
     app.config['SECRET_KEY'] = 'dev-secret-key' # Change later for production
     app.config['JWT_SECRET_KEY'] = 'dev-jwt-secret-key' # Change later for production
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=1)
+    app.config['JWT_TOKEN_LOCATION'] = ['headers', 'query_string'] #  WTF
 
     # Initialize extensions
     db.init_app(app)
@@ -36,9 +37,11 @@ def create_app():
     from app.routes.match_routes import match_bp
     app.register_blueprint(match_bp, url_prefix='/api/animals')
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
+    from app.routes.volunteer_registration_routes import volunteer_registration_bp
+    app.register_blueprint(volunteer_registration_bp, url_prefix='/api')
 
     # Import all models so db.create_all() picks them up
-    from app.models import animal, user  # noqa: F401
+    from app.models import animal, user, volunteer_registration # noqa: F401
 
     # Create tables if they dont exist
     with app.app_context():

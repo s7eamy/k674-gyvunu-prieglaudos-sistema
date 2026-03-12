@@ -1,0 +1,123 @@
+@keyframes volunteer-modal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.volunteer-modal__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(44, 26, 14, 0.55);
+  backdrop-filter: blur(4px);
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+}
+
+.volunteer-modal {
+  position: relative;
+  width: min(100%, 520px);
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 20px;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 22px 56px rgba(44, 26, 14, 0.3);
+  animation: volunteer-modal-enter 230ms ease;
+}
+
+.volunteer-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: rgba(253, 246, 238, 0.92);
+  color: var(--color-warm-dark);
+  cursor: pointer;
+}
+
+.volunteer-modal__hero {
+  height: 200px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(140deg, #ece9e4 0%, #ddd7cf 100%);
+}
+
+.volunteer-modal__emoji {
+  font-size: 6rem;
+  opacity: 0.4;
+}
+
+.volunteer-modal__content {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.volunteer-modal__heading h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  color: var(--color-warm-dark);
+  font-size: 1.9rem;
+}
+
+.volunteer-modal__heading p {
+  margin: 0.35rem 0 0;
+  color: var(--color-muted);
+}
+
+.volunteer-modal__stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.volunteer-modal__stat-item {
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 0.65rem 0.75rem;
+  background: var(--color-cream);
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+}
+
+.volunteer-modal__stat-label {
+  color: var(--color-muted);
+  font-size: 0.78rem;
+}
+
+.volunteer-modal__section h3 {
+  margin: 0;
+  color: var(--color-warm-dark);
+  font-size: 1.05rem;
+}
+
+.volunteer-modal__section p {
+  margin: 0.4rem 0 0;
+  color: var(--color-warm-dark);
+  line-height: 1.45;
+  word-wrap: break-word;
+}
+
+@media (max-width: 560px) {
+  .volunteer-modal__stats {
+    grid-template-columns: 1fr;
+  }
+
+  .volunteer-modal__heading h2 {
+    font-size: 1.6rem;
+  }
+}
