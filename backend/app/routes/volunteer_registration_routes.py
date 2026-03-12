@@ -1,6 +1,6 @@
 # Volunteer Registration routes - Flask blueprint defining API endpoints for /api/volunteer
 from flask import Blueprint, jsonify, request
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.controllers import volunteer_registration_controller
 from datetime import datetime
 

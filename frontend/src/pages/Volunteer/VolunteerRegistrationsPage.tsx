@@ -25,7 +25,7 @@ export default function VolunteerRegistrationsPage() {
   // needed for bad time selection fixes
   const adjustTimeByHour = (timeStr: string, offset: number): string => {
   const [hours, minutes] = timeStr.split(':').map(Number);
-  let newHour = (hours + offset + 24) % 24; 
+  const newHour = (hours + offset + 24) % 24; 
   return `${String(newHour).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
 };
   const handleEndTimeChange = (value: string) => {
@@ -49,8 +49,8 @@ export default function VolunteerRegistrationsPage() {
       try {
         const data = await getAll();
         setVolunteerRegistrations(data);
-      } catch (error: any) {
-        if(error.message === "NOT_LOGGED_IN"){
+      } catch (error) {
+        if(error instanceof Error && error.message === "NOT_LOGGED_IN"){
           setLoggedIn(false);
         } else {
           console.error('Registration fetch failed', error);
