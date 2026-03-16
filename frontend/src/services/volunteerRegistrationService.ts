@@ -1,20 +1,33 @@
-// VolunteerRegistration service — API calls for animal CRUD (getAll, getById, create, update, delete)
+// VolunteerRegistration service — API calls for volunteer registration CRUD
 import api from './api';
 import axios from 'axios';
 import type { VolunteerRegistration } from '../types/VolunteerRegistration';
-
+import type { VolunteerLevel } from '../types/VolunteerLevel';
 
 export const getAll = async (): Promise<VolunteerRegistration[]> => {
   try {
     const response = await api.get<{ volunteerRegistrations: VolunteerRegistration[] }>("/api/volunteer", {});
     return response.data.volunteerRegistrations;
-  } catch (error: unknown) { 
+  } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       if (error.response?.status === 401) {
         throw new Error("NOT_LOGGED_IN");
       }
     }
-    // Re-throw the original error if it's not a 401
+    throw error;
+  }
+};
+
+export const getLevel = async (): Promise<VolunteerLevel> => {
+  try {
+    const response = await api.get<{ volunteerLevel: VolunteerLevel }>("/api/volunteer/level", {});
+    return response.data.volunteerLevel;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 401) {
+        throw new Error("NOT_LOGGED_IN");
+      }
+    }
     throw error;
   }
 };
