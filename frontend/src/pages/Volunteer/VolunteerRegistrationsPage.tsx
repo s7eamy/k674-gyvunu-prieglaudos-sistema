@@ -1,8 +1,10 @@
 // Volunteer page — users can sign up for a volunteering spot
 import { useState, useEffect } from 'react';
-import { getAll, createRegistration } from '../../services/volunteerRegistrationService';
+import { getAll, getLevel, createRegistration } from '../../services/volunteerRegistrationService';
 import type { VolunteerRegistration } from '../../types/VolunteerRegistration';
+import type { VolunteerLevel } from '../../types/VolunteerLevel';
 import Navbar from '../../components/layout/Navbar';
+import VolunteerLevelCard from '../../components/common/VolunteerLevelCard';
 import VolunteerRegistrationCard from '../../components/common/VolunteerRegistrationCard';
 import VolunteerRegistrationModal from '../../components/common/VolunteerRegistrationModal';
 import './VolunteerRegistrationspage.css';
@@ -16,6 +18,7 @@ export default function VolunteerRegistrationsPage() {
   const tomorrowString = tomorrowObj.toISOString().split('T')[0];
 
   const [volunteerRegistrations, setVolunteerRegistrations] = useState<VolunteerRegistration[]>([]);
+  const [volunteerLevel, setVolunteerLevel] = useState<VolunteerLevel | null>(null);
   const [selectedVolunteerRegistration, setSelectedVolunteerRegistration] = useState<VolunteerRegistration | null>(null);
   const [LoggedIn, setLoggedIn] = useState(true);
   const [selectedDate, setSelectedDate] = useState<string>(tomorrowString);
@@ -47,8 +50,9 @@ export default function VolunteerRegistrationsPage() {
   useEffect(() => {
     const fetchVolunteerRegistrations = async () => {
       try {
-        const data = await getAll();
-        setVolunteerRegistrations(data);
+        const [registrations, level] = await Promise.all([getAll(), getLevel()]);
+        setVolunteerRegistrations(registrations);
+        setVolunteerLevel(level);
       } catch (error) {
         if(error instanceof Error && error.message === "NOT_LOGGED_IN"){
           setLoggedIn(false);
@@ -66,8 +70,9 @@ export default function VolunteerRegistrationsPage() {
   
     await createRegistration(selectedDate, time_from, time_to);
 
-    const data = await getAll();
-    setVolunteerRegistrations(data);
+    const [registrations, level] = await Promise.all([getAll(), getLevel()]);
+    setVolunteerRegistrations(registrations);
+    setVolunteerLevel(level);
 
   } catch (error) {
     console.error("Registration creation failed", error);
@@ -88,6 +93,9 @@ export default function VolunteerRegistrationsPage() {
           
           {LoggedIn && (
             <>
+            {volunteerLevel && (
+              <VolunteerLevelCard volunteerLevel={volunteerLevel} />
+            )}
             <p>Found {volunteerRegistrations.length} of your registrations</p>
           </>
         )}

@@ -10,10 +10,15 @@ volunteer_registration_bp = Blueprint('volunteerRegistrations', __name__)
 @jwt_required()
 def get_volunteer_registrations():
     user_id = get_jwt_identity()
-    print(user_id)
-    # get list of volunteer registrations
     registrations = volunteer_registration_controller.get_volunteer_registrations(user_id)
     return jsonify({"volunteerRegistrations": registrations}), 200
+
+@volunteer_registration_bp.route('/volunteer/level', methods=['GET'])
+@jwt_required()
+def get_volunteer_level():
+    user_id = get_jwt_identity()
+    level_info = volunteer_registration_controller.get_volunteer_level(user_id)
+    return jsonify({"volunteerLevel": level_info}), 200
 
 @volunteer_registration_bp.route('/volunteer', methods=['POST'])
 @jwt_required()
