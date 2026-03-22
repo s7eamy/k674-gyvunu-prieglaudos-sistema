@@ -26,6 +26,14 @@ def get_volunteer_registrations(user_id):
 
     return [registration.to_dict() for registration in registrations]
 
+def get_all_volunteer_registrations():
+    """
+    Get all volunteer registrations from all users
+    """
+    registrations = Volunteer_Registration.query.all()
+
+    return [registration.to_dict() for registration in registrations]
+
 
 def get_volunteer_level(user_id):
     """
@@ -45,6 +53,14 @@ def get_volunteer_level(user_id):
         "next_threshold": next_threshold,
     }
 
+
+def get_attended_value(id):
+    """
+    Get attended attribute value of registration
+    """
+    registration = Volunteer_Registration.query.filter_by(id=id).first()
+    return registration.attended
+
 def create_volunteer_registration(user_id, date, time_from, time_to):
     """
     Create new volunteer registration
@@ -61,3 +77,33 @@ def create_volunteer_registration(user_id, date, time_from, time_to):
     db.session.commit()
      
     return registration.to_dict()
+
+def approve_volunteer_registration(id):
+    """
+    Approve volunteer registration
+    """
+    registration = Volunteer_Registration.query.filter_by(id=id).first()
+    
+    if not registration:
+        return None, "Registration not found"
+    
+    registration.approved = 1
+    db.session.commit()
+     
+    return registration.to_dict(), None
+
+def mark_attendace_registration(id):
+    """
+    Mark volunteer registration attendance
+    """
+    registration = Volunteer_Registration.query.filter_by(id=id).first()
+    
+    if not registration:
+        return None, "Registration not found"
+    
+    registration.attended = 1
+    db.session.commit()
+     
+    return registration.to_dict(), None
+
+
