@@ -56,6 +56,7 @@ function AdminRegistrationCard({
       onUpdate(updatedData);
     } catch (error) {
       alert("Failed to approve registration");
+      console.error("Error approving registration", error)
     }
   };
 
@@ -65,6 +66,7 @@ function AdminRegistrationCard({
       onUpdate(updatedData);
     } catch (error) {
       alert("Failed to mark registration attendance");
+      console.error("Error marking attendance:", error)
     }
   };
 
