@@ -1,4 +1,4 @@
-# User controller - business logic for authentication
+# User controller - business logic for user CRUD operations
 from app.models import db
 from app.models.user import User
 

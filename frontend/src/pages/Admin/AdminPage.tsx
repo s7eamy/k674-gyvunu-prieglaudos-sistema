@@ -1,4 +1,5 @@
-// Volunteer page — users can sign up for a volunteering spot
+// Admin page — only admins can see the contents of this page and
+// take admin exclusive actions in this page
 import { useState, useEffect } from 'react';
 import { getAll, getUsers } from '../../services/adminService';
 import type { VolunteerRegistration } from '../../types/VolunteerRegistration';
