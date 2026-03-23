@@ -33,8 +33,18 @@ def get_all_users():
     allUsers = user_controller.get_all_users()
     return jsonify({"adminUsers": allUsers}), 200
 
+
 @admin_registration_bp.route('/admin/approveRegistration', methods=['POST'])
+@jwt_required()
 def approve_registration():
+    user_id = get_jwt_identity()
+    user_role, error = user_controller.get_user_role(user_id)
+    if error:
+        return jsonify({"error": error}), 404
+    
+    if(user_role!='admin'):
+        return jsonify({"error": "/admin/approveRegistration access permitted for admins only"}), 403
+    
     data = request.get_json()
     reg_id = data.get('id')
 
@@ -48,7 +58,16 @@ def approve_registration():
     return jsonify(registration), 201
 
 @admin_registration_bp.route('/admin/markAttendance', methods=['POST'])
+@jwt_required()
 def attendance_registration():
+    user_id = get_jwt_identity()
+    user_role, error = user_controller.get_user_role(user_id)
+    if error:
+        return jsonify({"error": error}), 404
+    
+    if(user_role!='admin'):
+        return jsonify({"error": "/admin/markAttendance access permitted for admins only"}), 403
+    
     data = request.get_json()
     reg_id = data.get('id')
     user_id = data.get('user_id')
