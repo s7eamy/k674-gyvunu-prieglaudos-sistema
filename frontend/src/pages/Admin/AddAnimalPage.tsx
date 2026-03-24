@@ -14,7 +14,7 @@ export default function AddAnimalPage() {
     size: 'medium',
     age: '',
     vaccinated: 0,
-    temperament: '',
+    temperament: 'calm',
     description: ''
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -25,6 +25,7 @@ export default function AddAnimalPage() {
 
   const typeOptions = ['dog', 'cat', 'other'];
   const sizeOptions = ['small', 'medium', 'large'];
+  const temperamentOptions = ['calm', 'friendly', 'energetic'];
 
   useEffect(() => {
     const checkAdminAccess = async () => {
@@ -72,7 +73,7 @@ export default function AddAnimalPage() {
       }
     }
 
-    if (!formData.temperament || formData.temperament.trim() === '') {
+    if (!formData.temperament || formData.temperament === '') {
       newErrors.temperament = 'Temperament is required';
     }
 
@@ -126,7 +127,7 @@ export default function AddAnimalPage() {
         size: 'medium',
         age: '',
         vaccinated: 0,
-        temperament: '',
+        temperament: 'calm',
         description: ''
       });
     } catch (error: unknown) {
@@ -260,14 +261,19 @@ export default function AddAnimalPage() {
             {/* Temperament field */}
             <div className="form-field">
               <label htmlFor="temperament">Temperament</label>
-              <input
-                type="text"
+              <select
                 id="temperament"
                 name="temperament"
                 value={formData.temperament}
                 onChange={handleChange}
                 disabled={isSubmitting}
-              />
+              >
+                {temperamentOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option.charAt(0).toUpperCase() + option.slice(1)}
+                  </option>
+                ))}
+              </select>
               {errors.temperament && <p className="form-error">{errors.temperament}</p>}
             </div>
 
