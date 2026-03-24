@@ -8,7 +8,6 @@ export default function MerchandisePage() {
   const [orders, setOrders] = useState<Merchandise[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [showOrderForm, setShowOrderForm] = useState(false);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -18,6 +17,14 @@ export default function MerchandisePage() {
     quantity: 1,
     price: merchandiseService.MERCHANDISE_PRICE
   });
+
+  const selectedDesign =
+    merchandiseService.AVAILABLE_DESIGNS.find(d => d.id === formData.design) ||
+    merchandiseService.AVAILABLE_DESIGNS[0];
+
+  const handleDesignSelect = (designId: string) => {
+    setFormData(prev => ({ ...prev, design: designId }));
+  };
 
   // Donation points calculation
   const donationPoints = Math.floor(formData.price * 0.1 * 10);
@@ -70,7 +77,6 @@ export default function MerchandisePage() {
         quantity: 1,
         price: merchandiseService.MERCHANDISE_PRICE
       });
-      setShowOrderForm(false);
       await fetchUserOrders();
       setError('');
     } catch (err) {
@@ -126,72 +132,69 @@ export default function MerchandisePage() {
         {error && <div className="error-message">{error}</div>}
 
         <div className="merchandise-container">
-          {/* Order Form Section */}
-          <div className="order-form-section">
-            {!showOrderForm ? (
-              <button
-                className="btn-primary btn-large"
-                onClick={() => setShowOrderForm(true)}
-                disabled={loading}
-              >
-                + Order T-Shirt
-              </button>
-            ) : (
-              <form onSubmit={handleOrderSubmit} className="merchandise-form">
-                <h2>Customize Your T-Shirt</h2>
+          <div className="shop-view">
+            <div className="product-preview">
+              <h2>Choose Your T-Shirt</h2>
+              <img
+                src={selectedDesign.image}
+                alt={selectedDesign.name}
+                className="main-product-image"
+              />
+              <p className="selected-design-name">{selectedDesign.name}</p>
+              <p className="selected-design-desc">{selectedDesign.description}</p>
 
-                {/* Color Selection */}
-                <div className="form-group">
-                  <label htmlFor="color">Color:</label>
-                  <select
-                    id="color"
-                    name="color"
-                    value={formData.color}
-                    onChange={handleFormChange}
+              <div className="design-thumbnail-list">
+                {merchandiseService.AVAILABLE_DESIGNS.map(design => (
+                  <button
+                    key={design.id}
+                    type="button"
+                    className={`design-thumb ${formData.design === design.id ? 'active' : ''}`}
+                    onClick={() => handleDesignSelect(design.id)}
                   >
+                    <img
+                      src={design.image}
+                      alt={design.name}
+                      width={80}
+                      height={80}
+                    />
+                    <small>{design.name}</small>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="product-options">
+              <form onSubmit={handleOrderSubmit} className="merchandise-form">
+                <h2>Customize & Buy</h2>
+
+                <div className="form-group">
+                  <label htmlFor="color">Color</label>
+                  <div className="color-options">
                     {merchandiseService.AVAILABLE_COLORS.map(color => (
-                      <option key={color} value={color}>
-                        {color.charAt(0).toUpperCase() + color.slice(1)}
-                      </option>
+                      <button
+                        key={color}
+                        type="button"
+                        className={`color-swatch ${formData.color === color ? 'selected' : ''}`}
+                        style={{ backgroundColor: color === 'black' ? '#111' : '#fff', borderColor: '#999' }}
+                        onClick={() => setFormData(prev => ({ ...prev, color }))}
+                      >
+                        {color}
+                      </button>
                     ))}
-                  </select>
+                  </div>
                 </div>
 
-                {/* Size Selection */}
                 <div className="form-group">
-                  <label htmlFor="size">Size:</label>
-                  <select
-                    id="size"
-                    name="size"
-                    value={formData.size}
-                    onChange={handleFormChange}
-                  >
+                  <label htmlFor="size">Size</label>
+                  <select id="size" name="size" value={formData.size} onChange={handleFormChange}>
                     {merchandiseService.AVAILABLE_SIZES.map(size => (
                       <option key={size} value={size}>{size}</option>
                     ))}
                   </select>
                 </div>
 
-                {/* Design Selection */}
                 <div className="form-group">
-                  <label htmlFor="design">Design:</label>
-                  <select
-                    id="design"
-                    name="design"
-                    value={formData.design}
-                    onChange={handleFormChange}
-                  >
-                    {merchandiseService.AVAILABLE_DESIGNS.map(design => (
-                      <option key={design.id} value={design.id}>
-                        {design.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Quantity */}
-                <div className="form-group">
-                  <label htmlFor="quantity">Quantity:</label>
+                  <label htmlFor="quantity">Quantity</label>
                   <input
                     type="number"
                     id="quantity"
@@ -203,45 +206,28 @@ export default function MerchandisePage() {
                   />
                 </div>
 
-                {/* Price Info */}
                 <div className="price-info">
-                  <p>Price per item: €{formData.price.toFixed(2)}</p>
-                  <p>Total price: €{totalPrice.toFixed(2)}</p>
-                  <p className="donation-points">
-                     Donation points earned: {donationPoints * formData.quantity}
-                  </p>
+                  <p>Unit price: €{formData.price.toFixed(2)}</p>
+                  <p>Total: €{totalPrice.toFixed(2)}</p>
+                  <p>Donation points: {donationPoints * formData.quantity}</p>
                 </div>
 
-                {/* Form Actions */}
                 <div className="form-actions">
-                  <button
-                    type="submit"
-                    className="btn-primary"
-                    disabled={loading}
-                  >
-                    {loading ? 'Creating...' : 'Create Order'}
-                  </button>
-                  <button
-                    type="button"
-                    className="btn-secondary"
-                    onClick={() => setShowOrderForm(false)}
-                    disabled={loading}
-                  >
-                    Cancel
+                  <button type="submit" className="btn-primary" disabled={loading}>
+                    {loading ? 'Adding...' : 'Add to Cart'}
                   </button>
                 </div>
               </form>
-            )}
+            </div>
           </div>
 
-          {/* Orders List Section */}
           <div className="orders-section">
             <h2>Your Orders ({orders.length})</h2>
 
-            {loading && !showOrderForm ? (
+            {loading ? (
               <p className="loading">Loading orders...</p>
             ) : orders.length === 0 ? (
-              <p className="no-orders">No orders yet. Create your first one!</p>
+              <p className="no-orders">No orders yet. Once you buy, it shows here.</p>
             ) : (
               <div className="orders-list">
                 {orders.map(order => (
@@ -259,20 +245,12 @@ export default function MerchandisePage() {
                       <p><strong>Size:</strong> {order.size}</p>
                       <p><strong>Quantity:</strong> {order.quantity}</p>
                       <p><strong>Price:</strong> €{order.price.toFixed(2)}</p>
-                      <p className="donation-points">
-                         <strong>Donation Points:</strong> {order.donation_points}
-                      </p>
-                      <p className="order-date">
-                        Ordered: {new Date(order.created_at).toLocaleDateString()}
-                      </p>
+                      <p className="donation-points"><strong>Donation Points:</strong> {order.donation_points}</p>
+                      <p className="order-date">Ordered: {new Date(order.created_at).toLocaleDateString()}</p>
                     </div>
 
                     {order.order_status === 'pending' && (
-                      <button
-                        className="btn-delete"
-                        onClick={() => handleDeleteOrder(order.id)}
-                        disabled={loading}
-                      >
+                      <button className="btn-delete" onClick={() => handleDeleteOrder(order.id)} disabled={loading}>
                         Delete
                       </button>
                     )}

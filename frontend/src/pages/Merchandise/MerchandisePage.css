@@ -30,17 +30,106 @@
 
 .merchandise-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 2rem;
   margin-top: 2rem;
 }
 
-/* Order Form Section */
-.order-form-section {
+.shop-view {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 2rem;
+}
+
+.product-preview,
+.product-options,
+.orders-section {
   background: #f9f9f9;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 12px;
   border: 1px solid #eee;
+}
+
+.product-preview h2,
+.product-options h2 {
+  margin-top: 0;
+}
+
+.main-product-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.selected-design-name {
+  font-weight: 700;
+  margin: 0.25rem 0;
+}
+
+.selected-design-desc {
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.design-thumbnail-list {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.design-thumb {
+  border: 1px solid #ddd;
+  padding: 0.3rem;
+  border-radius: 8px;
+  background: white;
+  width: 80px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.design-thumb.active {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.design-thumb img {
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto 0.25rem;
+  width: 100%;
+  height: 80px;
+  object-fit: cover;
+}
+
+.design-thumb small {
+  font-size: 0.7rem;
+  color: #555;
+}
+
+.color-options {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.color-swatch {
+  border: 2px solid #ccc;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.7rem;
+  color: #333;
+  display: grid;
+  place-items: center;
+}
+
+.color-swatch.selected {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 
 .btn-large {
@@ -316,11 +405,21 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-  .merchandise-container {
+@media (max-width: 1024px) {
+  .shop-view {
     grid-template-columns: 1fr;
   }
 
+  .product-preview {
+    order: 2;
+  }
+
+  .product-options {
+    order: 1;
+  }
+}
+
+@media (max-width: 768px) {
   .merchandise-page {
     padding: 1rem;
   }

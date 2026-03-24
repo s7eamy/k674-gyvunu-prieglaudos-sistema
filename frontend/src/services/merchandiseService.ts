@@ -33,8 +33,23 @@ export const deleteOrder = async (orderId: number): Promise<{ message: string }>
 export const AVAILABLE_COLORS = ['black', 'white'];
 export const AVAILABLE_SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 export const AVAILABLE_DESIGNS = [
-  { id: 'shelter-love', name: 'Shelter Love', description: 'Heart with shelter animals' },
-  { id: 'rescue-me', name: 'Rescue Me', description: 'Cute rescue animal design' },
-  { id: 'donate-support', name: 'Donate & Support', description: 'Simple donation message' }
+  {
+    id: 'shelter-love',
+    name: 'Shelter Love',
+    description: 'Heart with shelter animals',
+    image: 'https://placehold.co/260x260?text=Shelter+Love'
+  },
+  {
+    id: 'rescue-me',
+    name: 'Rescue Me',
+    description: 'Cute rescue animal design',
+    image: 'https://placehold.co/260x260?text=Rescue+Me'
+  },
+  {
+    id: 'donate-support',
+    name: 'Donate & Support',
+    description: 'Simple donation message',
+    image: 'https://placehold.co/260x260?text=Donate+Support'
+  }
 ];
 export const MERCHANDISE_PRICE = 19.99;  // Price in euros
