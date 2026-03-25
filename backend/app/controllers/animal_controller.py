@@ -1,4 +1,5 @@
 # Animal controller - business logic for animal CRUD operations
+from app.models import db
 from app.models.animal import Animal
 from datetime import datetime,  timedelta
 from flask import abort
@@ -47,3 +48,54 @@ def get_animals(args):
     
     animals = query.all()
     return [animal.to_dict() for animal in animals]
+
+
+def add_animal(data):
+    """
+    Add a new animal to the system.
+    Required fields: name, type, breed, size, age, vaccinated, temperament
+    Optional fields: description
+    Returns (animal_dict, None) on success or (None, error_message) on failure.
+    """
+    # Validate required fields
+    required_fields = ['name', 'type', 'breed', 'size', 'age', 'vaccinated', 'temperament']
+    for field in required_fields:
+        if field not in data or data[field] is None or data[field] == '':
+            return None, f"{field} is required"
+    
+    # Validate age is integer and non-negative
+    try:
+        age = int(data['age'])
+        if age < 0:
+            return None, "Age must be non-negative"
+    except (ValueError, TypeError):
+        return None, "Age must be a valid integer"
+    
+    # Validate vaccinated is boolean-like (0 or 1)
+    try:
+        vaccinated = int(data['vaccinated'])
+        if vaccinated not in [0, 1]:
+            return None, "Vaccinated must be 0 (no) or 1 (yes)"
+    except (ValueError, TypeError):
+        return None, "Vaccinated must be 0 or 1"
+    
+    # Create animal
+    animal = Animal(
+        name=data['name'],
+        type=data['type'],
+        breed=data['breed'],
+        size=data['size'],
+        age=age,
+        vaccinated=vaccinated,
+        temperament=data['temperament'],
+        description=data.get('description', ''),
+        adopted=0  # New animals are available by default
+    )
+    
+    try:
+        db.session.add(animal)
+        db.session.commit()
+        return animal.to_dict(), None
+    except Exception as e:
+        db.session.rollback()
+        return None, f"Database error: {str(e)}"
