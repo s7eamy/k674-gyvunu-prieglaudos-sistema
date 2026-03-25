@@ -34,14 +34,14 @@ export const AVAILABLE_COLORS = ['black', 'white'];
 export const AVAILABLE_SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 export const AVAILABLE_DESIGNS = [
   {
-    id: 'shelter-love',
-    name: 'Shelter Love',
+    id: 'Cat',
+    name: 'Cute cat',
     description: 'Cute cat design',
     image: '/images/merch/cat.png'
   },
   {
-    id: 'rescue-me',
-    name: 'Rescue Me',
+    id: 'Dog',
+    name: 'Cute Dog',
     description: 'Cute puppy design',
     image: '/images/merch/dog.png'
   },
@@ -53,8 +53,8 @@ export const AVAILABLE_DESIGNS = [
   },
   {
     id: 'plain',
-    name: 'Plain T-Shirt',
-    description: 'Simple shirt with no design',
+    name: 'Shelter Logo',
+    description: 'Shelter logo',
     image: '/images/merch/plain.png'
   }
 ];
