@@ -12,7 +12,7 @@ export const getDonorLevel = async (): Promise<DonorLevel> => {
       },
     });
     return response.data;
-  } catch (_error) {
+  } catch {
     // For now, return default level if not logged in or API not available
     return {
       level: 1,
@@ -47,7 +47,7 @@ export const createDonation = async (
       }
     );
     return response.data;
-  } catch (_error) {
+  } catch {
     // Fallback: calculate points locally for demo
     const pointsAwarded = Math.floor(amount);
     return {
