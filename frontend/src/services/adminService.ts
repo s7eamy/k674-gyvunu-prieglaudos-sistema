@@ -69,3 +69,29 @@ Promise<VolunteerRegistration> => {
     throw error;
   }
 }
+export const addAnimal = async (data: {
+  name: string;
+  type: string;
+  breed: string;
+  size: string;
+  age: number;
+  vaccinated: number;
+  temperament: string;
+  description?: string;
+}): Promise<Record<string, unknown>> => {
+  try {
+    const response = await api.post<Record<string, unknown>>("/api/animals", data);
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 401) {
+        throw new Error("NOT_LOGGED_IN");
+      } else if (error.response?.status === 403) {
+        throw new Error("USER_NOT_ADMIN");
+      } else if (error.response?.status === 400) {
+        throw new Error(error.response.data?.error || "Validation error");
+      }
+    }
+    throw error;
+  }
+};
