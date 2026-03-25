@@ -36,20 +36,26 @@ export const AVAILABLE_DESIGNS = [
   {
     id: 'shelter-love',
     name: 'Shelter Love',
-    description: 'Heart with shelter animals',
-    image: 'https://placehold.co/260x260?text=Shelter+Love'
+    description: 'Cute cat design',
+    image: '/images/merch/cat.png'
   },
   {
     id: 'rescue-me',
     name: 'Rescue Me',
-    description: 'Cute rescue animal design',
-    image: 'https://placehold.co/260x260?text=Rescue+Me'
+    description: 'Cute puppy design',
+    image: '/images/merch/dog.png'
   },
   {
-    id: 'donate-support',
-    name: 'Donate & Support',
-    description: 'Simple donation message',
-    image: 'https://placehold.co/260x260?text=Donate+Support'
+    id: 'mix',
+    name: 'Mix Animals',
+    description: 'Mix of cute rescue animals',
+    image: '/images/merch/mix.png'
+  },
+  {
+    id: 'plain',
+    name: 'Plain T-Shirt',
+    description: 'Simple shirt with no design',
+    image: '/images/merch/plain.png'
   }
 ];
 export const MERCHANDISE_PRICE = 19.99;  // Price in euros

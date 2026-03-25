@@ -26,6 +26,52 @@ export default function MerchandisePage() {
     setFormData(prev => ({ ...prev, design: designId }));
   };
 
+  // Get product image based on selected design and color
+  const getProductImage = () => {
+    // Shelter Love - cat design
+    if (formData.design === 'shelter-love') {
+      const catShirtImages: Record<string, string> = {
+        white: '/images/merch/white_shirt_cat.png',
+        black: '/images/merch/black_shirt_cat.png'
+      };
+      return catShirtImages[formData.color] || '/images/merch/black_shirt_cat.png';
+    }
+
+    // Rescue Me - dog/puppy design
+    if (formData.design === 'rescue-me') {
+      const dogShirtImages: Record<string, string> = {
+        white: '/images/merch/white_shirt_dog.png',
+        black: '/images/merch/black_shirt_dog.png'
+      };
+      return dogShirtImages[formData.color] || '/images/merch/black_shirt_dog.png';
+    }
+
+    // Mix Animals design
+    if (formData.design === 'mix') {
+      const mixShirtImages: Record<string, string> = {
+        white: '/images/merch/white_shirt_mix.png',
+        black: '/images/merch/black_shirt_mix.png'
+      };
+      return mixShirtImages[formData.color] || '/images/merch/black_shirt_mix.png';
+    }
+
+    // Plain - no design, just colored shirts
+    if (formData.design === 'plain') {
+      const plainShirtImages: Record<string, string> = {
+        white: '/images/merch/white_shirt.jpg',
+        black: '/images/merch/black_shirt.png'
+      };
+      return plainShirtImages[formData.color] || '/images/merch/black_shirt.png';
+    }
+
+    // Fallback for other designs
+    const colorImages: Record<string, string> = {
+      white: '/images/merch/white_shirt.jpg',
+      black: '/images/merch/black_shirt.png'
+    };
+    return colorImages[formData.color] || '/images/merch/black_shirt.png';
+  };
+
   // Donation points calculation
   const donationPoints = Math.floor(formData.price * 0.1 * 10);
   const totalPrice = formData.price * formData.quantity;
@@ -136,7 +182,7 @@ export default function MerchandisePage() {
             <div className="product-preview">
               <h2>Choose Your T-Shirt</h2>
               <img
-                src={selectedDesign.image}
+                src={getProductImage()}
                 alt={selectedDesign.name}
                 className="main-product-image"
               />
