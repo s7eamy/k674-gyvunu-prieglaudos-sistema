@@ -5,6 +5,7 @@ import MatchPage from './pages/Match/MatchPage';
 import RegisterPage from './pages/Auth/RegisterPage';
 import LoginPage from './pages/Auth/LoginPage';
 import VolunteerPage from './pages/Volunteer/VolunteerRegistrationsPage';
+import DonationPage from './pages/Donation/DonationPage';
 import AdminPage from './pages/Admin/AdminPage';
 import AddAnimalPage from './pages/Admin/AddAnimalPage';
 
@@ -14,7 +15,8 @@ function App() {
       <Routes>
         <Route path="/" element={<AnimalsPage />} />
         <Route path="/match" element={<MatchPage />} />
-                <Route path="/volunteer" element={<VolunteerPage/>} />
+        <Route path="/volunteer" element={<VolunteerPage/>} />
+        <Route path="/donate" element={<DonationPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/admin" element={<AdminPage />} />
