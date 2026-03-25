@@ -63,6 +63,37 @@ def update_order_status(order_id, new_status):
     return order.to_dict()
 
 
+def get_merchandise_config():
+    """Get available merchandise configuration (public endpoint)"""
+    return {
+        "colors": ["black", "white"],
+        "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+        "designs": [
+            {
+                "id": "shelter-love",
+                "name": "Shelter Love",
+                "description": "Cute cat design"
+            },
+            {
+                "id": "rescue-me",
+                "name": "Rescue Me", 
+                "description": "Cute puppy design"
+            },
+            {
+                "id": "mix",
+                "name": "Mix Animals",
+                "description": "Mix of cute rescue animals"
+            },
+            {
+                "id": "plain",
+                "name": "Plain T-Shirt",
+                "description": "Simple shirt with no design"
+            }
+        ],
+        "price": 19.99
+    }
+
+
 def delete_order(order_id):
     order = Merchandise.query.get(order_id)
     if not order:
@@ -72,4 +103,4 @@ def delete_order(order_id):
 
     db.session.delete(order)
     db.session.commit()
-    return {"message": "Order deleted"}
+    return {"message": "Order deleted"} 

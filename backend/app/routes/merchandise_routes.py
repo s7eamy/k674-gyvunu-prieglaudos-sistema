@@ -6,9 +6,16 @@ from app.controllers.merchandise_controller import (
     get_order,
     update_order_status,
     delete_order,
+    get_merchandise_config,
 )
 
 merchandise_bp = Blueprint('merchandise', __name__)
+
+
+@merchandise_bp.route('', methods=['GET'])
+def get_merchandise_config_route():
+    config = get_merchandise_config()
+    return jsonify(config)
 
 
 @merchandise_bp.route('', methods=['POST'])
