@@ -1,6 +1,15 @@
 from app import create_app
 from app.models import db
 from app.models.animal import Animal
+from app.models.user import User
+from werkzeug.security import generate_password_hash
+
+
+ADMIN_SEED_USER = {
+    "name": "admin",
+    "email": "admin@shelter.local",
+    "password": "admin1234",
+}
 
 
 SEED_ANIMALS = [
@@ -200,7 +209,33 @@ def seed_animals():
     print(f"Seeding complete. Inserted {inserted} animals, updated {updated} animals. Total animals in DB: {total_count}.")
 
 
+def seed_admin_user():
+    user = User.query.filter_by(name=ADMIN_SEED_USER["name"]).first()
+    if not user:
+        user = User.query.filter_by(email=ADMIN_SEED_USER["email"]).first()
+
+    if user:
+        if user.role != "admin":
+            user.role = "admin"
+            db.session.commit()
+            print(f"Promoted existing user '{user.name}' to admin.")
+        else:
+            print(f"Admin user '{user.name}' already exists.")
+        return
+
+    admin_user = User(
+        name=ADMIN_SEED_USER["name"],
+        email=ADMIN_SEED_USER["email"],
+        password_hash=generate_password_hash(ADMIN_SEED_USER["password"]),
+        role="admin",
+    )
+    db.session.add(admin_user)
+    db.session.commit()
+    print(f"Created admin user '{admin_user.name}' ({admin_user.email}).")
+
+
 if __name__ == "__main__":
     app = create_app()
     with app.app_context():
         seed_animals()
+        seed_admin_user()

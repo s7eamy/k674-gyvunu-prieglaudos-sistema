@@ -49,6 +49,8 @@ export default function LoginPage() {
       const response = await login({ name, password });
       // store token in localStorage for subsequent requests
       localStorage.setItem('access_token', response.access_token);
+      localStorage.setItem('user_role', response.user.role);
+      localStorage.setItem('user_name', response.user.name);
       // clear form
       setName('');
       setPassword('');
