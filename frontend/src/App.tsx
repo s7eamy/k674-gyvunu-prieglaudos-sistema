@@ -7,6 +7,7 @@ import LoginPage from './pages/Auth/LoginPage';
 import VolunteerPage from './pages/Volunteer/VolunteerRegistrationsPage';
 import DonationPage from './pages/Donation/DonationPage';
 import AdminPage from './pages/Admin/AdminPage';
+import MerchandisePage from './pages/Merchandise/MerchandisePage';
 import AddAnimalPage from './pages/Admin/AddAnimalPage';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/merchandise" element={<MerchandisePage />} />
         <Route path="/admin/add-animal" element={<AddAnimalPage />} />
       </Routes>
     </BrowserRouter>

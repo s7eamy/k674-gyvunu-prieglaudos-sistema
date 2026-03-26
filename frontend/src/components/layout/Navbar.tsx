@@ -34,6 +34,7 @@ function Navbar() {
   const isMatchActive = location.pathname === '/match';
   const isVolunteerActive = location.pathname === '/volunteer';
   const isDonateActive = location.pathname === '/donate';
+  const isMerchandiseActive = location.pathname === '/merchandise';
   
   return (
     <header className="navbar">
@@ -82,6 +83,12 @@ function Navbar() {
               className={`navbar__link ${isDonateActive ? 'is-active' : ''}`}
             >
               💝 Donations
+            </Link>
+            <Link
+              to="/merchandise"
+              className={`navbar__link ${isMerchandiseActive ? 'is-active' : ''}`}
+            >
+              🎽 Merchandise
             </Link>
           </nav>
 
