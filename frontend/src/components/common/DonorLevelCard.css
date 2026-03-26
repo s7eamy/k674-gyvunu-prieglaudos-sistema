@@ -1,0 +1,168 @@
+/* ═══════════════════════════════════════════════════════════
+   Donor Level Card Styles
+   ═══════════════════════════════════════════════════════════ */
+
+.donor-level {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  background: var(--color-card-bg);
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+}
+
+.donor-level__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.donor-level__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-terracotta);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+}
+
+.donor-level__points {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.donor-level__progress-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.donor-level__progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--color-border);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.donor-level__progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4CAF50, #66BB6A);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.donor-level__progress-label {
+  color: var(--color-muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-align: right;
+}
+
+/* Donation points explanation */
+.donor-level__explanation {
+  padding: 14px;
+  background: rgba(232, 114, 42, 0.05);
+  border-radius: 10px;
+  border: 1px solid rgba(232, 114, 42, 0.15);
+}
+
+.donor-level__explanation h4 {
+  margin: 0 0 10px;
+  color: var(--color-warm-dark);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.donor-level__points-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.points-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.points-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.points-text {
+  line-height: 1.4;
+}
+
+.donor-level__milestones {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.donor-level__milestone {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #f5f5f5;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  font-size: 1.4rem;
+  opacity: 0.4;
+  transition: all 0.2s ease;
+}
+
+.donor-level__milestone--unlocked {
+  background: rgba(232, 114, 42, 0.1);
+  border-color: var(--color-terracotta);
+  opacity: 1;
+  box-shadow: 0 0 0 2px rgba(232, 114, 42, 0.2);
+}
+
+@media (max-width: 640px) {
+  .donor-level {
+    padding: 16px;
+  }
+
+  .donor-level__badge {
+    font-size: 0.85rem;
+    padding: 5px 12px;
+  }
+
+  .donor-level__explanation {
+    padding: 12px;
+  }
+
+  .donor-level__explanation h4 {
+    font-size: 0.8rem;
+  }
+
+  .points-item {
+    font-size: 0.8rem;
+  }
+
+  .points-icon {
+    font-size: 1rem;
+  }
+}
