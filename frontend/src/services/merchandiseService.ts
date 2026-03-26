@@ -34,14 +34,14 @@ export const AVAILABLE_COLORS = ['black', 'white'];
 export const AVAILABLE_SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 export const AVAILABLE_DESIGNS = [
   {
-    id: 'Cat',
-    name: 'Cute cat',
+    id: 'shelter-love',
+    name: 'Shelter Love',
     description: 'Cute cat design',
     image: '/images/merch/cat.png'
   },
   {
-    id: 'Dog',
-    name: 'Cute Dog',
+    id: 'rescue-me',
+    name: 'Rescue Me',
     description: 'Cute puppy design',
     image: '/images/merch/dog.png'
   },
@@ -53,9 +53,9 @@ export const AVAILABLE_DESIGNS = [
   },
   {
     id: 'plain',
-    name: 'Shelter Logo',
-    description: 'Shelter logo',
-    image: '/images/merch/plain.png'
+    name: 'Plain T-Shirt',
+    description: 'Simple shirt with no design',
+    image: '/images/merch/black_shirt.png'
   }
 ];
 export const MERCHANDISE_PRICE = 19.99;  // Price in euros
