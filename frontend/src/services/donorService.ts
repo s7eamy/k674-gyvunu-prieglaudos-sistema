@@ -1,59 +1,20 @@
-import axios from 'axios';
+import api from './api';
 import type { DonorLevel } from '../types/DonorLevel';
+import type { CreateDonationPaymentIntentRequest, DonationFinalizeResponse, DonationPaymentIntentResponse } from '../types/Donation';
 
-const API_BASE_URL = 'http://localhost:5000/api';
-
-// Get donor level for current user
 export const getDonorLevel = async (): Promise<DonorLevel> => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/donors/level`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-      },
-    });
-    return response.data;
-  } catch {
-    // For now, return default level if not logged in or API not available
-    return {
-      level: 1,
-      max_level: 5,
-      total_points: 0,
-      points_to_next_level: 100,
-      next_threshold: 100,
-    };
-  }
+  const response = await api.get<{ donor_level: DonorLevel }>('/api/donations/level');
+  return response.data.donor_level;
 };
 
-// Create a donation and award points
-export const createDonation = async (
-  amount: number,
-  donorName: string,
-  donorEmail: string,
-  message: string
-): Promise<{ success: boolean; pointsAwarded: number; newLevel: number }> => {
-  try {
-    const response = await axios.post(
-      `${API_BASE_URL}/donations/create`,
-      {
-        amount,
-        donor_name: donorName,
-        donor_email: donorEmail,
-        message,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
-      }
-    );
-    return response.data;
-  } catch {
-    // Fallback: calculate points locally for demo
-    const pointsAwarded = Math.floor(amount);
-    return {
-      success: true,
-      pointsAwarded,
-      newLevel: 1,
-    };
-  }
+export const createDonationPaymentIntent = async (
+  donationData: CreateDonationPaymentIntentRequest
+): Promise<DonationPaymentIntentResponse> => {
+  const response = await api.post<DonationPaymentIntentResponse>('/api/donations/payment-intents', donationData);
+  return response.data;
+};
+
+export const finalizeDonationPayment = async (paymentIntentId: string): Promise<DonationFinalizeResponse> => {
+  const response = await api.post<DonationFinalizeResponse>('/api/donations/finalize', { paymentIntentId });
+  return response.data;
 };
