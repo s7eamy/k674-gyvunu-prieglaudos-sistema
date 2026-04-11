@@ -229,6 +229,23 @@
   min-height: 100px;
 }
 
+.donation-page__card-element {
+  border-radius: 10px;
+  border: 1.5px solid var(--color-border);
+  background: #fff;
+  transition: border-color 0.2s;
+}
+
+.donation-page__card-element .StripeElement {
+  padding: 12px 14px;
+}
+
+.donation-page__card-element:focus-within {
+  outline: none;
+  border-color: var(--color-terracotta);
+  box-shadow: 0 0 0 3px rgba(232, 114, 42, 0.1);
+}
+
 /* Impact section */
 .donation-page__impact {
   padding: 20px;

@@ -1,49 +1,70 @@
 // Donation page — users can make donations to support the shelter
-import { useState, useEffect } from 'react';
+import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
+import { CardElement, Elements, useElements, useStripe } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import Navbar from '../../components/layout/Navbar';
 import DonationConfirmationModal from '../../components/common/DonationConfirmationModal';
 import DonorLevelCard from '../../components/common/DonorLevelCard';
-import { getDonorLevel } from '../../services/donorService';
+import { createDonationPaymentIntent, finalizeDonationPayment, getDonorLevel } from '../../services/donorService';
 import type { DonorLevel } from '../../types/DonorLevel';
 import './DonationPage.css';
 
 const PREDEFINED_AMOUNTS = [5, 10, 20, 50, 100];
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const stripePublishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
+const stripePromise = stripePublishableKey ? loadStripe(stripePublishableKey) : null;
 
-export default function DonationPage() {
+type DonationFormState = {
+  donorName: string;
+  donorEmail: string;
+  message: string;
+};
+
+type DonationPreview = {
+  amount: number;
+  donorName: string;
+  donorEmail: string;
+  message: string;
+  pointsAwarded: number;
+};
+
+function DonationPageContent() {
+  const stripe = useStripe();
+  const elements = useElements();
+
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState('');
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [donorLevel, setDonorLevel] = useState<DonorLevel | null>(null);
   const [isLoggedIn] = useState(Boolean(localStorage.getItem('access_token')));
-  const [donationData, setDonationData] = useState<{
-    amount: number;
-    donorName: string;
-    donorEmail: string;
-    message: string;
-    pointsAwarded?: number;
-  } | null>(null);
-
+  const [donationData, setDonationData] = useState<DonationPreview | null>(null);
   const [isAnonymous, setIsAnonymous] = useState(false);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<DonationFormState>({
     donorName: '',
     donorEmail: '',
     message: '',
   });
+  const [paymentError, setPaymentError] = useState('');
+  const [pageError, setPageError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const fetchDonorLevel = useCallback(async () => {
+    if (!isLoggedIn) {
+      return;
+    }
+
+    try {
+      const level = await getDonorLevel();
+      setDonorLevel(level);
+    } catch (error) {
+      console.error('Failed to fetch donor level', error);
+    }
+  }, [isLoggedIn]);
 
   // Fetch donor level on mount
   useEffect(() => {
-    const fetchDonorLevel = async () => {
-      if (isLoggedIn) {
-        try {
-          const level = await getDonorLevel();
-          setDonorLevel(level);
-        } catch (error) {
-          console.error('Failed to fetch donor level', error);
-        }
-      }
-    };
-    fetchDonorLevel();
-  }, [isLoggedIn]);
+    void fetchDonorLevel();
+  }, [fetchDonorLevel]);
 
   const handlePredefinedAmount = (amount: number) => {
     setSelectedAmount(amount);
@@ -55,9 +76,7 @@ export default function DonationPage() {
     setSelectedAmount(null);
   };
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -65,42 +84,7 @@ export default function DonationPage() {
     }));
   };
 
-  const handleDonate = () => {
-    const amount = selectedAmount || parseFloat(customAmount);
-
-    if (!amount || amount <= 0) {
-      alert('Please select or enter a valid donation amount');
-      return;
-    }
-
-    if (!isAnonymous) {
-      if (!formData.donorName.trim()) {
-        alert('Please enter your name');
-        return;
-      }
-
-      if (!formData.donorEmail.trim()) {
-        alert('Please enter your email');
-        return;
-      }
-    }
-
-    // Process donation (for now, just show confirmation)
-    const pointsAwarded = Math.floor(amount); // 1 point per €1
-    
-    setDonationData({
-      amount,
-      donorName: isAnonymous ? 'Anonymous' : formData.donorName,
-      donorEmail: isAnonymous ? '' : formData.donorEmail,
-      message: formData.message,
-      pointsAwarded,
-    });
-
-    setShowConfirmation(true);
-  };
-
-  const handleConfirmation = async () => {
-    // Reset form
+  const resetDonationForm = () => {
     setSelectedAmount(null);
     setCustomAmount('');
     setFormData({
@@ -108,39 +92,136 @@ export default function DonationPage() {
       donorEmail: '',
       message: '',
     });
-    setShowConfirmation(false);
-    setDonationData(null);
+    setIsAnonymous(false);
+    setPaymentError('');
+    setPageError('');
+  };
 
-    // Update donor level locally (simulate donation points being added)
-    if (isLoggedIn && donorLevel && donationData) {
-      const pointsAwarded = donationData.pointsAwarded || 0;
-      const newTotalPoints = donorLevel.total_points + pointsAwarded;
-      
-      // Calculate new level based on points
-      const levelThresholds = [0, 100, 250, 500, 1000]; // Cumulative thresholds for levels 1-5
-      let newLevel = 1;
-      for (let i = levelThresholds.length - 1; i >= 0; i--) {
-        if (newTotalPoints >= levelThresholds[i]) {
-          newLevel = i + 1;
-          break;
-        }
+  const handleDonate = async () => {
+    const amount = selectedAmount || parseFloat(customAmount);
+
+    if (!amount || amount <= 0) {
+      setPageError('Please select or enter a valid donation amount.');
+      return;
+    }
+
+    if (!isAnonymous) {
+      if (!formData.donorName.trim()) {
+        setPageError('Please enter your name.');
+        return;
       }
-      
-      const nextThreshold = levelThresholds[Math.min(newLevel, 4)] + (levelThresholds[Math.min(newLevel, 4)] === 0 ? 100 : 150);
-      const pointsToNextLevel = Math.max(0, nextThreshold - newTotalPoints);
-      
-      // Update the donor level state with new values
-      setDonorLevel({
-        level: newLevel,
-        max_level: 5,
-        total_points: newTotalPoints,
-        points_to_next_level: pointsToNextLevel,
-        next_threshold: pointsToNextLevel > 0 ? nextThreshold : 0,
+
+      if (!formData.donorEmail.trim()) {
+        setPageError('Please enter your email.');
+        return;
+      }
+
+      if (!EMAIL_PATTERN.test(formData.donorEmail.trim())) {
+        setPageError('Please enter a valid email address.');
+        return;
+      }
+    }
+
+    if (!stripe || !elements) {
+      setPageError('Stripe is still loading. Please try again in a moment.');
+      return;
+    }
+
+    const cardElement = elements.getElement(CardElement);
+    if (!cardElement) {
+      setPageError('Payment form is not ready yet.');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setPaymentError('');
+    setPageError('');
+
+    try {
+      const response = await createDonationPaymentIntent({
+        amount,
+        donorName: isAnonymous ? 'Anonymous' : formData.donorName.trim(),
+        donorEmail: isAnonymous ? '' : formData.donorEmail.trim(),
+        message: formData.message.trim(),
+        isAnonymous,
       });
+
+      const { error, paymentIntent } = await stripe.confirmCardPayment(response.client_secret, {
+        payment_method: {
+          card: cardElement,
+          billing_details: {
+            name: isAnonymous ? 'Anonymous donor' : formData.donorName.trim(),
+            email: isAnonymous ? undefined : formData.donorEmail.trim(),
+          },
+        },
+      });
+
+      if (error) {
+        setPaymentError(error.message || 'Payment failed.');
+        return;
+      }
+
+      if (paymentIntent?.status === 'succeeded') {
+        if (!paymentIntent.id) {
+          setPaymentError('Payment succeeded, but confirmation ID is missing.');
+          return;
+        }
+
+        const finalizedDonation = await finalizeDonationPayment(paymentIntent.id);
+        const pointsAwarded = finalizedDonation.donation.points_awarded;
+
+        if (isLoggedIn && finalizedDonation.donor_level) {
+          setDonorLevel(finalizedDonation.donor_level);
+        }
+
+        setDonationData({
+          amount,
+          donorName: isAnonymous ? 'Anonymous' : formData.donorName.trim(),
+          donorEmail: isAnonymous ? '' : formData.donorEmail.trim(),
+          message: formData.message.trim(),
+          pointsAwarded,
+        });
+        setShowConfirmation(true);
+        return;
+      }
+
+      setPaymentError(`Payment completed with unexpected status: ${paymentIntent?.status || 'unknown'}.`);
+    } catch (error) {
+      console.error('Donation payment failed', error);
+      setPaymentError('Unable to start the donation payment. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
+  const handleConfirmation = () => {
+    setShowConfirmation(false);
+    setDonationData(null);
+    resetDonationForm();
+  };
+
   const totalAmount = selectedAmount || parseFloat(customAmount) || 0;
+
+  const cardElementOptions = {
+    hidePostalCode: true,
+    disableLink: true,
+    style: {
+      base: {
+        color: '#2c1a0e',
+        fontFamily: 'inherit',
+        fontSize: '16px',
+        fontSmoothing: 'antialiased',
+        iconColor: '#8a7060',
+        '::placeholder': {
+          color: '#8a7060',
+        },
+      },
+      invalid: {
+        color: '#b91c1c',
+        iconColor: '#b91c1c',
+      },
+    },
+  };
 
   return (
     <>
@@ -155,18 +236,15 @@ export default function DonationPage() {
         </div>
 
         <div className="donation-page__container">
-          {/* Left: Amount Selection */}
           <div className="donation-page__section">
             <h2>Step 1: Choose Your Donation Amount</h2>
 
-            {/* Predefined amounts */}
             <div className="donation-amounts">
               {PREDEFINED_AMOUNTS.map((amount) => (
                 <button
                   key={amount}
-                  className={`amount-button ${
-                    selectedAmount === amount ? 'amount-button--active' : ''
-                  }`}
+                  type="button"
+                  className={`amount-button ${selectedAmount === amount ? 'amount-button--active' : ''}`}
                   onClick={() => handlePredefinedAmount(amount)}
                 >
                   €{amount}
@@ -178,7 +256,6 @@ export default function DonationPage() {
               <span>or</span>
             </div>
 
-            {/* Custom amount */}
             <div className="donation-page__custom">
               <label htmlFor="custom-amount">Enter a custom amount (€)</label>
               <input
@@ -192,7 +269,6 @@ export default function DonationPage() {
               />
             </div>
 
-            {/* Donor Level Progress Bar */}
             {isLoggedIn && donorLevel && (
               <div className="donation-page__donor-level">
                 <DonorLevelCard donorLevel={donorLevel} />
@@ -205,7 +281,6 @@ export default function DonationPage() {
               </div>
             )}
 
-            {/* Display selected amount */}
             {totalAmount > 0 && (
               <div className="donation-page__selected">
                 <span>Selected amount:</span>
@@ -246,11 +321,9 @@ export default function DonationPage() {
                 </div>
               </>
             ) : (
-              <>
-                <div className="donation-page__anonymous-info">
-                  <p>You're donating <strong>anonymously</strong></p>
-                </div>
-              </>
+              <div className="donation-page__anonymous-info">
+                <p>You're donating <strong>anonymously</strong>.</p>
+              </div>
             )}
 
             <div className="donation-page__form-group">
@@ -265,8 +338,16 @@ export default function DonationPage() {
               />
             </div>
 
+            <div className="donation-page__form-group">
+              <label htmlFor="card-element">Card Details *</label>
+              <div className="donation-page__card-element">
+                <CardElement id="card-element" options={cardElementOptions} />
+              </div>
+            </div>
+
             {!isAnonymous ? (
               <button
+                type="button"
                 className="donation-page__anonymous-btn"
                 onClick={() => setIsAnonymous(true)}
               >
@@ -274,6 +355,7 @@ export default function DonationPage() {
               </button>
             ) : (
               <button
+                type="button"
                 className="donation-page__anonymous-btn donation-page__anonymous-btn--active"
                 onClick={() => setIsAnonymous(false)}
               >
@@ -293,27 +375,50 @@ export default function DonationPage() {
               </ul>
             </div>
 
-            {/* CTA Button */}
+            {pageError && <div className="donation-page__error">{pageError}</div>}
+            {paymentError && <div className="donation-page__error">{paymentError}</div>}
+
             <button
+              type="button"
               className="donation-page__cta"
               onClick={handleDonate}
-              disabled={totalAmount <= 0}
+              disabled={totalAmount <= 0 || isSubmitting || !stripe || !elements}
             >
-              {totalAmount > 0
-                ? `Donate €${totalAmount.toFixed(2)}`
-                : 'Select an amount to proceed'}
+              {isSubmitting
+                ? 'Processing payment...'
+                : totalAmount > 0
+                  ? `Donate €${totalAmount.toFixed(2)}`
+                  : 'Select an amount to proceed'}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Confirmation Modal */}
       {showConfirmation && donationData && (
-        <DonationConfirmationModal
-          donation={donationData}
-          onClose={handleConfirmation}
-        />
+        <DonationConfirmationModal donation={donationData} onClose={handleConfirmation} />
       )}
     </>
+  );
+}
+
+export default function DonationPage() {
+  if (!stripePublishableKey) {
+    return (
+      <>
+        <Navbar />
+        <div className="donation-page">
+          <div className="donation-page__header">
+            <h1>💝 Support Our Shelter</h1>
+            <p>Stripe is not configured yet. Set VITE_STRIPE_PUBLISHABLE_KEY in the frontend env file.</p>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  return (
+    <Elements stripe={stripePromise}>
+      <DonationPageContent />
+    </Elements>
   );
 }
