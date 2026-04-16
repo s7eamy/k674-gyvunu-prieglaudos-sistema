@@ -56,12 +56,26 @@ function AnimalCard({ animal, onAbout }: AnimalCardProps) {
   const temperament = animal.temperament?.toLowerCase() || '';
   const isVaccinated = Boolean(animal.vaccinated);
 
+  const images = animal.images || [];
+  const hasImages = images.length > 0;
+
   return (
     <article className="animal-card" aria-label={`${animal.name} card`}>
       <div className="animal-card__media">
-        <span className="animal-card__emoji" aria-hidden="true">
+        {!hasImages ? (<span className="animal-card__emoji" aria-hidden="true">
           {getAnimalEmoji(animalType)}
-        </span>
+        </span>) : (
+          <img 
+            src={images[0].url}
+            alt={images[0].alt_text || animal.name}
+            className="animal-card__image"
+             /* onError={(e) => {
+                (e.currentTarget as HTMLImageElement).style.display = 'none';
+              }}        this approach hides both missing image icon and alt
+                        text if image should exist but is not found  */
+          />
+        )}
+
         <span className={`animal-card__type-badge animal-card__type-badge--${animalType || 'other'}`}>
           {animalType || 'animal'}
         </span>

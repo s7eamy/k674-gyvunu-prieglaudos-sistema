@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import type { Animal } from '../../types/Animal';
 import './AnimalModal.css';
 
@@ -50,6 +50,12 @@ const formatAddedDate = (createdAt: Date | string) => {
 };
 
 function AnimalModal({ animal, onClose }: AnimalModalProps) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    setCurrentImageIndex(0);
+  }, [animal]);
+
   useEffect(() => {
     if (!animal) {
       return;
@@ -75,6 +81,16 @@ function AnimalModal({ animal, onClose }: AnimalModalProps) {
   if (!animal) {
     return null;
   }
+  const images = animal.images || [];
+  const hasImages = images.length > 0;
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
 
   const animalType = animal.type?.toLowerCase() || '';
   const temperament = animal.temperament?.toLowerCase() || '';
@@ -95,9 +111,28 @@ function AnimalModal({ animal, onClose }: AnimalModalProps) {
         </button>
 
         <div className="animal-modal__hero">
-          <span className="animal-modal__emoji" aria-hidden="true">
+          {!hasImages ? (<span className="animal-modal__emoji" aria-hidden="true">
             {getAnimalEmoji(animalType)}
-          </span>
+          </span>) : (<div className="animal-modal__carousel">
+            {images.length > 1 && (
+              <>
+                <button className="carousel-btn prev" onClick={prevImage} aria-label="Previous image">‹</button>
+                <button className="carousel-btn next" onClick={nextImage} aria-label="Next image">›</button>
+              </>
+            )}
+            <img
+              src={images[currentImageIndex].url}
+              alt={images[currentImageIndex].alt_text || animal.name}
+              className="animal-modal__image"
+            />
+            {images.length > 1 && (
+              <div className="carousel-indicator">
+                {currentImageIndex + 1} / {images.length}
+              </div>
+            )}
+          </div>
+          )}
+
           <span className={`animal-modal__type-badge animal-modal__type-badge--${animalType || 'other'}`}>
             {animalType || 'animal'}
           </span>
