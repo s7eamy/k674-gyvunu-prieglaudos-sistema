@@ -54,9 +54,11 @@ def create_app():
     app.register_blueprint(donation_bp, url_prefix='/api/donations')
     from app.routes.merchandise_routes import merchandise_bp
     app.register_blueprint(merchandise_bp, url_prefix='/api/merchandise')
+    from app.routes.post_routes import post_bp
+    app.register_blueprint(post_bp, url_prefix='/api/posts')
 
     # Import all models so db.create_all() picks them up
-    from app.models import animal, donation, user, volunteer_registration, merchandise # noqa: F401
+    from app.models import animal, donation, user, volunteer_registration, merchandise, post # noqa: F401
 
     # Create tables if they dont exist
     with app.app_context():
