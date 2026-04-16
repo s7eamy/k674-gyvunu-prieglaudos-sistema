@@ -15,7 +15,8 @@ export default function AddAnimalPage() {
     age: '',
     vaccinated: 0,
     temperament: 'calm',
-    description: ''
+    description: '',
+    images: [] as File[]
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -95,9 +96,20 @@ export default function AddAnimalPage() {
     }
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  if (e.target.files) {
+    // Convert FileList to Array
+    const selectedFiles = Array.from(e.target.files);
+    setFormData((prev) => ({
+      ...prev,
+      images: selectedFiles
+    }));
+  }
+};
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setErrors({});
+    setErrors({});  
     setSuccessMessage('');
 
     if (!validateForm()) {
@@ -105,18 +117,25 @@ export default function AddAnimalPage() {
     }
 
     setIsSubmitting(true);
+    const dataForImages = new FormData();
+
+    dataForImages.append('name', formData.name);
+    dataForImages.append('type', formData.type);
+    dataForImages.append('breed', formData.breed);
+    dataForImages.append('size', formData.size);
+    dataForImages.append('age', formData.age);
+    dataForImages.append('vaccinated', String(formData.vaccinated));
+    dataForImages.append('temperament', formData.temperament);
+    dataForImages.append('description', formData.description);
+    
+    if (formData.images && formData.images.length > 0) {
+    formData.images.forEach((file) => {
+      dataForImages.append('images', file);
+    });
+  }
 
     try {
-      await addAnimal({
-        name: formData.name,
-        type: formData.type,
-        breed: formData.breed,
-        size: formData.size,
-        age: parseInt(formData.age),
-        vaccinated: formData.vaccinated,
-        temperament: formData.temperament,
-        description: formData.description || undefined
-      });
+      await addAnimal(dataForImages);
 
       setSuccessMessage('Animal added successfully!');
       // Reset form
@@ -128,7 +147,8 @@ export default function AddAnimalPage() {
         age: '',
         vaccinated: 0,
         temperament: 'calm',
-        description: ''
+        description: '',
+        images: []
       });
     } catch (error: unknown) {
       const errorMsg = error instanceof Error ? error.message : 'Failed to add animal';
@@ -292,16 +312,18 @@ export default function AddAnimalPage() {
               {errors.description && <p className="form-error">{errors.description}</p>}
             </div>
 
-            {/* Image field (placeholder) */}
+            {/* Image field */}
             <div className="form-field">
               <label htmlFor="image">Image Upload</label>
-              <input
-                type="file"
-                id="image"
-                name="image"
-                disabled
-                className="form-input--disabled"
-              />
+                <input
+                  type="file"
+                  id="image"
+                  name="image"
+                  multiple // allows multiple images
+                  accept="image/*" // only images
+                  onChange={handleFileChange}
+                  disabled={isSubmitting}
+                />
               {errors.image && <p className="form-error">{errors.image}</p>}
             </div>
 
