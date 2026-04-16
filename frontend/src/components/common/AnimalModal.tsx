@@ -53,10 +53,6 @@ function AnimalModal({ animal, onClose }: AnimalModalProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
-    setCurrentImageIndex(0);
-  }, [animal]);
-
-  useEffect(() => {
     if (!animal) {
       return;
     }

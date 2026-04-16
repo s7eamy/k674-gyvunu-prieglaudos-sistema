@@ -27,9 +27,6 @@ def add_animal():
     data = request.form
     files = request.files
 
-    print(f"Form Data: {data}") 
-    print(f"Files: {files}")
-
     animal, error = animal_controller.add_animal(data, files)
     
     if error:
