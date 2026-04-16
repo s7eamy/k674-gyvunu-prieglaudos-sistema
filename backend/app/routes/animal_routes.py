@@ -24,8 +24,10 @@ def add_animal():
     if user_role != 'admin':
         return jsonify({'error': 'Access denied: admin role required'}), 403
     
-    data = request.get_json()
-    animal, error = animal_controller.add_animal(data)
+    data = request.form
+    files = request.files
+
+    animal, error = animal_controller.add_animal(data, files)
     
     if error:
         return jsonify({'error': error}), 400

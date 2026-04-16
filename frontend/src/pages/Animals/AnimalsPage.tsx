@@ -162,7 +162,8 @@ export default function AnimalsPage() {
         )}
       </main>
 
-      <AnimalModal animal={selectedAnimal} onClose={() => setSelectedAnimal(null)} />
+      <AnimalModal key={selectedAnimal?.id} animal={selectedAnimal}
+       onClose={() => setSelectedAnimal(null)}/>
     </>
   );
 }

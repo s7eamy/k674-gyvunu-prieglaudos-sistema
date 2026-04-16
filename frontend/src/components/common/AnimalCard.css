@@ -22,6 +22,14 @@
   place-items: center;
 }
 
+.animal-card__image {
+  position: absolute;   
+  inset: 0;             
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
 .animal-card__emoji {
   font-size: 5rem;
   line-height: 1;
