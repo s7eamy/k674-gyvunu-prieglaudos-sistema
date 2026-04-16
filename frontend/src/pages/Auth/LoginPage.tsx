@@ -51,6 +51,7 @@ export default function LoginPage() {
       localStorage.setItem('access_token', response.access_token);
       localStorage.setItem('user_role', response.user.role);
       localStorage.setItem('user_name', response.user.name);
+      localStorage.setItem('user_email', response.user.email);
       // clear form
       setName('');
       setPassword('');
