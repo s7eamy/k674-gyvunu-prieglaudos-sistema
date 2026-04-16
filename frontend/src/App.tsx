@@ -10,6 +10,7 @@ import AdminPage from './pages/Admin/AdminPage';
 import MerchandisePage from './pages/Merchandise/MerchandisePage';
 import AddAnimalPage from './pages/Admin/AddAnimalPage';
 import PostCreationPage from './pages/Admin/PostCreationPage';
+import PostsPage from './pages/Posts/PostsPage';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/merchandise" element={<MerchandisePage />} />
         <Route path="/admin/add-animal" element={<AddAnimalPage />} />
         <Route path="/postcreation" element={<PostCreationPage />} />
+        <Route path="/posts" element={<PostsPage />} />
       </Routes>
     </BrowserRouter>
   );
