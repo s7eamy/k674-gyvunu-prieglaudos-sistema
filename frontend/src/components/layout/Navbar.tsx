@@ -41,6 +41,7 @@ function Navbar() {
   const isVolunteerActive = location.pathname === '/volunteer';
   const isDonateActive = location.pathname === '/donate';
   const isMerchandiseActive = location.pathname === '/merchandise';
+  const isCartActive = location.pathname === '/cart';
   const isAdminDashboardActive = location.pathname === '/admin';
   const isAdminAddAnimalActive = location.pathname === '/admin/add-animal';
   const isAdmin = userRole === 'admin';
@@ -121,6 +122,12 @@ function Navbar() {
                   className={`navbar__link ${isMerchandiseActive ? 'is-active' : ''}`}
                 >
                   🎽 Merchandise
+                </Link>
+                <Link
+                  to="/cart"
+                  className={`navbar__link ${isCartActive ? 'is-active' : ''}`}
+                >
+                  🛒 Cart
                 </Link>
               </>
             )}
