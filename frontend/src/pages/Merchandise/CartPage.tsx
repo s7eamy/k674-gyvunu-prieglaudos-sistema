@@ -3,17 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/layout/Navbar';
 import * as merchandiseService from '../../services/merchandiseService';
 import type { Merchandise } from '../../types/Merchandise';
+import type { CartItem } from '../../types/CartItem';
 import './MerchandisePage.css';
-
-type CartItem = {
-  id: string;
-  color: string;
-  size: string;
-  design: string;
-  quantity: number;
-  price: number;
-  created_at: string;
-};
 
 const MERCH_CART_STORAGE_KEY = 'merchandise_cart_items';
 
