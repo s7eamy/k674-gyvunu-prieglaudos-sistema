@@ -1,6 +1,6 @@
 // Animals page — main page component for listing, creating, editing, and deleting animals
 import { useState, useEffect } from 'react';
-import { getAll, type AnimalFilters } from '../../services/animalService';
+import { getAll, getFavoriteAnimals,  type AnimalFilters } from '../../services/animalService';
 import type { Animal } from '../../types/Animal';
 import Navbar from '../../components/layout/Navbar';
 import AnimalCard from '../../components/common/AnimalCard';
@@ -9,6 +9,7 @@ import './AnimalsPage.css';
 
 export default function AnimalsPage() {
   const [animals, setAnimals] = useState<Animal[]>([]);
+  const [favoriteIds, setFavoriteIds] = useState<number[]>([]);
   const [selectedAnimal, setSelectedAnimal] = useState<Animal | null>(null);
   const [filters, setFilters] = useState<AnimalFilters>({
     type: '',
@@ -18,6 +19,18 @@ export default function AnimalsPage() {
     ageMin: undefined,
     ageMax: undefined,
   });
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+    try {
+      const favorites = await getFavoriteAnimals();
+      setFavoriteIds(favorites.map((fav) => fav.id));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+    fetchFavorites();
+  }, []);
 
   useEffect(() => {
     const fetchAnimals = async () => {
@@ -156,7 +169,13 @@ export default function AnimalsPage() {
         ) : (
           <section className="animals-page__grid" aria-label="Animal cards">
             {animals.map((animal) => (
-              <AnimalCard key={animal.id} animal={animal} onAbout={(a) => setSelectedAnimal(a)} />
+              <AnimalCard key={animal.id} animal={animal} onAbout={(a) => setSelectedAnimal(a)} 
+              isFavorited={favoriteIds.includes(animal.id)}
+              onFavorite={(id) =>{setFavoriteIds((prev) => [...prev, id]);
+                }}
+              onFavoriteRemove={(id) => {
+                setFavoriteIds((prev) => prev.filter((favId) => favId !== id));}}
+              />
             ))}
           </section>
         )}

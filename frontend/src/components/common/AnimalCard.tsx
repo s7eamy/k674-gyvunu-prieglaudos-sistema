@@ -1,9 +1,14 @@
 import type { Animal } from '../../types/Animal';
+import { useState } from 'react';
+import { addFavoriteAnimal, removeFavoriteAnimal } from '../../services/animalService';
 import './AnimalCard.css';
 
 type AnimalCardProps = {
   animal: Animal;
   onAbout: (animal: Animal) => void;
+  isFavorited: boolean;
+  onFavorite: (animalId: number) => void;
+  onFavoriteRemove: (animalId: number) => void;
 };
 
 const getAnimalEmoji = (type: string) => {
@@ -50,14 +55,42 @@ const getTemperamentClass = (temperament: string) => {
   return '';
 };
 
-function AnimalCard({ animal, onAbout }: AnimalCardProps) {
+function AnimalCard({ animal, onAbout, isFavorited, onFavorite, onFavoriteRemove }: AnimalCardProps) {
   const animalType = animal.type?.toLowerCase() || '';
   const size = animal.size?.toLowerCase() || '';
   const temperament = animal.temperament?.toLowerCase() || '';
   const isVaccinated = Boolean(animal.vaccinated);
-
+  const [isLoadingFavorite, setIsLoadingFavorite] = useState(false);
   const images = animal.images || [];
   const hasImages = images.length > 0;
+
+  const handleFavorite = async () => {
+    try {
+
+      setIsLoadingFavorite(true);
+      if (isFavorited){
+        await removeFavoriteAnimal(animal.id);
+        onFavoriteRemove(animal.id);
+      }
+      else{
+        await addFavoriteAnimal(animal.id);
+        onFavorite(animal.id);
+      }
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        if (err.message === "NOT_LOGGED_IN") {
+          alert("Please log in to favorite animals.");
+        } else {
+          alert(err.message);
+        }
+      } else {
+        alert("An unexpected error occurred");
+      }
+    }
+    finally {
+      setIsLoadingFavorite(false);
+    }
+  };
 
   return (
     <article className="animal-card" aria-label={`${animal.name} card`}>
@@ -69,16 +102,24 @@ function AnimalCard({ animal, onAbout }: AnimalCardProps) {
             src={images[0].url}
             alt={images[0].alt_text || animal.name}
             className="animal-card__image"
-             /* onError={(e) => {
-                (e.currentTarget as HTMLImageElement).style.display = 'none';
-              }}        this approach hides both missing image icon and alt
-                        text if image should exist but is not found  */
           />
         )}
 
         <span className={`animal-card__type-badge animal-card__type-badge--${animalType || 'other'}`}>
           {animalType || 'animal'}
         </span>
+        <span className="animal-card__favorite-badge">
+          
+          <button
+              type="button"
+              className="animal-card__favorite-btn"
+              onClick={handleFavorite}
+              disabled={isLoadingFavorite}
+            >
+              {isFavorited ? (isLoadingFavorite ? 'Removing...' : '★ Favorited') : (isLoadingFavorite ? 'Adding..' : '⚝ Add to favorites')}
+            </button>
+        </span>
+        
       </div>
 
       <div className="animal-card__body">
