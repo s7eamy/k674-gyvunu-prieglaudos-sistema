@@ -6,6 +6,7 @@ import RegisterPage from './pages/Auth/RegisterPage';
 import LoginPage from './pages/Auth/LoginPage';
 import VolunteerPage from './pages/Volunteer/VolunteerRegistrationsPage';
 import DonationPage from './pages/Donation/DonationPage';
+import ProfilePage from './pages/Profile/ProfilePage';
 import AdminPage from './pages/Admin/AdminPage';
 import MerchandisePage from './pages/Merchandise/MerchandisePage';
 import CartPage from './pages/Merchandise/CartPage';
@@ -21,6 +22,7 @@ function App() {
         <Route path="/match" element={<MatchPage />} />
         <Route path="/volunteer" element={<VolunteerPage/>} />
         <Route path="/donate" element={<DonationPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/admin" element={<AdminPage />} />

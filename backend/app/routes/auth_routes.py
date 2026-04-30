@@ -1,7 +1,7 @@
 # Auth routes - Flask blueprint defining API endpoints for /api/auth
 from flask import Blueprint, jsonify, request
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt
-from app.controllers import auth_controller
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt, get_jwt_identity
+from app.controllers import auth_controller, user_controller
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -47,3 +47,16 @@ def logout():
     jti = get_jwt()['jti']
     BLOCKLIST.add(jti)
     return jsonify({'message': 'Successfully logged out'}), 200
+
+
+@auth_bp.route('/profile', methods=['GET'])
+@jwt_required()
+def profile():
+    # GET /api/auth/profile - get current user's profile with levels
+    user_id = get_jwt_identity()
+    profile_data, error = user_controller.get_user_profile(int(user_id))
+    
+    if error:
+        return jsonify({'error': error}), 404
+    
+    return jsonify(profile_data), 200
