@@ -1,5 +1,6 @@
 # User model
 from app.models import db
+from app.models.associations import user_favorite_animals
 from datetime import datetime
 
 
@@ -14,6 +15,7 @@ class User(db.Model):
     donation_points = db.Column(db.Integer, default=0)
     volunteer_points = db.Column(db.Integer, default=0)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    favorite_animals = db.relationship('Animal', secondary= user_favorite_animals)
 
     def to_dict(self):
         return {

@@ -3,6 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/layout/Navbar';
 import DonorLevelCard from '../../components/common/DonorLevelCard';
 import VolunteerLevelCard from '../../components/common/VolunteerLevelCard';
+import AnimalCard from '../../components/common/AnimalCard';
+import AnimalModal from '../../components/common/AnimalModal';
+import { getFavoriteAnimals } from '../../services/animalService';
+import type {Animal} from '../../types/Animal';
 import { getUserProfile, type UserProfile } from '../../services/userService';
 import './ProfilePage.css';
 
@@ -11,6 +15,8 @@ function ProfilePage() {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+  const [favoriteAnimals, setFavoriteAnimals] = useState<Animal[]>([]);
+  const [selectedAnimal, setSelectedAnimal] = useState<Animal | null>(null);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -33,6 +39,19 @@ function ProfilePage() {
 
     void fetchProfile();
   }, [navigate]);
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+    try {
+      const favorites = await getFavoriteAnimals();
+      setFavoriteAnimals(favorites);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+    fetchFavorites();
+    
+  }, []);
 
   if (isLoading) {
     return (
@@ -93,8 +112,29 @@ function ProfilePage() {
               <VolunteerLevelCard volunteerLevel={profile.volunteer_level} />
             </div>
           </section>
+
+          <header className="animals-page__header">
+          <h1>Favorite animals</h1>
+          <p>{favoriteAnimals.length} animals are favorited</p>         
+        </header>
+
+        {favoriteAnimals.length === 0 ? (
+          <p className="animals-page__empty"> Add an animal to favorites to see them here.</p>
+        ) : (
+          <section className="animals-page__grid" aria-label="Animal cards">
+            {favoriteAnimals.map((animal) => (
+              <AnimalCard key={animal.id} animal={animal} onAbout={(a) => setSelectedAnimal(a)} 
+              isFavorited={favoriteAnimals.includes(animal)}
+              onFavorite={() =>{setFavoriteAnimals((prev) => [...prev, animal]);}}
+              onFavoriteRemove={() => {setFavoriteAnimals((prev) => prev.filter((favId) => favId !== animal));}}
+              />
+            ))}
+          </section>
+        )}
         </div>
       </main>
+       <AnimalModal key={selectedAnimal?.id} animal={selectedAnimal}
+       onClose={() => setSelectedAnimal(null)}/>
     </>
   );
 }

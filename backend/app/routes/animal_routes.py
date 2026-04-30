@@ -33,3 +33,34 @@ def add_animal():
         return jsonify({'error': error}), 400
     
     return jsonify(animal), 201
+
+@animal_bp.route('/favorites', methods=['GET'])
+@jwt_required()
+def get_favorite_animals():
+    user_id = get_jwt_identity();
+    animals_list = animal_controller.get_favorite_animals(user_id)
+    return jsonify({"favorite_animals": animals_list}), 200
+
+@animal_bp.route('/favorites/add', methods=['POST'])
+@jwt_required()
+def add_favorite_animal():
+    user_id = get_jwt_identity()
+    animal_id = request.get_json().get('animal_id')
+    favorite_animal, error = animal_controller.add_favorite_animal(user_id, animal_id)
+
+    if error:
+        return jsonify({'error': error}), 400
+    
+    return jsonify(favorite_animal), 201
+
+@animal_bp.route('/favorites/remove', methods=['POST'])
+@jwt_required()
+def remove_favorite_animal():
+    user_id = get_jwt_identity()
+    animal_id = request.get_json().get('animal_id')
+    favorite_animal, error = animal_controller.remove_favorite_animal(user_id, animal_id)
+
+    if error:
+        return jsonify({'error': error}), 400
+    
+    return jsonify(favorite_animal), 201

@@ -1,6 +1,7 @@
 # Animal controller - business logic for animal CRUD operations
 from app.models import db
 from app.models.animal import Animal, AnimalImage
+from app.models.user import User
 from datetime import datetime,  timedelta
 from flask import abort
 from werkzeug.utils import secure_filename
@@ -126,3 +127,51 @@ def add_animal(data, files):
     except Exception as e:
         db.session.rollback()
         return None, f"Database error: {str(e)}"
+    
+def add_favorite_animal(user_id, animal_id):
+
+    if not user_id or not animal_id:
+        return None, "User or animal ID missing"
+
+    user = User.query.get(user_id)
+    animal = Animal.query.get(animal_id)
+
+    if not user or not animal:
+        return None, "User or Animal not found"
+
+
+    if animal in user.favorite_animals:
+        return None, "Animal already in favorites"
+
+    user.favorite_animals.append(animal)
+    db.session.commit()
+     
+    return animal.to_dict(), None
+
+def remove_favorite_animal(user_id, animal_id):
+    
+    if not user_id or not animal_id:
+        return None, "User or animal ID missing"
+
+    user = User.query.get(user_id)
+    animal = Animal.query.get(animal_id)
+
+    if not user or not animal:
+        return None, "User or Animal not found"
+
+
+    if animal not in user.favorite_animals:
+        return None, "Animal not in favorites"
+
+    user.favorite_animals.remove(animal)
+    db.session.commit()
+     
+    return animal.to_dict(), None
+
+def get_favorite_animals(user_id):
+    
+    user = User.query.get(user_id)
+    if not user:
+        return []
+      
+    return [fav_animal.to_dict() for fav_animal in user.favorite_animals]
