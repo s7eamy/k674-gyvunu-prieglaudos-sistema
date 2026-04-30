@@ -9,12 +9,15 @@ function Navbar() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [userRole, setUserRole] = useState<string>('');
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [userName, setUserName] = useState<string>('');
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
     const storedRole = localStorage.getItem('user_role') || '';
+    const storedName = localStorage.getItem('user_name') || '';
     setIsAuthenticated(Boolean(token));
     setUserRole(storedRole);
+    setUserName(storedName);
   }, [location.pathname]);
 
   useEffect(() => {
@@ -135,9 +138,14 @@ function Navbar() {
 
           <div className="navbar__auth" aria-label="Authentication">
             {isAuthenticated ? (
-              <button type="button" className="navbar__btn navbar__btn--ghost" onClick={handleLogout}>
-                Logout
-              </button>
+              <>
+                <button type="button" className="navbar__btn navbar__btn--ghost" onClick={handleLogout}>
+                  Logout
+                </button>
+                <Link to="/profile" className="navbar__profile-circle" title="View profile">
+                  {userName.charAt(0).toUpperCase()}
+                </Link>
+              </>
             ) : (
               <>
                 <Link to="/login" className="navbar__btn navbar__btn--ghost">

@@ -109,6 +109,26 @@
   background: #a85234;
 }
 
+.navbar__profile-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: var(--color-terracotta);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.navbar__profile-circle:hover {
+  background: #a85234;
+}
+
 .navbar__hamburger {
   display: none;
   width: 44px;
