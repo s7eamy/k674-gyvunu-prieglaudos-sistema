@@ -37,7 +37,7 @@ def add_animal():
 @animal_bp.route('/favorites', methods=['GET'])
 @jwt_required()
 def get_favorite_animals():
-    user_id = get_jwt_identity();
+    user_id = get_jwt_identity()
     animals_list = animal_controller.get_favorite_animals(user_id)
     return jsonify({"favorite_animals": animals_list}), 200
 

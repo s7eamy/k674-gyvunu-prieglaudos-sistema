@@ -66,7 +66,7 @@ function AnimalCard({ animal, onAbout, isFavorited, onFavorite, onFavoriteRemove
 
   const handleFavorite = async () => {
     try {
-      
+
       setIsLoadingFavorite(true);
       if (isFavorited){
         await removeFavoriteAnimal(animal.id);
@@ -76,13 +76,18 @@ function AnimalCard({ animal, onAbout, isFavorited, onFavorite, onFavoriteRemove
         await addFavoriteAnimal(animal.id);
         onFavorite(animal.id);
       }
-    } catch (err: any) {
-      if (err.message === "NOT_LOGGED_IN") {
-        alert("Please log in to favorite animals.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        if (err.message === "NOT_LOGGED_IN") {
+          alert("Please log in to favorite animals.");
+        } else {
+          alert(err.message);
+        }
       } else {
-        alert(err.message);
+        alert("An unexpected error occurred");
       }
-    } finally {
+    }
+    finally {
       setIsLoadingFavorite(false);
     }
   };
