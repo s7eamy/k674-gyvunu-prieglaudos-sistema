@@ -34,10 +34,18 @@
 }
 
 .admin-feature-page__description,
+.admin-feature-page__status,
 .admin-feature-page__note {
   margin: 14px 0 0;
   color: var(--color-muted);
   line-height: 1.65;
+}
+
+.admin-feature-page__status {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(193, 98, 63, 0.06);
 }
 
 .admin-feature-page__note {

@@ -62,7 +62,7 @@ export default function AdminPage() {
       <Navbar />
       <main className="admin-page">
         <header className="admin-page__header">
-          <h1>Volunteering registrations</h1>
+          <h1>Volunteer registration management</h1>
           <Link to="/admin" className="admin-page__back-link">
             Back to Admin Dashboard
           </Link>

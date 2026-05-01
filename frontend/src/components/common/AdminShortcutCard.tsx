@@ -7,9 +7,17 @@ type AdminShortcutCardProps = {
   to: string;
   icon: string;
   badge?: string;
+  actionLabel?: string;
 };
 
-export default function AdminShortcutCard({ title, description, to, icon, badge }: AdminShortcutCardProps) {
+export default function AdminShortcutCard({
+  title,
+  description,
+  to,
+  icon,
+  badge,
+  actionLabel = 'Open section',
+}: AdminShortcutCardProps) {
   return (
     <Link to={to} className="admin-shortcut-card">
       <span className="admin-shortcut-card__icon" aria-hidden="true">
@@ -22,7 +30,7 @@ export default function AdminShortcutCard({ title, description, to, icon, badge 
         </div>
         <p>{description}</p>
       </div>
-      <span className="admin-shortcut-card__action">Open</span>
+      <span className="admin-shortcut-card__action">{actionLabel}</span>
     </Link>
   );
 }

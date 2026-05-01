@@ -25,6 +25,7 @@ export default function AdminFeaturePlaceholderPage({
           <p className="admin-feature-page__eyebrow">Admin tools</p>
           <h1>{title}</h1>
           <p className="admin-feature-page__description">{description}</p>
+          <p className="admin-feature-page__status">This page is a placeholder for a future admin workflow.</p>
           <p className="admin-feature-page__note">{note}</p>
           <Link to={backTo} className="admin-feature-page__button">
             {backLabel}

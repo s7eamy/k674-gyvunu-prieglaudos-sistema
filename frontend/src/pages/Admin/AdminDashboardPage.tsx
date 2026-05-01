@@ -4,25 +4,28 @@ import './AdminDashboardPage.css';
 
 const adminShortcuts = [
   {
-    title: 'Volunteer registrations',
-    description: 'Review and manage volunteer shift requests and approvals.',
+    title: 'Volunteer registration management',
+    description: 'Review volunteer shift requests, approvals, and attendance updates.',
     to: '/admin/volunteer-registrations',
     icon: '📄',
     badge: 'Active',
+    actionLabel: 'Manage registrations',
   },
   {
-    title: 'Create post',
-    description: 'Publish shelter updates, stories, and announcements.',
+    title: 'Post creation',
+    description: 'Publish shelter updates, stories, and announcements for visitors.',
     to: '/admin/post-creation',
     icon: '✍️',
     badge: 'Active',
+    actionLabel: 'Create a post',
   },
   {
-    title: 'Add animals',
-    description: 'Add new dogs, cats, and other animals to the shelter listing.',
+    title: 'Animal management',
+    description: 'Add new dogs, cats, and other animals to the shelter listings.',
     to: '/admin/add-animal',
     icon: '🐾',
     badge: 'Active',
+    actionLabel: 'Add an animal',
   },
   {
     title: 'Merchandise management',
@@ -30,6 +33,7 @@ const adminShortcuts = [
     to: '/admin/merchandise',
     icon: '🎽',
     badge: 'Soon',
+    actionLabel: 'Open placeholder',
   },
   {
     title: 'Donation management',
@@ -37,13 +41,15 @@ const adminShortcuts = [
     to: '/admin/donations',
     icon: '💝',
     badge: 'Soon',
+    actionLabel: 'Open placeholder',
   },
   {
-    title: 'User / admin management',
-    description: 'Review users and admin access related tools from one place.',
+    title: 'User and admin management',
+    description: 'Review users and admin access tools from one place.',
     to: '/admin/users',
     icon: '🛡️',
     badge: 'Soon',
+    actionLabel: 'Open placeholder',
   },
 ];
 
@@ -70,6 +76,7 @@ export default function AdminDashboardPage() {
               to={shortcut.to}
               icon={shortcut.icon}
               badge={shortcut.badge}
+              actionLabel={shortcut.actionLabel}
             />
           ))}
         </section>

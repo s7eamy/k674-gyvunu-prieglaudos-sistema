@@ -63,6 +63,16 @@ function App() {
             />
           }
         />
+        <Route
+          path="/admin/*"
+          element={
+            <AdminFeaturePlaceholderPage
+              title="Admin section not found"
+              description="This admin page does not exist yet. Use the dashboard to choose a supported admin area."
+              note="The dashboard keeps the active admin routes available and sends unknown routes here instead of breaking."
+            />
+          }
+        />
         <Route path="/postcreation" element={<PostCreationPage />} />
         <Route path="/posts" element={<PostsPage />} />
       </Routes>
