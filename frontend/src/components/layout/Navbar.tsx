@@ -45,7 +45,7 @@ function Navbar() {
   const isDonateActive = location.pathname === '/donate';
   const isMerchandiseActive = location.pathname === '/merchandise';
   const isCartActive = location.pathname === '/cart';
-  const isAdminDashboardActive = location.pathname === '/admin';
+  const isAdminDashboardActive = location.pathname.startsWith('/admin');
   const isAdminAddAnimalActive = location.pathname === '/admin/add-animal';
   const isAdmin = userRole === 'admin';
   

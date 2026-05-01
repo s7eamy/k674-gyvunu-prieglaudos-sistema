@@ -183,7 +183,7 @@ export default function PostCreationPage() {
             onClick={() => navigate('/admin')}
             className="post-creation-form__secondary"
           >
-            Back to Admin Dashboard
+            Back to dashboard
           </button>
         </section>
       </main>
