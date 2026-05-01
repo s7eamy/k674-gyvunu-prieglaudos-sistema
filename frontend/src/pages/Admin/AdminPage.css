@@ -21,6 +21,19 @@
   font-size: 1rem;
 }
 
+.admin-page__back-link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 14px;
+  color: var(--color-terracotta);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.admin-page__back-link:hover {
+  text-decoration: underline;
+}
+
 .admin-page__filters {
   display: flex;
   flex-wrap: wrap;
