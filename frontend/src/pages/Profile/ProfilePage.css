@@ -93,6 +93,77 @@
   font-weight: 600;
 }
 
+/* Adoption requests */
+.profile-page__adoption-requests {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.profile-page__adoption-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.profile-page__adoption-card {
+  padding: 20px;
+  background: var(--color-card-bg);
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.profile-page__adoption-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.profile-page__adoption-animal-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--color-warm-dark);
+}
+
+.profile-page__adoption-status {
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.profile-page__adoption-status--pending {
+  color: #92400e;
+  background: #fef3c7;
+}
+
+.profile-page__adoption-status--approved {
+  color: #065f46;
+  background: #d1fae5;
+}
+
+.profile-page__adoption-status--rejected {
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+.profile-page__adoption-status--cancelled {
+  color: #6b7280;
+  background: #f3f4f6;
+}
+
+.profile-page__adoption-card-details {
+  display: flex;
+  gap: 16px;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
 /* Loading and error states */
 .profile-page__loading,
 .profile-page__error {

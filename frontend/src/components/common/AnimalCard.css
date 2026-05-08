@@ -153,6 +153,28 @@
   background: #d4f4e1;
 }
 
+.animal-card__adopt-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 0.6rem 0.95rem;
+  background: #ff9800;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 180ms ease;
+}
+
+.animal-card__adopt-btn:hover:not(:disabled) {
+  background: #e68a00;
+}
+
+.animal-card__adopt-btn:disabled {
+  background: #ccc;
+  color: #777;
+  cursor: not-allowed;
+}
+
 .animal-card__about-btn {
   margin-top: auto;
   border: 1px solid var(--color-terracotta);
