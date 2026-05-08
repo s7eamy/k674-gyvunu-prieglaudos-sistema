@@ -1,0 +1,164 @@
+.admin-adoption-page {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 48px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.admin-adoption-page__header h1 {
+  margin: 0;
+  color: var(--color-warm-dark);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3vw, 2.8rem);
+}
+
+.admin-adoption-page__header p {
+  margin: 10px 0 0;
+  color: var(--color-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.admin-adoption-page__back-link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 12px;
+  color: var(--color-terracotta);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.admin-adoption-page__back-link:hover {
+  text-decoration: underline;
+}
+
+.admin-adoption-page__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.admin-adoption-page__empty {
+  margin: 20px 0 0;
+  text-align: center;
+  color: var(--color-muted);
+  padding: 40px 20px;
+  border: 1px dashed var(--color-border);
+  border-radius: 16px;
+  background: var(--color-card-bg);
+}
+
+.admin-adoption-card {
+  padding: 24px;
+  background: var(--color-card-bg);
+  border-radius: 16px;
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-adoption-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.admin-adoption-card__animal-name {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--color-warm-dark);
+}
+
+.admin-adoption-card__animal-type {
+  border-radius: 999px;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-transform: capitalize;
+  color: #fff;
+}
+
+.admin-adoption-card__animal-type--dog {
+  background: #7a4e2f;
+}
+
+.admin-adoption-card__animal-type--cat {
+  background: #4d6688;
+}
+
+.admin-adoption-card__animal-type--other {
+  background: var(--color-muted);
+}
+
+.admin-adoption-card__details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.admin-adoption-card__actions {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.admin-adoption-card__approve-btn,
+.admin-adoption-card__reject-btn {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 180ms ease;
+}
+
+.admin-adoption-card__approve-btn {
+  background: #059669;
+  color: #fff;
+}
+
+.admin-adoption-card__approve-btn:hover {
+  background: #047857;
+}
+
+.admin-adoption-card__reject-btn {
+  background: #dc2626;
+  color: #fff;
+}
+
+.admin-adoption-card__reject-btn:hover {
+  background: #b91c1c;
+}
+
+.admin-adoption-card__approve-btn:disabled,
+.admin-adoption-card__reject-btn:disabled {
+  background: #ccc;
+  color: #777;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .admin-adoption-page {
+    padding: 32px 18px;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-adoption-page {
+    padding: 24px 16px;
+  }
+
+  .admin-adoption-page__grid {
+    grid-template-columns: 1fr;
+  }
+}

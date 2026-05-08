@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import type { Animal } from '../../types/Animal';
+import { createAdoptionRequest } from '../../services/adoptionRequestService';
 import './AnimalModal.css';
 
 type AnimalModalProps = {
   animal: Animal | null;
   onClose: () => void;
+  onAdopt?: (animalId: number) => void;
+  adoptionStatus?: 'pending' | 'approved' | null;
 };
 
 const TEMPERAMENT_COPY: Record<string, string> = {
@@ -49,8 +52,30 @@ const formatAddedDate = (createdAt: Date | string) => {
   return date.toLocaleDateString();
 };
 
-function AnimalModal({ animal, onClose }: AnimalModalProps) {
+function AnimalModal({ animal, onClose, onAdopt, adoptionStatus }: AnimalModalProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isLoadingAdopt, setIsLoadingAdopt] = useState(false);
+
+  const handleAdopt = async () => {
+    if (!animal || !onAdopt) return;
+    try {
+      setIsLoadingAdopt(true);
+      await createAdoptionRequest(animal.id);
+      onAdopt(animal.id);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        if (err.message === "NOT_LOGGED_IN") {
+          alert("Please log in to adopt animals.");
+        } else {
+          alert(err.message);
+        }
+      } else {
+        alert("An unexpected error occurred");
+      }
+    } finally {
+      setIsLoadingAdopt(false);
+    }
+  };
 
   useEffect(() => {
     if (!animal) {
@@ -142,8 +167,17 @@ function AnimalModal({ animal, onClose }: AnimalModalProps) {
               <p className="animal-modal__breed">{animal.breed}</p>
             </div>
             {!isAdopted ? (
-              <button type="button" className="animal-modal__adopt-btn">
-                Adopt Me 🐾
+              <button
+                type="button"
+                className="animal-modal__adopt-btn"
+                onClick={handleAdopt}
+                disabled={adoptionStatus === 'pending' || !onAdopt || isLoadingAdopt}
+              >
+                {adoptionStatus === 'pending'
+                  ? 'Request Pending'
+                  : isLoadingAdopt
+                    ? 'Submitting...'
+                    : 'Adopt Me 🐾'}
               </button>
             ) : null}
           </header>

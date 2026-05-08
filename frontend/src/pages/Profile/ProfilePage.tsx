@@ -6,7 +6,9 @@ import VolunteerLevelCard from '../../components/common/VolunteerLevelCard';
 import AnimalCard from '../../components/common/AnimalCard';
 import AnimalModal from '../../components/common/AnimalModal';
 import { getFavoriteAnimals } from '../../services/animalService';
+import { getUserAdoptionRequests } from '../../services/adoptionRequestService';
 import type {Animal} from '../../types/Animal';
+import type { AdoptionRequest } from '../../types/AdoptionRequest';
 import { getUserProfile, type UserProfile } from '../../services/userService';
 import './ProfilePage.css';
 
@@ -16,6 +18,7 @@ function ProfilePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [favoriteAnimals, setFavoriteAnimals] = useState<Animal[]>([]);
+  const [adoptionRequests, setAdoptionRequests] = useState<AdoptionRequest[]>([]);
   const [selectedAnimal, setSelectedAnimal] = useState<Animal | null>(null);
 
   useEffect(() => {
@@ -50,7 +53,18 @@ function ProfilePage() {
     }
   };
     fetchFavorites();
-    
+  }, []);
+
+  useEffect(() => {
+    const fetchAdoptionRequests = async () => {
+      try {
+        const requests = await getUserAdoptionRequests();
+        setAdoptionRequests(requests);
+      } catch {
+        // Not logged in or error
+      }
+    };
+    fetchAdoptionRequests();
   }, []);
 
   if (isLoading) {
@@ -113,22 +127,56 @@ function ProfilePage() {
             </div>
           </section>
 
+          <section className="profile-page__adoption-requests">
+            <header className="animals-page__header">
+              <h1>Adoption Requests</h1>
+              <p>{adoptionRequests.length} request{adoptionRequests.length !== 1 ? 's' : ''}</p>
+            </header>
+
+            {adoptionRequests.length === 0 ? (
+              <p className="animals-page__empty">No adoption requests yet. Browse animals and click "Adopt Me" to get started.</p>
+            ) : (
+              <div className="profile-page__adoption-grid">
+                {adoptionRequests.map((req) => (
+                  <div key={req.id} className="profile-page__adoption-card">
+                    <div className="profile-page__adoption-card-header">
+                      <span className="profile-page__adoption-animal-name">{req.animal_name}</span>
+                      <span className={`profile-page__adoption-status profile-page__adoption-status--${req.status}`}>
+                        {req.status}
+                      </span>
+                    </div>
+                    <div className="profile-page__adoption-card-details">
+                      <span>Type: {req.animal_type}</span>
+                      <span>Submitted: {new Date(req.created_at).toLocaleDateString()}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+
           <header className="animals-page__header">
           <h1>Favorite animals</h1>
-          <p>{favoriteAnimals.length} animals are favorited</p>         
+          <p>{favoriteAnimals.length} animals are favorited</p>
         </header>
 
         {favoriteAnimals.length === 0 ? (
           <p className="animals-page__empty"> Add an animal to favorites to see them here.</p>
         ) : (
           <section className="animals-page__grid" aria-label="Animal cards">
-            {favoriteAnimals.map((animal) => (
-              <AnimalCard key={animal.id} animal={animal} onAbout={(a) => setSelectedAnimal(a)} 
-              isFavorited={favoriteAnimals.includes(animal)}
-              onFavorite={() =>{setFavoriteAnimals((prev) => [...prev, animal]);}}
-              onFavoriteRemove={() => {setFavoriteAnimals((prev) => prev.filter((favId) => favId !== animal));}}
-              />
-            ))}
+            {favoriteAnimals.map((animal) => {
+              const adoptionStatus = adoptionRequests
+                .filter(r => r.animal_id === animal.id && (r.status === 'pending' || r.status === 'approved'))
+                .map(r => r.status as 'pending' | 'approved')[0] ?? null;
+              return (
+                <AnimalCard key={animal.id} animal={animal} onAbout={(a) => setSelectedAnimal(a)}
+                isFavorited={favoriteAnimals.includes(animal)}
+                onFavorite={() =>{setFavoriteAnimals((prev) => [...prev, animal]);}}
+                onFavoriteRemove={() => {setFavoriteAnimals((prev) => prev.filter((favId) => favId !== animal));}}
+                adoptionStatus={adoptionStatus}
+                />
+              );
+            })}
           </section>
         )}
         </div>

@@ -9,6 +9,7 @@ import DonationPage from './pages/Donation/DonationPage';
 import ProfilePage from './pages/Profile/ProfilePage';
 import AdminDashboardPage from './pages/Admin/AdminDashboardPage';
 import AdminPage from './pages/Admin/AdminPage';
+import AdminAdoptionRequestsPage from './pages/Admin/AdminAdoptionRequestsPage';
 import MerchandisePage from './pages/Merchandise/MerchandisePage';
 import CartPage from './pages/Merchandise/CartPage';
 import AddAnimalPage from './pages/Admin/AddAnimalPage';
@@ -29,6 +30,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/admin" element={<AdminDashboardPage />} />
         <Route path="/admin/volunteer-registrations" element={<AdminPage />} />
+        <Route path="/admin/adoption-requests" element={<AdminAdoptionRequestsPage />} />
         <Route path="/admin/post-creation" element={<PostCreationPage />} />
         <Route path="/merchandise" element={<MerchandisePage />} />
         <Route path="/cart" element={<CartPage />} />

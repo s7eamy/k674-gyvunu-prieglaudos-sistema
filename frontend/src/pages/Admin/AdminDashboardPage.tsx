@@ -20,6 +20,14 @@ const adminShortcuts = [
     actionLabel: 'Create a post',
   },
   {
+    title: 'Adoption request management',
+    description: 'Review and approve or reject animal adoption requests from users.',
+    to: '/admin/adoption-requests',
+    icon: '🏠',
+    badge: 'Active',
+    actionLabel: 'Manage adoptions',
+  },
+  {
     title: 'Animal management',
     description: 'Add new dogs, cats, and other animals to the shelter listings.',
     to: '/admin/add-animal',

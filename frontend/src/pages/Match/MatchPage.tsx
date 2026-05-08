@@ -1,6 +1,7 @@
 // Match page — questionnaire and results page for finding best animal matches
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getMatches } from '../../services/matchService';
+import { getUserAdoptionRequests, createAdoptionRequest } from '../../services/adoptionRequestService';
 import type { QuestionnaireAnswers, AnimalMatch } from '../../types/Match';
 import Navbar from '../../components/layout/Navbar';
 
@@ -106,6 +107,43 @@ export default function MatchPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [results, setResults] = useState<AnimalMatch[] | null>(null);
+  const [adoptionStatusMap, setAdoptionStatusMap] = useState<Record<number, 'pending' | 'approved'>>({});
+
+  useEffect(() => {
+    if (!results) return;
+    const fetchAdoptionRequests = async () => {
+      try {
+        const requests = await getUserAdoptionRequests();
+        const statusMap: Record<number, 'pending' | 'approved'> = {};
+        for (const req of requests) {
+          if (req.status === 'pending' || req.status === 'approved') {
+            if (!statusMap[req.animal_id]) {
+              statusMap[req.animal_id] = req.status;
+            }
+          }
+        }
+        setAdoptionStatusMap(statusMap);
+      } catch {
+        // Not logged in — no statuses to show
+      }
+    };
+    fetchAdoptionRequests();
+  }, [results]);
+
+  const handleAdopt = async (animalId: number) => {
+    try {
+      await createAdoptionRequest(animalId);
+      setAdoptionStatusMap((prev) => ({ ...prev, [animalId]: 'pending' }));
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        if (err.message === "NOT_LOGGED_IN") {
+          alert("Please log in to adopt animals.");
+        } else {
+          alert(err.message);
+        }
+      }
+    }
+  };
 
   const currentQuestion = questions[step];
   const totalSteps = questions.length;
@@ -319,20 +357,19 @@ export default function MatchPage() {
                   </div>
 
                   <button
-                    onClick={() => {
-                      // TODO: Handle adoption
-                    }}
+                    onClick={() => handleAdopt(match.id)}
+                    disabled={adoptionStatusMap[match.id] === 'pending'}
                     style={{
                       padding: '10px 20px',
                       fontSize: '16px',
-                      cursor: 'pointer',
-                      backgroundColor: '#ff9800',
-                      color: 'white',
+                      cursor: adoptionStatusMap[match.id] === 'pending' ? 'not-allowed' : 'pointer',
+                      backgroundColor: adoptionStatusMap[match.id] === 'pending' ? '#ccc' : '#ff9800',
+                      color: adoptionStatusMap[match.id] === 'pending' ? '#777' : 'white',
                       border: 'none',
                       borderRadius: '4px',
                     }}
                   >
-                    Adopt Me 🐾
+                    {adoptionStatusMap[match.id] === 'pending' ? 'Request Pending' : 'Adopt Me 🐾'}
                   </button>
                 </div>
               );
