@@ -164,13 +164,19 @@ function ProfilePage() {
           <p className="animals-page__empty"> Add an animal to favorites to see them here.</p>
         ) : (
           <section className="animals-page__grid" aria-label="Animal cards">
-            {favoriteAnimals.map((animal) => (
-              <AnimalCard key={animal.id} animal={animal} onAbout={(a) => setSelectedAnimal(a)} 
-              isFavorited={favoriteAnimals.includes(animal)}
-              onFavorite={() =>{setFavoriteAnimals((prev) => [...prev, animal]);}}
-              onFavoriteRemove={() => {setFavoriteAnimals((prev) => prev.filter((favId) => favId !== animal));}}
-              />
-            ))}
+            {favoriteAnimals.map((animal) => {
+              const adoptionStatus = adoptionRequests
+                .filter(r => r.animal_id === animal.id && (r.status === 'pending' || r.status === 'approved'))
+                .map(r => r.status as 'pending' | 'approved')[0] ?? null;
+              return (
+                <AnimalCard key={animal.id} animal={animal} onAbout={(a) => setSelectedAnimal(a)}
+                isFavorited={favoriteAnimals.includes(animal)}
+                onFavorite={() =>{setFavoriteAnimals((prev) => [...prev, animal]);}}
+                onFavoriteRemove={() => {setFavoriteAnimals((prev) => prev.filter((favId) => favId !== animal));}}
+                adoptionStatus={adoptionStatus}
+                />
+              );
+            })}
           </section>
         )}
         </div>
