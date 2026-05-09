@@ -5,13 +5,13 @@
   border-radius: 16px;
   overflow: hidden;
   background: var(--color-card-bg);
-  box-shadow: 0 8px 24px rgba(44, 26, 14, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(44, 26, 14, 0.08);
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
 .volunteer-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 32px rgba(193, 98, 63, 0.22);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12), 0 16px 40px rgba(193, 98, 63, 0.25);
 }
 
 .volunteer-card__media {
@@ -95,10 +95,13 @@
   font: inherit;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 180ms ease, color 180ms ease;
+  transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  box-shadow: 0 2px 6px rgba(232, 133, 106, 0.15);
 }
 
 .volunteer-card__details-btn:hover {
   background: var(--color-terracotta);
   color: #fff;
+  box-shadow: 0 4px 12px rgba(232, 133, 106, 0.3);
+  transform: translateY(-2px);
 }

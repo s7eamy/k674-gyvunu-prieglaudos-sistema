@@ -4,18 +4,100 @@
   margin: 0 auto;
 }
 
-.merchandise-page h1 {
-  font-size: 2.5rem;
-  color: #333;
-  margin-bottom: 0.5rem;
+/* Hero Section */
+.merchandise-page__hero {
+  background: #2E2116;
+  color: white;
+  padding: 0;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+  height: auto;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
 }
 
-.merchandise-tagline {
-  text-align: center;
-  font-size: 1.1rem;
-  color: #666;
-  margin-bottom: 2rem;
+.merchandise-page__hero::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -5%;
+  width: 600px;
+  height: 600px;
+  background: rgba(200, 150, 100, 0.15);
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.merchandise-page__hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #E8856A;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+.merchandise-page__hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 64px;
+  position: relative;
+  z-index: 1;
+}
+
+.merchandise-page__hero h1 {
+  margin: 0 0 12px 0;
+  color: white;
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.merchandise-page__hero p {
+  margin: 0;
+  color: #d9d3ce;
+  font-size: 1.05rem;
+  font-weight: 400;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto 40px auto;
+}
+
+.merchandise-page__stats {
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.stat-number {
+  color: #E8856A;
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+.stat-label {
+  color: #d9d3ce;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
   font-weight: 500;
 }
 
@@ -44,10 +126,11 @@
 .product-preview,
 .product-options,
 .orders-section {
-  background: #f9f9f9;
+  background: white;
   padding: 1.5rem;
   border-radius: 12px;
-  border: 1px solid #eee;
+  border: 2px solid #E8D5C4;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .product-preview h2,
@@ -81,18 +164,19 @@
 }
 
 .design-thumb {
-  border: 1px solid #ddd;
+  border: 2px solid #D7CCC5;
   padding: 0.3rem;
   border-radius: 8px;
   background: white;
   width: 80px;
   text-align: center;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .design-thumb.active {
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  border-color: #E8856A;
+  box-shadow: 0 0 0 2px rgba(232, 133, 106, 0.25);
 }
 
 .design-thumb img {
@@ -116,7 +200,7 @@
 }
 
 .color-swatch {
-  border: 2px solid #ccc;
+  border: 2px solid #D7CCC5;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -125,11 +209,12 @@
   color: #333;
   display: grid;
   place-items: center;
+  transition: all 0.3s ease;
 }
 
 .color-swatch.selected {
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  border-color: #E8856A;
+  box-shadow: 0 0 0 2px rgba(232, 133, 106, 0.25);
 }
 
 .btn-large {
@@ -166,24 +251,25 @@
 .form-group select,
 .form-group input {
   padding: 0.75rem;
-  border: 1px solid #ddd;
+  border: 1px solid #D7CCC5;
   border-radius: 6px;
   font-size: 0.95rem;
   font-family: inherit;
+  background: white;
 }
 
 .form-group select:focus,
 .form-group input:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  border-color: #E8856A;
+  box-shadow: 0 0 0 3px rgba(232, 133, 106, 0.25);
 }
 
 .price-info {
   background: white;
   padding: 1rem;
   border-radius: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid #D7CCC5;
   font-size: 0.95rem;
 }
 
@@ -201,7 +287,7 @@
 }
 
 .price-info .donation-points {
-  color: #e74c3c;
+  color: #E8856A;
   font-weight: 600;
   font-size: 1rem;
   margin-top: 0.75rem;
@@ -225,23 +311,23 @@
 }
 
 .btn-primary {
-  background: #007bff;
+  background: #E8856A;
   color: white;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: #0056b3;
+  background: #D76F51;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 86, 179, 0.3);
+  box-shadow: 0 4px 8px rgba(232, 133, 106, 0.3);
 }
 
 .btn-secondary {
-  background: #ddd;
+  background: #D7CCC5;
   color: #333;
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background: #bbb;
+  background: #C9BFB1;
 }
 
 .btn-primary:disabled,
@@ -252,10 +338,11 @@
 
 /* Orders Section */
 .orders-section {
-  background: #f9f9f9;
+  background: white;
   padding: 2rem;
   border-radius: 12px;
-  border: 1px solid #eee;
+  border: 2px solid #E8D5C4;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .orders-section h2 {
@@ -288,7 +375,7 @@
   background: white;
   padding: 1.5rem;
   border-radius: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid #D7CCC5;
   transition: box-shadow 0.3s ease;
 }
 
@@ -301,7 +388,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #E8D5C4;
   padding-bottom: 1rem;
 }
 
@@ -369,7 +456,7 @@
 
 .order-details .donation-points {
   grid-column: 1 / -1;
-  color: #e74c3c;
+  color: #E8856A;
   font-weight: 600;
   font-size: 0.95rem;
 }

@@ -53,11 +53,67 @@ export default function AnimalsPage() {
 
       <main className="animals-page">
         <header className="animals-page__header">
-          <h1>Find Your Friend</h1>
-          <p>{animals.length} animals looking for a home</p>
+          <div className="animals-page__hero-content">
+            <div className="animals-page__hero-left">
+              <h1>Find your<span>FOREVER</span>companion</h1>
+              <p>Every animal here is waiting for a loving home. Browse, connect and change a life - including yours.</p>
+              
+              <div className="animals-page__stats">
+                <div className="stat-item">
+                  <span className="stat-number">243</span>
+                  <span className="stat-label">Available now</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-number">1,950</span>
+                  <span className="stat-label">Adopted This Year</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-number">38</span>
+                  <span className="stat-label">Foster Homes Needed</span>
+                </div>
+              </div>
+            </div>
+            
+            {animals.length > 0 && (
+              <div className="animals-page__hero-featured">
+                <div className="featured-card">
+                  <div className="featured-card__label">Featured Today ⭐</div>
+                  
+                  <div className="featured-card__image">
+                    <span className="featured-card__emoji">
+                      {animals[0].type?.toLowerCase() === 'dog' ? '🐕' : animals[0].type?.toLowerCase() === 'cat' ? '🐈' : '🐾'}
+                    </span>
+                  </div>
+                  
+                  <div className="featured-card__body">
+                    <h2 className="featured-card__name">{animals[0].name}</h2>
+                    <p className="featured-card__breed">{animals[0].breed}</p>
+                    
+                    <div className="featured-card__tags">
+                      <span className="featured-card__tag" data-type="temperament">{animals[0].temperament || 'unknown'}</span>
+                      <span className="featured-card__tag" data-type="age">{animals[0].age}y</span>
+                      {animals[0].vaccinated ? (
+                        <span className="featured-card__tag" data-type="vaccinated">💉 vaccinated</span>
+                      ) : null}
+                    </div>
+                    
+                    <button 
+                      type="button" 
+                      className="featured-card__btn"
+                      onClick={() => setSelectedAnimal(animals[0])}
+                    >
+                      View {animals[0].name}'s Profile →
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </header>
 
-        <section className="animals-page__filters" aria-label="Animal filters">
+        <div className="animals-page__filters-wrapper">
+          <div className="animals-page__content">
+            <section className="animals-page__filters" aria-label="Animal filters">
           <select
             value={filters.type}
             onChange={(e) => setFilters((f) => ({ ...f, type: e.target.value }))}
@@ -150,16 +206,22 @@ export default function AnimalsPage() {
             </button>
           ) : null}
         </section>
+          </div>
+        </div>
 
-        {animals.length === 0 ? (
-          <p className="animals-page__empty">No animals found. Try widening your filters.</p>
-        ) : (
-          <section className="animals-page__grid" aria-label="Animal cards">
-            {animals.map((animal) => (
-              <AnimalCard key={animal.id} animal={animal} onAbout={(a) => setSelectedAnimal(a)} />
-            ))}
-          </section>
-        )}
+        <div className="animals-page__grid-wrapper">
+          <div className="animals-page__content">
+          {animals.length === 0 ? (
+            <p className="animals-page__empty">No animals found. Try widening your filters.</p>
+          ) : (
+            <section className="animals-page__grid" aria-label="Animal cards">
+              {animals.map((animal) => (
+                <AnimalCard key={animal.id} animal={animal} onAbout={(a) => setSelectedAnimal(a)} />
+              ))}
+            </section>
+          )}
+          </div>
+        </div>
       </main>
 
       <AnimalModal animal={selectedAnimal} onClose={() => setSelectedAnimal(null)} />
