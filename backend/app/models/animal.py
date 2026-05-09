@@ -17,7 +17,8 @@ class Animal(db.Model):
     description = db.Column(db.Text)
     adopted = db.Column(db.Integer, default=0)  # 0 = available, 1 = adopted
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    
+    images = db.relationship('AnimalImage', backref='animal', cascade="all, delete-orphan")
+
     def to_dict(self):
         # Convert model instance to dict for JSON
         return {
@@ -31,5 +32,20 @@ class Animal(db.Model):
             'temperament': self.temperament,
             'description': self.description,
             'adopted': bool(self.adopted),
-            'created_at': self.created_at.isoformat() if self.created_at else None
+            'created_at': self.created_at.isoformat() if self.created_at else None,
+            "images": [image.to_dict() for image in self.images]
+        }
+
+class AnimalImage(db.Model):
+    __tablename__ = 'animal_images'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    animal_id = db.Column(db.Integer, db.ForeignKey('animals.id'), nullable=False)
+    url = db.Column(db.String(255), nullable=False)
+    alt_text = db.Column(db.String(100))
+
+    def to_dict(self):
+        return {
+            "url": self.url,
+            "alt_text": self.alt_text
         }

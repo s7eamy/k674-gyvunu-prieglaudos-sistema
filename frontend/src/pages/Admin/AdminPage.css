@@ -1,11 +1,11 @@
 .admin-page {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
   padding: 48px 32px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 28px;
 }
 
 .admin-page__header h1 {
@@ -16,9 +16,23 @@
 }
 
 .admin-page__header p {
-  margin: 8px 0 0;
+  margin: 10px 0 0;
   color: var(--color-muted);
   font-size: 1rem;
+  line-height: 1.6;
+}
+
+.admin-page__back-link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 12px;
+  color: var(--color-terracotta);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.admin-page__back-link:hover {
+  text-decoration: underline;
 }
 
 .admin-page__filters {
@@ -76,5 +90,16 @@
 @media (max-width: 768px) {
   .admin-page {
     padding: 32px 18px;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-page {
+    padding: 24px 16px;
+  }
+
+  .admin-page__grid {
+    grid-template-columns: 1fr;
   }
 }

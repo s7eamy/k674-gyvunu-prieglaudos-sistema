@@ -1,7 +1,7 @@
 # Admin routes - Flask blueprint defining API endpoints for /api/admin
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from app.controllers import volunteer_registration_controller, user_controller
+from app.controllers import volunteer_registration_controller, user_controller, adoption_request_controller
 
 admin_registration_bp = Blueprint('adminRegistrations', __name__)
 
@@ -82,7 +82,70 @@ def attendance_registration():
     registration, error = volunteer_registration_controller.mark_attendace_registration(reg_id)
     if error:
         return jsonify({"error": error}), 404
-    
-   
-    
+
+
+
     return jsonify(registration), 201
+
+
+@admin_registration_bp.route('/admin/adoption-requests', methods=['GET'])
+@jwt_required()
+def get_all_adoption_requests():
+    user_id = get_jwt_identity()
+    user_role, error = user_controller.get_user_role(user_id)
+    if error:
+        return jsonify({"error": error}), 404
+
+    if(user_role!='admin'):
+        return jsonify({"error": "/admin/adoption-requests access permitted for admins only"}), 403
+
+    requests = adoption_request_controller.get_all_pending_requests()
+    return jsonify({"adoptionRequests": requests}), 200
+
+
+@admin_registration_bp.route('/admin/approveAdoption', methods=['POST'])
+@jwt_required()
+def approve_adoption():
+    user_id = get_jwt_identity()
+    user_role, error = user_controller.get_user_role(user_id)
+    if error:
+        return jsonify({"error": error}), 404
+
+    if(user_role!='admin'):
+        return jsonify({"error": "/admin/approveAdoption access permitted for admins only"}), 403
+
+    data = request.get_json()
+    req_id = data.get('id')
+
+    if not req_id:
+        return jsonify({"error": "ID is required"}), 400
+
+    adoption_request, error = adoption_request_controller.approve_adoption_request(req_id)
+    if error:
+        return jsonify({"error": error}), 404
+
+    return jsonify(adoption_request), 201
+
+
+@admin_registration_bp.route('/admin/rejectAdoption', methods=['POST'])
+@jwt_required()
+def reject_adoption():
+    user_id = get_jwt_identity()
+    user_role, error = user_controller.get_user_role(user_id)
+    if error:
+        return jsonify({"error": error}), 404
+
+    if(user_role!='admin'):
+        return jsonify({"error": "/admin/rejectAdoption access permitted for admins only"}), 403
+
+    data = request.get_json()
+    req_id = data.get('id')
+
+    if not req_id:
+        return jsonify({"error": "ID is required"}), 400
+
+    adoption_request, error = adoption_request_controller.reject_adoption_request(req_id)
+    if error:
+        return jsonify({"error": error}), 404
+
+    return jsonify(adoption_request), 201

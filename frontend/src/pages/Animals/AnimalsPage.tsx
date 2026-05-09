@@ -1,6 +1,7 @@
 // Animals page — main page component for listing, creating, editing, and deleting animals
 import { useState, useEffect } from 'react';
-import { getAll, type AnimalFilters } from '../../services/animalService';
+import { getAll, getFavoriteAnimals,  type AnimalFilters } from '../../services/animalService';
+import { getUserAdoptionRequests } from '../../services/adoptionRequestService';
 import type { Animal } from '../../types/Animal';
 import Navbar from '../../components/layout/Navbar';
 import AnimalCard from '../../components/common/AnimalCard';
@@ -9,15 +10,54 @@ import './AnimalsPage.css';
 
 export default function AnimalsPage() {
   const [animals, setAnimals] = useState<Animal[]>([]);
+  const [favoriteIds, setFavoriteIds] = useState<number[]>([]);
+  const [adoptionStatusMap, setAdoptionStatusMap] = useState<Record<number, 'pending' | 'approved'>>({});
   const [selectedAnimal, setSelectedAnimal] = useState<Animal | null>(null);
   const [filters, setFilters] = useState<AnimalFilters>({
     type: '',
     size: '',
     temperament: '',
     vaccinated: undefined,
+    adopted: 0,
     ageMin: undefined,
     ageMax: undefined,
   });
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+    try {
+      const favorites = await getFavoriteAnimals();
+      setFavoriteIds(favorites.map((fav) => fav.id));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+    fetchFavorites();
+  }, []);
+
+  useEffect(() => {
+    const fetchAdoptionRequests = async () => {
+      try {
+        const requests = await getUserAdoptionRequests();
+        const statusMap: Record<number, 'pending' | 'approved'> = {};
+        for (const req of requests) {
+          if (req.status === 'pending' || req.status === 'approved') {
+            if (!statusMap[req.animal_id]) {
+              statusMap[req.animal_id] = req.status;
+            }
+          }
+        }
+        setAdoptionStatusMap(statusMap);
+      } catch {
+        // Not logged in or other error — no adoption statuses to show
+      }
+    };
+    fetchAdoptionRequests();
+  }, []);
+
+  const handleAdoptionRequest = (animalId: number) => {
+    setAdoptionStatusMap((prev) => ({ ...prev, [animalId]: 'pending' }));
+  };
 
   useEffect(() => {
     const fetchAnimals = async () => {
@@ -27,6 +67,7 @@ export default function AnimalsPage() {
           size: filters.size || undefined,
           temperament: filters.temperament || undefined,
           vaccinated: filters.vaccinated,
+          adopted: filters.adopted,
           ageMin: filters.ageMin,
           ageMax: filters.ageMax,
         });
@@ -44,6 +85,7 @@ export default function AnimalsPage() {
     Boolean(filters.size) ||
     Boolean(filters.temperament) ||
     filters.vaccinated !== undefined ||
+    filters.adopted !== 0 ||
     filters.ageMin !== undefined ||
     filters.ageMax !== undefined;
 
@@ -158,6 +200,20 @@ export default function AnimalsPage() {
           </select>
 
           <select
+            value={filters.adopted === undefined ? '' : String(filters.adopted)}
+            onChange={(e) =>
+              setFilters((f) => ({
+                ...f,
+                adopted: e.target.value === '' ? undefined : (Number(e.target.value) as 0 | 1),
+              }))
+            }
+          >
+            <option value="0">Available</option>
+            <option value="1">Adopted</option>
+            <option value="">All</option>
+          </select>
+
+          <select
             value={
               filters.ageMin === 0 && filters.ageMax === 2
                 ? 'young'
@@ -197,6 +253,7 @@ export default function AnimalsPage() {
                   size: '',
                   temperament: '',
                   vaccinated: undefined,
+                  adopted: 0,
                   ageMin: undefined,
                   ageMax: undefined,
                 })
@@ -211,20 +268,31 @@ export default function AnimalsPage() {
 
         <div className="animals-page__grid-wrapper">
           <div className="animals-page__content">
-          {animals.length === 0 ? (
-            <p className="animals-page__empty">No animals found. Try widening your filters.</p>
-          ) : (
-            <section className="animals-page__grid" aria-label="Animal cards">
-              {animals.map((animal) => (
-                <AnimalCard key={animal.id} animal={animal} onAbout={(a) => setSelectedAnimal(a)} />
-              ))}
-            </section>
-          )}
+                  {animals.length === 0 ? (
+          <p className="animals-page__empty">No animals found. Try widening your filters.</p>
+        ) : (
+          <section className="animals-page__grid" aria-label="Animal cards">
+            {animals.map((animal) => (
+              <AnimalCard key={animal.id} animal={animal} onAbout={(a) => setSelectedAnimal(a)}
+              isFavorited={favoriteIds.includes(animal.id)}
+              onFavorite={(id) =>{setFavoriteIds((prev) => [...prev, id]);
+                }}
+              onFavoriteRemove={(id) => {
+                setFavoriteIds((prev) => prev.filter((favId) => favId !== id));}}
+              adoptionStatus={adoptionStatusMap[animal.id] ?? null}
+              onAdoptionRequest={handleAdoptionRequest}
+              />
+            ))}
+          </section>
+        )}
           </div>
         </div>
       </main>
 
-      <AnimalModal animal={selectedAnimal} onClose={() => setSelectedAnimal(null)} />
+      <AnimalModal key={selectedAnimal?.id} animal={selectedAnimal}
+       onClose={() => setSelectedAnimal(null)}
+       onAdopt={handleAdoptionRequest}
+       adoptionStatus={selectedAnimal ? (adoptionStatusMap[selectedAnimal.id] ?? null) : null}/>
     </>
   );
 }

@@ -66,6 +66,22 @@ function DonationPageContent() {
     void fetchDonorLevel();
   }, [fetchDonorLevel]);
 
+  // Prefill user data from localStorage when logged in
+  useEffect(() => {
+    if (isLoggedIn) {
+      const userName = localStorage.getItem('user_name');
+      const userEmail = localStorage.getItem('user_email');
+      
+      if (userName && userEmail) {
+        setFormData((prev) => ({
+          ...prev,
+          donorName: userName,
+          donorEmail: userEmail,
+        }));
+      }
+    }
+  }, [isLoggedIn]);
+
   const handlePredefinedAmount = (amount: number) => {
     setSelectedAmount(amount);
     setCustomAmount('');

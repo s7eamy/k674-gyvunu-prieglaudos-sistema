@@ -1,9 +1,17 @@
 import type { Animal } from '../../types/Animal';
+import { useState } from 'react';
+import { addFavoriteAnimal, removeFavoriteAnimal } from '../../services/animalService';
+import { createAdoptionRequest } from '../../services/adoptionRequestService';
 import './AnimalCard.css';
 
 type AnimalCardProps = {
   animal: Animal;
   onAbout: (animal: Animal) => void;
+  isFavorited: boolean;
+  onFavorite: (animalId: number) => void;
+  onFavoriteRemove: (animalId: number) => void;
+  adoptionStatus?: 'pending' | 'approved' | null;
+  onAdoptionRequest?: (animalId: number) => void;
 };
 
 const getAnimalEmoji = (type: string) => {
@@ -50,21 +58,93 @@ const getTemperamentClass = (temperament: string) => {
   return '';
 };
 
-function AnimalCard({ animal, onAbout }: AnimalCardProps) {
+function AnimalCard({ animal, onAbout, isFavorited, onFavorite, onFavoriteRemove, adoptionStatus, onAdoptionRequest }: AnimalCardProps) {
   const animalType = animal.type?.toLowerCase() || '';
   const size = animal.size?.toLowerCase() || '';
   const temperament = animal.temperament?.toLowerCase() || '';
   const isVaccinated = Boolean(animal.vaccinated);
+  const isAdopted = Boolean(animal.adopted);
+  const [isLoadingFavorite, setIsLoadingFavorite] = useState(false);
+  const [isLoadingAdopt, setIsLoadingAdopt] = useState(false);
+  const images = animal.images || [];
+  const hasImages = images.length > 0;
+
+  const handleAdopt = async () => {
+    try {
+      setIsLoadingAdopt(true);
+      await createAdoptionRequest(animal.id);
+      onAdoptionRequest?.(animal.id);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        if (err.message === "NOT_LOGGED_IN") {
+          alert("Please log in to adopt animals.");
+        } else {
+          alert(err.message);
+        }
+      } else {
+        alert("An unexpected error occurred");
+      }
+    } finally {
+      setIsLoadingAdopt(false);
+    }
+  };
+
+  const handleFavorite = async () => {
+    try {
+
+      setIsLoadingFavorite(true);
+      if (isFavorited){
+        await removeFavoriteAnimal(animal.id);
+        onFavoriteRemove(animal.id);
+      }
+      else{
+        await addFavoriteAnimal(animal.id);
+        onFavorite(animal.id);
+      }
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        if (err.message === "NOT_LOGGED_IN") {
+          alert("Please log in to favorite animals.");
+        } else {
+          alert(err.message);
+        }
+      } else {
+        alert("An unexpected error occurred");
+      }
+    }
+    finally {
+      setIsLoadingFavorite(false);
+    }
+  };
 
   return (
     <article className="animal-card" aria-label={`${animal.name} card`}>
       <div className="animal-card__media">
-        <span className="animal-card__emoji" aria-hidden="true">
+        {!hasImages ? (<span className="animal-card__emoji" aria-hidden="true">
           {getAnimalEmoji(animalType)}
-        </span>
+        </span>) : (
+          <img 
+            src={images[0].url}
+            alt={images[0].alt_text || animal.name}
+            className="animal-card__image"
+          />
+        )}
+
         <span className={`animal-card__type-badge animal-card__type-badge--${animalType || 'other'}`}>
           {animalType || 'animal'}
         </span>
+        <span className="animal-card__favorite-badge">
+          
+          <button
+              type="button"
+              className="animal-card__favorite-btn"
+              onClick={handleFavorite}
+              disabled={isLoadingFavorite}
+            >
+              {isFavorited ? (isLoadingFavorite ? 'Removing...' : '★ Favorited') : (isLoadingFavorite ? 'Adding..' : '⚝ Add to favorites')}
+            </button>
+        </span>
+        
       </div>
 
       <div className="animal-card__body">
@@ -86,6 +166,21 @@ function AnimalCard({ animal, onAbout }: AnimalCardProps) {
             <span className="animal-card__tag animal-card__tag--vaccinated">💉 vaccinated</span>
           ) : null}
         </div>
+
+        {!isAdopted && (
+          <button
+            type="button"
+            className="animal-card__adopt-btn"
+            onClick={handleAdopt}
+            disabled={adoptionStatus === 'pending' || isLoadingAdopt}
+          >
+            {adoptionStatus === 'pending'
+              ? 'Request Pending'
+              : isLoadingAdopt
+                ? 'Submitting...'
+                : 'Adopt Me'}
+          </button>
+        )}
 
         <button type="button" className="animal-card__about-btn" onClick={() => onAbout(animal)}>
           About {animal.name}

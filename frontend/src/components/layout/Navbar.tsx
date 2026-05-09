@@ -9,12 +9,15 @@ function Navbar() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [userRole, setUserRole] = useState<string>('');
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [userName, setUserName] = useState<string>('');
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
     const storedRole = localStorage.getItem('user_role') || '';
+    const storedName = localStorage.getItem('user_name') || '';
     setIsAuthenticated(Boolean(token));
     setUserRole(storedRole);
+    setUserName(storedName);
   }, [location.pathname]);
 
   useEffect(() => {
@@ -41,7 +44,8 @@ function Navbar() {
   const isVolunteerActive = location.pathname === '/volunteer';
   const isDonateActive = location.pathname === '/donate';
   const isMerchandiseActive = location.pathname === '/merchandise';
-  const isAdminDashboardActive = location.pathname === '/admin';
+  const isCartActive = location.pathname === '/cart';
+  const isAdminDashboardActive = location.pathname.startsWith('/admin');
   const isAdminAddAnimalActive = location.pathname === '/admin/add-animal';
   const isAdmin = userRole === 'admin';
   
@@ -122,15 +126,26 @@ function Navbar() {
                 >
                   🎽 Merchandise
                 </Link>
+                <Link
+                  to="/cart"
+                  className={`navbar__link ${isCartActive ? 'is-active' : ''}`}
+                >
+                  🛒 Cart
+                </Link>
               </>
             )}
           </nav>
 
           <div className="navbar__auth" aria-label="Authentication">
             {isAuthenticated ? (
-              <button type="button" className="navbar__btn navbar__btn--ghost" onClick={handleLogout}>
-                Logout
-              </button>
+              <>
+                <button type="button" className="navbar__btn navbar__btn--ghost" onClick={handleLogout}>
+                  Logout
+                </button>
+                <Link to="/profile" className="navbar__profile-circle" title="View profile">
+                  {userName.charAt(0).toUpperCase()}
+                </Link>
+              </>
             ) : (
               <>
                 <Link to="/login" className="navbar__btn navbar__btn--ghost">

@@ -1,6 +1,7 @@
 // Admin page — only admins can see the contents of this page and
 // take admin exclusive actions in this page
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { getAll, getUsers } from '../../services/adminService';
 import type { VolunteerRegistration } from '../../types/VolunteerRegistration';
 import type { User } from '../../types/User';
@@ -61,7 +62,10 @@ export default function AdminPage() {
       <Navbar />
       <main className="admin-page">
         <header className="admin-page__header">
-          <h1>Volunteering registrations</h1>
+          <h1>Volunteer registration management</h1>
+          <Link to="/admin" className="admin-page__back-link">
+            Back to Admin Dashboard
+          </Link>
           {(!IsAdmin || !LoggedIn) && (
         <p className="admin-page__empty">
         Please log in as admin to see volunteer registrations.

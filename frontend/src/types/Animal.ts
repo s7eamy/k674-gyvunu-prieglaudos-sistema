@@ -11,4 +11,5 @@ export interface Animal {
     description: string; 
     adopted: boolean;  // 0 = available, 1 = adopted
     created_at: Date; // default = now()
+    images?: { url: string; alt_text?: string }[];
 }

@@ -69,16 +69,8 @@ Promise<VolunteerRegistration> => {
     throw error;
   }
 }
-export const addAnimal = async (data: {
-  name: string;
-  type: string;
-  breed: string;
-  size: string;
-  age: number;
-  vaccinated: number;
-  temperament: string;
-  description?: string;
-}): Promise<Record<string, unknown>> => {
+export const addAnimal = async (data: FormData) :
+ Promise<Record<string, unknown>> => {
   try {
     const response = await api.post<Record<string, unknown>>("/api/animals", data);
     return response.data;

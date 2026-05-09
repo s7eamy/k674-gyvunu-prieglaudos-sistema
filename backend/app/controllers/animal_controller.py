@@ -1,8 +1,17 @@
 # Animal controller - business logic for animal CRUD operations
 from app.models import db
-from app.models.animal import Animal
+from app.models.animal import Animal, AnimalImage
+from app.models.user import User
 from datetime import datetime,  timedelta
 from flask import abort
+from werkzeug.utils import secure_filename
+import os
+from pathlib import Path
+
+current_file = Path(__file__).resolve()
+project_root = current_file.parents[3] # location of k674 folder
+
+UPLOAD_FOLDER = project_root / 'frontend' / 'public' / 'images' / 'animals'
 
 def get_animals(args):
     """
@@ -50,7 +59,7 @@ def get_animals(args):
     return [animal.to_dict() for animal in animals]
 
 
-def add_animal(data):
+def add_animal(data, files):
     """
     Add a new animal to the system.
     Required fields: name, type, breed, size, age, vaccinated, temperament
@@ -93,9 +102,76 @@ def add_animal(data):
     )
     
     try:
+        os.makedirs(UPLOAD_FOLDER, exist_ok=True)
         db.session.add(animal)
+        db.session.flush() # allows to get animal id?
+
+        #adding images
+        if 'images' in files:
+            uploaded_files = files.getlist('images')
+            for file in uploaded_files:
+                if file and file.filename != '':
+                    
+                    filename = secure_filename(file.filename)
+                    unique_filename = f"{animal.id}_{filename}"
+                    file.save(os.path.join(UPLOAD_FOLDER, unique_filename))
+                    
+                    new_image = AnimalImage(
+                        animal_id=animal.id,
+                        url=f"/images/animals/{unique_filename}"
+                    )
+                    db.session.add(new_image)
+
         db.session.commit()
         return animal.to_dict(), None
     except Exception as e:
         db.session.rollback()
         return None, f"Database error: {str(e)}"
+    
+def add_favorite_animal(user_id, animal_id):
+
+    if not user_id or not animal_id:
+        return None, "User or animal ID missing"
+
+    user = User.query.get(user_id)
+    animal = Animal.query.get(animal_id)
+
+    if not user or not animal:
+        return None, "User or Animal not found"
+
+
+    if animal in user.favorite_animals:
+        return None, "Animal already in favorites"
+
+    user.favorite_animals.append(animal)
+    db.session.commit()
+     
+    return animal.to_dict(), None
+
+def remove_favorite_animal(user_id, animal_id):
+    
+    if not user_id or not animal_id:
+        return None, "User or animal ID missing"
+
+    user = User.query.get(user_id)
+    animal = Animal.query.get(animal_id)
+
+    if not user or not animal:
+        return None, "User or Animal not found"
+
+
+    if animal not in user.favorite_animals:
+        return None, "Animal not in favorites"
+
+    user.favorite_animals.remove(animal)
+    db.session.commit()
+     
+    return animal.to_dict(), None
+
+def get_favorite_animals(user_id):
+    
+    user = User.query.get(user_id)
+    if not user:
+        return []
+      
+    return [fav_animal.to_dict() for fav_animal in user.favorite_animals]
