@@ -137,10 +137,27 @@ export default function MerchandisePage() {
   return (
     <>
       <Navbar />
+      <section className="merchandise-page__hero">
+        <div className="merchandise-page__hero-content">
+          <h1>Exclusive Merchandise</h1>
+          <p>Support our shelter with unique, beautifully designed merchandise. Every purchase directly supports animal rescue and care.</p>
+          <div className="merchandise-page__stats">
+            <div className="stat-item">
+              <span className="stat-number">2,500+</span>
+              <span className="stat-label">Items Sold</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-number">€15K</span>
+              <span className="stat-label">Raised for Animals</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-number">100%</span>
+              <span className="stat-label">To Animal Care</span>
+            </div>
+          </div>
+        </div>
+      </section>
       <div className="merchandise-page">
-        <h1> Support Our Shelter - Merchandise Shop</h1>
-        <p className="merchandise-tagline">All profits go directly to animal rescue</p>
-
         {error && <div className="error-message">{error}</div>}
         {cartMessage && <div className="success-message">{cartMessage}</div>}
         {showCartModal && (

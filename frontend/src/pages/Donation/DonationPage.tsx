@@ -242,15 +242,31 @@ function DonationPageContent() {
   return (
     <>
       <Navbar />
-      <div className="donation-page">
-        <div className="donation-page__header">
-          <h1>💝 Support Our Shelter</h1>
-          <p>
-            Your donation helps us provide food, medical care, and a safe home for animals in need.
-            Every contribution makes a real difference.
-          </p>
+      
+      {/* Hero Section */}
+      <section className="donation-page__hero">
+        <div className="donation-page__hero-content">
+          <h1>Support Our Shelter</h1>
+          <p>Your donation helps us provide food, medical care, and a safe home for animals in need. Every contribution makes a real difference.</p>
+          
+          <div className="donation-page__stats">
+            <div className="stat-item">
+              <span className="stat-number">1,250</span>
+              <span className="stat-label">Animals Helped</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-number">€45K</span>
+              <span className="stat-label">Raised This Year</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-number">98%</span>
+              <span className="stat-label">Goes to Care</span>
+            </div>
+          </div>
         </div>
+      </section>
 
+      <div className="donation-page">
         <div className="donation-page__container">
           <div className="donation-page__section">
             <h2>Step 1: Choose Your Donation Amount</h2>

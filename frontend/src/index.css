@@ -1,16 +1,45 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Playfair+Display:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@600;700&family=Kalnia:wght@700&family=Inter:wght@600&display=swap');
 
 :root {
-  --color-cream: #fdf6ee;
-  --color-warm-dark: #2c1a0e;
-  --color-terracotta: #c1623f;
-  --color-amber: #e8993a;
-  --color-muted: #8a7060;
-  --color-card-bg: #fff9f3;
-  --color-border: #e8ddd2;
+  /* Original Warm Earth-Tone Palette */
+  --color-primary: #E8856A;
+  --color-primary-dark: #D4724F;
+  --color-primary-light: #F4A998;
+  --color-secondary: #8C6B6B;
+  --color-accent: #E8856A;
+  --color-success: #A87A6F;
+  --color-background: #C3AeA0;
+  --color-background-secondary: #D4B5AC;
+  --color-surface: #F5F1ED;
+  --color-text: #2E2116;
+  --color-text-secondary: #5C4A3D;
+  --color-text-muted: #8B7565;
+  --color-border: #D4B5AC;
+  --color-border-light: #E8D4CC;
+  
+  /* Legacy colors for compatibility */
+  --color-cream: #C3AeA0;
+  --color-warm-dark: #2E2116;
+  --color-terracotta: #E8856A;
+  --color-amber: #C4956A;
+  --color-muted: #8B7565;
+  --color-card-bg: #F5F1ED;
+  
   --font-display: 'Playfair Display', Georgia, serif;
   --font-body: 'DM Sans', sans-serif;
   --nav-h: 64px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(46, 33, 22, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(46, 33, 22, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(46, 33, 22, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(46, 33, 22, 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgba(46, 33, 22, 0.15);
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #E8856A 0%, #8C6B6B 100%);
+  --gradient-warm: linear-gradient(135deg, #E8856A 0%, #C4956A 100%);
+  --gradient-cool: linear-gradient(135deg, #A87A6F 0%, #8C6B6B 100%);
 }
 
 *,
@@ -25,15 +54,19 @@ body {
   min-width: 320px;
   min-height: 100vh;
   display: block;
-  background-color: var(--color-cream);
-  color: var(--color-warm-dark);
+  background-color: var(--color-surface);
+  color: var(--color-text);
   font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  margin: 0;
+  padding: 0;
 }
 
 h1,
@@ -41,4 +74,31 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  line-height: 1.3;
+}
+
+h3 {
+  font-size: clamp(1.25rem, 2vw, 1.875rem);
+  line-height: 1.4;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-primary-dark);
 }

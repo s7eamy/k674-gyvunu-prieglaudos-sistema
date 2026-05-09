@@ -1,77 +1,357 @@
 .animals-page {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1;
+}
+
+.animals-page__header {
+  background: #2E2116;
+  color: white;
+  padding: 120px 64px;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  min-height: 650px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+.animals-page__hero-content {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.animals-page__hero-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.animals-page__hero-featured {
+  flex: 0 0 auto;
+  width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.animals-page__header::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -5%;
+  width: 600px;
+  height: 600px;
+  background: rgba(200, 150, 100, 0.15);
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.animals-page__header::after {
+  content: '';
+  position: absolute;
+  bottom: -10%;
+  left: -15%;
+  width: 500px;
+  height: 500px;
+  background: rgba(195, 174, 160, 0.2);
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.animals-page__header h1 {
+  margin: 0 0 24px 0;
+  color: white;
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  position: relative;
+  z-index: 1;
+  line-height: 1.1;
+  font-family: 'Playfair Display', serif;
+}
+
+.animals-page__header h1 span {
+  display: block;
+  font-style: italic;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.animals-page__header p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.25rem;
+  position: relative;
+  z-index: 1;
+  font-weight: 400;
+  max-width: 450px;
+  line-height: 1.7;
+}
+
+.animals-page__content {
   max-width: 1200px;
   margin: 0 auto;
   padding: 48px 32px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-.animals-page__header h1 {
-  margin: 0;
-  color: var(--color-warm-dark);
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 3vw, 2.8rem);
+.animals-page__filters-wrapper {
+  background-color: #D7CCC5;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding: 0;
 }
 
-.animals-page__header p {
-  margin: 8px 0 0;
-  color: var(--color-muted);
-  font-size: 1rem;
+.animals-page__filters-wrapper .animals-page__content {
+  padding: 48px 32px;
+}
+
+.animals-page__grid-wrapper {
+  background-color: #EADDDD;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding: 0;
+}
+
+.animals-page__grid-wrapper .animals-page__content {
+  padding: 48px 32px;
 }
 
 .animals-page__filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  padding: 14px;
-  border-radius: 16px;
-  background: var(--color-card-bg);
-  border: 1px solid var(--color-border);
+  gap: 12px;
+  padding: 20px;
+  border-radius: 12px;
+  background: var(--color-surface);
+  border: 2px solid #E8856A;
+  box-shadow: var(--shadow-md);
 }
 
 .animals-page__filters select,
 .animals-page__reset {
   min-height: 40px;
-  border-radius: 10px;
-  border: 1px solid var(--color-border);
-  background: #fff;
-  color: var(--color-warm-dark);
+  border-radius: 8px;
+  border: 2px solid #E8856A;
+  background: var(--color-surface);
+  color: var(--color-text);
   font: inherit;
-  padding: 0 0.75rem;
+  font-weight: 500;
+  padding: 0 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.animals-page__filters select:focus {
+  outline: none;
+  border-color: #D4724F;
+  background: #F5F1ED;
 }
 
 .animals-page__reset {
   cursor: pointer;
-  background: transparent;
-  border-color: var(--color-terracotta);
-  color: var(--color-terracotta);
+  background: #E8856A;
+  border-color: #E8856A;
+  color: white;
+  font-weight: 600;
 }
 
 .animals-page__reset:hover {
-  background: var(--color-terracotta);
-  color: #fff;
+  background: #D4724F;
+  border-color: #D4724F;
+  box-shadow: var(--shadow-md);
 }
 
 .animals-page__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 28px;
 }
 
 .animals-page__empty {
   margin: 20px 0 0;
   text-align: center;
-  color: var(--color-muted);
-  padding: 40px 20px;
-  border: 1px dashed var(--color-border);
+  color: var(--color-text-muted);
+  padding: 60px 20px;
+  border: 2px dashed var(--color-border);
+  border-radius: 12px;
+  background: var(--color-background-secondary);
+}
+
+/* Featured card in hero */
+.featured-card {
+  background: var(--color-surface);
   border-radius: 16px;
-  background: var(--color-card-bg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  height: 520px;
+}
+
+.featured-card__label {
+  background: linear-gradient(135deg, #E8856A 0%, #8C6B6B 100%);
+  color: white;
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.featured-card__image {
+  background: linear-gradient(135deg, #D4B5AC 0%, #C3AeA0 100%);
+  height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.featured-card__emoji {
+  font-size: 5rem;
+  line-height: 1;
+}
+
+.featured-card__body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.featured-card__name {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+  font-family: 'Playfair Display', serif;
+}
+
+.featured-card__breed {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #2F2A2A !important;
+  font-weight: 500;
+}
+
+.featured-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 4px 0;
+}
+
+.featured-card__tag {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+}
+
+/* Temperament tags - Green */
+.featured-card__tag[data-type="temperament"] {
+  background-color: #6B9470;
+}
+
+/* Age tags - Blue */
+.featured-card__tag[data-type="age"] {
+  background-color: #6B9194;
+}
+
+/* Vaccinated tags - Orange */
+.featured-card__tag[data-type="vaccinated"] {
+  background-color: #845C1F;
+}
+
+.featured-card__btn {
+  background: linear-gradient(135deg, #E8856A 0%, #8C6B6B 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: auto;
+}
+
+.featured-card__btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Stats section in hero */
+.animals-page__stats {
+  display: flex;
+  gap: 60px;
+  margin-top: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.stat-number {
+  font-family: 'Kalnia', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #C3AeA0;
+  max-width: 120px;
+  line-height: 1.3;
 }
 
 @media (max-width: 768px) {
-  .animals-page {
+  .animals-page__content {
     padding: 32px 18px;
+  }
+  
+  .animals-page__header {
+    padding: 60px 20px;
+  }
+
+  .animals-page__stats {
+    gap: 30px;
+    margin-top: 30px;
+  }
+
+  .stat-number {
+    font-size: 1.75rem;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+  }
+  
+  .animals-page__grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
   }
 }
