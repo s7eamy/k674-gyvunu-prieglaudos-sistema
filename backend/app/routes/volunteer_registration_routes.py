@@ -34,7 +34,8 @@ def create_volunteer_registration():
         user_id=user_id,
         date=datetime.strptime(data["date"], "%Y-%m-%d"),
         time_from=data["time_from"],
-        time_to=data["time_to"]
+        time_to=data["time_to"],
+        tasks=data["tasks"]
     )
 
     return jsonify(registration), 201

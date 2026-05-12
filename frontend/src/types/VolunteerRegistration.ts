@@ -8,4 +8,5 @@ export interface VolunteerRegistration {
     approved: boolean; // admin approval
     attended: boolean; // confirmed attendance
     created_at: Date; // default = now()  
+    tasks: string[];
 }

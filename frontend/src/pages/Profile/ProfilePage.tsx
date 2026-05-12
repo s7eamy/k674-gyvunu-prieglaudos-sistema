@@ -5,10 +5,14 @@ import DonorLevelCard from '../../components/common/DonorLevelCard';
 import VolunteerLevelCard from '../../components/common/VolunteerLevelCard';
 import AnimalCard from '../../components/common/AnimalCard';
 import AnimalModal from '../../components/common/AnimalModal';
+import VolunteerRegistrationCard from '../../components/common/VolunteerRegistrationCard';
+import VolunteerRegistrationModal from '../../components/common/VolunteerRegistrationModal';
 import { getFavoriteAnimals } from '../../services/animalService';
 import { getUserAdoptionRequests } from '../../services/adoptionRequestService';
+import { getUserVolunteerRegistrations } from '../../services/volunteerRegistrationService';
 import type {Animal} from '../../types/Animal';
 import type { AdoptionRequest } from '../../types/AdoptionRequest';
+import type { VolunteerRegistration } from '../../types/VolunteerRegistration';
 import { getUserProfile, type UserProfile } from '../../services/userService';
 import './ProfilePage.css';
 
@@ -19,7 +23,9 @@ function ProfilePage() {
   const [error, setError] = useState('');
   const [favoriteAnimals, setFavoriteAnimals] = useState<Animal[]>([]);
   const [adoptionRequests, setAdoptionRequests] = useState<AdoptionRequest[]>([]);
+  const [volunteerRegistrations, setVolunteerRegistrations] = useState<VolunteerRegistration[]>([]);
   const [selectedAnimal, setSelectedAnimal] = useState<Animal | null>(null);
+  const [selectedVolunteerRegistration, setSelectedVolunteerRegistration] = useState<VolunteerRegistration | null>(null);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -65,6 +71,18 @@ function ProfilePage() {
       }
     };
     fetchAdoptionRequests();
+  }, []);
+
+  useEffect(() => {
+    const fetchVolunteerRegistrations = async () => {
+      try {
+        const registrations = await getUserVolunteerRegistrations();
+        setVolunteerRegistrations(registrations);
+      } catch(err) {
+        console.error(err);
+      }
+    };
+    fetchVolunteerRegistrations();
   }, []);
 
   if (isLoading) {
@@ -177,12 +195,32 @@ function ProfilePage() {
                 />
               );
             })}
-          </section>
+          </section> 
         )}
+        <header className="animals-page__header">
+              <h1>Volunteering history</h1>
+              <p>{volunteerRegistrations.length} volunteering{volunteerRegistrations.length !== 1 ? 's' : ''}</p>
+            </header>
+
+            {volunteerRegistrations.length === 0 ? (
+              <p className="animals-page__empty">No volunteering sessions yet. Go to the volunteering page and make a registration to get started.</p>
+            ) : (
+              <div className="profile-page__adoption-grid">
+                          {volunteerRegistrations.map((volunteerRegistration) => (
+                    <VolunteerRegistrationCard 
+                      key={volunteerRegistration.id}
+                      volunteerRegistration={volunteerRegistration} 
+                      onAbout={(v) => setSelectedVolunteerRegistration(v)} 
+                    />
+                  ))}
+              </div>
+            )}
         </div>
       </main>
        <AnimalModal key={selectedAnimal?.id} animal={selectedAnimal}
        onClose={() => setSelectedAnimal(null)}/>
+       <VolunteerRegistrationModal key={selectedVolunteerRegistration?.id} volunteerRegistration={selectedVolunteerRegistration}
+       onClose={() => setSelectedVolunteerRegistration(null)}/>
     </>
   );
 }

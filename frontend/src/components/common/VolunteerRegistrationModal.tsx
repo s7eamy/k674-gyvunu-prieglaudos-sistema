@@ -123,6 +123,25 @@ function VolunteerRegistrationModal({
           </section>
 
           <section className="volunteer-modal__section">
+            <h3>Available tasks</h3>
+            
+             {volunteerRegistration.tasks.length > 0 ?
+              volunteerRegistration.tasks.map((task, index) => (
+                <div style={{ display:'inline-block' }}>
+                <span 
+                  key={index} 
+                  className="volunteer-modal__task"
+                >
+                  {task}
+                </span>
+                </div>
+              ))
+            : (<p>No tasks selected.</p>) 
+             }
+            
+          </section>
+
+          <section className="volunteer-modal__section">
             <h3>Approval</h3>
             <p>
               {volunteerRegistration.approved

@@ -4,7 +4,7 @@ import axios from 'axios';
 import type { VolunteerRegistration } from '../types/VolunteerRegistration';
 import type { VolunteerLevel } from '../types/VolunteerLevel';
 
-export const getAll = async (): Promise<VolunteerRegistration[]> => {
+export const getUserVolunteerRegistrations = async (): Promise<VolunteerRegistration[]> => {
   try {
     const response = await api.get<{ volunteerRegistrations: VolunteerRegistration[] }>("/api/volunteer", {});
     return response.data.volunteerRegistrations;
@@ -32,12 +32,12 @@ export const getLevel = async (): Promise<VolunteerLevel> => {
   }
 };
 
-export const createRegistration = async (date:string, time_from:string, time_to:string):
+export const createRegistration = async (date:string, time_from:string, time_to:string, tasks:string[]):
 Promise<VolunteerRegistration> => {
   
   const response = await api.post<VolunteerRegistration>(
     "/api/volunteer",
-    {date, time_from, time_to}
+    {date, time_from, time_to, tasks}
   );
 
   return response.data;
