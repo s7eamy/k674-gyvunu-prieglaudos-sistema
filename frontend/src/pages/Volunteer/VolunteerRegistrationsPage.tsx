@@ -1,6 +1,6 @@
 // Volunteer page — users can sign up for a volunteering spot
 import { useState, useEffect } from 'react';
-import { getAll, getLevel, createRegistration } from '../../services/volunteerRegistrationService';
+import { getUserVolunteerRegistrations, getLevel, createRegistration } from '../../services/volunteerRegistrationService';
 import type { VolunteerRegistration } from '../../types/VolunteerRegistration';
 import type { VolunteerLevel } from '../../types/VolunteerLevel';
 import Navbar from '../../components/layout/Navbar';
@@ -69,7 +69,7 @@ export default function VolunteerRegistrationsPage() {
   useEffect(() => {
     const fetchVolunteerRegistrations = async () => {
       try {
-        const [registrations, level] = await Promise.all([getAll(), getLevel()]);
+        const [registrations, level] = await Promise.all([getUserVolunteerRegistrations(), getLevel()]);
         setVolunteerRegistrations(registrations);
         setVolunteerLevel(level);
       } catch (error) {
@@ -87,9 +87,9 @@ export default function VolunteerRegistrationsPage() {
  const handleCreateRegistration = async () => {
   try {
   
-    await createRegistration(selectedDate, time_from, time_to);
+    await createRegistration(selectedDate, time_from, time_to, selectedTasks);
 
-    const [registrations, level] = await Promise.all([getAll(), getLevel()]);
+    const [registrations, level] = await Promise.all([getUserVolunteerRegistrations(), getLevel()]);
     setVolunteerRegistrations(registrations);
     setVolunteerLevel(level);
 

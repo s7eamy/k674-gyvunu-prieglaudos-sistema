@@ -22,7 +22,7 @@ def get_volunteer_registrations(user_id):
     """
     Get all volunteer registrations that belong to user
     """
-    registrations = Volunteer_Registration.query.filter_by(user_id=user_id).all()
+    registrations = Volunteer_Registration.query.filter_by(user_id=user_id).order_by(Volunteer_Registration.date.asc(),Volunteer_Registration.time_from.asc()).all()
 
     return [registration.to_dict() for registration in registrations]
 
@@ -30,7 +30,7 @@ def get_all_volunteer_registrations():
     """
     Get all volunteer registrations from all users
     """
-    registrations = Volunteer_Registration.query.all()
+    registrations = Volunteer_Registration.query.order_by(Volunteer_Registration.date.asc(),Volunteer_Registration.time_from.asc()).all()
 
     return [registration.to_dict() for registration in registrations]
 
@@ -61,7 +61,7 @@ def get_attended_value(id):
     registration = Volunteer_Registration.query.filter_by(id=id).first()
     return registration.attended
 
-def create_volunteer_registration(user_id, date, time_from, time_to):
+def create_volunteer_registration(user_id, date, time_from, time_to, tasks):
     """
     Create new volunteer registration
     """
@@ -70,13 +70,14 @@ def create_volunteer_registration(user_id, date, time_from, time_to):
         user_id=user_id,
         date=date,
         time_from=time_from,
-        time_to=time_to
+        time_to=time_to,
+        tasks=tasks
     )
 
     db.session.add(registration)
     db.session.commit()
-     
-    return registration.to_dict()
+
+    return registration.to_dict(), None
 
 def approve_volunteer_registration(id):
     """

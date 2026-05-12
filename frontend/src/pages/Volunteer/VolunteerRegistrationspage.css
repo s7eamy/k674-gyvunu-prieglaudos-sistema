@@ -526,6 +526,7 @@ calendar nonsense
   border-color: var(--color-terracotta);
   background: #f9f5f0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  color: var(--color-warm-dark);
   transform: translateY(-2px);
 }
 

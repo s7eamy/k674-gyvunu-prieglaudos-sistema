@@ -99,6 +99,19 @@
   font-size: 0.78rem;
 }
 
+.volunteer-modal__task {
+  padding: 0.3rem 0.9rem;
+  border-radius: 20px;
+  background: var(--color-terracotta);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  display: inline-block;
+  margin-top: 0.2rem;
+  margin-right: 0.2rem;
+}
+
 .volunteer-modal__section h3 {
   margin: 0;
   color: var(--color-warm-dark);

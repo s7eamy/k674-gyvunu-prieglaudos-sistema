@@ -14,6 +14,7 @@ class Volunteer_Registration(db.Model):
     approved = db.Column(db.Integer, default=0)  # admin approval before confirming registration 0 - not approved
     attended = db.Column(db.Integer, default=0)  # confirm if volunteer attended, 0 - hasnt attended
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    tasks = db.Column(db.JSON, default=[])
     
     def to_dict(self):
         # Convert model instance to dict for JSON
@@ -25,5 +26,6 @@ class Volunteer_Registration(db.Model):
             'time_to': self.time_to,
             'approved': bool(self.approved), 
             'attended': bool(self.attended),
-            'created_at': self.created_at.isoformat() if self.created_at else None
+            'created_at': self.created_at.isoformat() if self.created_at else None,
+            'tasks': self.tasks
         }
