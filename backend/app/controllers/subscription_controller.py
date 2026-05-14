@@ -2,7 +2,6 @@ from app.models import db
 from app.models.subscription import Subscription
 from app.models.user import User
 from app.models.animal import Animal
-from datetime import datetime
 from flask import current_app
 from app.controllers.email_service import send_new_animal_email
 
