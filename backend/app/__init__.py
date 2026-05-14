@@ -26,6 +26,12 @@ def create_app():
     app.config['FRONTEND_URL'] = os.getenv('FRONTEND_URL', 'http://localhost:5173')
     app.config['STRIPE_SECRET_KEY'] = os.getenv('STRIPE_SECRET_KEY', '')
     app.config['STRIPE_CURRENCY'] = os.getenv('STRIPE_CURRENCY', 'eur')
+    app.config['SMTP_HOST'] = os.getenv('SMTP_HOST', 'smtp.gmail.com')
+    app.config['SMTP_PORT'] = os.getenv('SMTP_PORT', '587')
+    app.config['SMTP_USER'] = os.getenv('SMTP_USER', '')
+    app.config['SMTP_PASSWORD'] = os.getenv('SMTP_PASSWORD', '')
+    app.config['SMTP_FROM_EMAIL'] = os.getenv('SMTP_FROM_EMAIL', '')
+    app.config['SMTP_USE_TLS'] = os.getenv('SMTP_USE_TLS', 'true')
 
     # Initialize extensions
     db.init_app(app)
@@ -58,9 +64,11 @@ def create_app():
     app.register_blueprint(merchandise_bp, url_prefix='/api/merchandise')
     from app.routes.post_routes import post_bp
     app.register_blueprint(post_bp, url_prefix='/api/posts')
+    from app.routes.subscription_routes import subscription_bp
+    app.register_blueprint(subscription_bp, url_prefix='/api/subscriptions')
 
     # Import all models so db.create_all() picks them up
-    from app.models import animal, donation, user, volunteer_registration, merchandise, post, adoption_request # noqa: F401
+    from app.models import animal, donation, user, volunteer_registration, merchandise, post, adoption_request, subscription # noqa: F401
 
     # Create tables if they dont exist
     with app.app_context():

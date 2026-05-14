@@ -7,9 +7,11 @@ import AnimalCard from '../../components/common/AnimalCard';
 import AnimalModal from '../../components/common/AnimalModal';
 import VolunteerRegistrationCard from '../../components/common/VolunteerRegistrationCard';
 import VolunteerRegistrationModal from '../../components/common/VolunteerRegistrationModal';
+import SubscribeModal from '../../components/common/SubscribeModal';
 import { getFavoriteAnimals } from '../../services/animalService';
 import { getUserAdoptionRequests } from '../../services/adoptionRequestService';
 import { getUserVolunteerRegistrations } from '../../services/volunteerRegistrationService';
+import { deleteSubscription, getMySubscriptions, type Subscription } from '../../services/subscriptionService';
 import type {Animal} from '../../types/Animal';
 import type { AdoptionRequest } from '../../types/AdoptionRequest';
 import type { VolunteerRegistration } from '../../types/VolunteerRegistration';
@@ -26,6 +28,8 @@ function ProfilePage() {
   const [volunteerRegistrations, setVolunteerRegistrations] = useState<VolunteerRegistration[]>([]);
   const [selectedAnimal, setSelectedAnimal] = useState<Animal | null>(null);
   const [selectedVolunteerRegistration, setSelectedVolunteerRegistration] = useState<VolunteerRegistration | null>(null);
+  const [subscription, setSubscription] = useState<Subscription | null>(null);
+  const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -48,6 +52,19 @@ function ProfilePage() {
 
     void fetchProfile();
   }, [navigate]);
+
+  useEffect(() => {
+    const fetchSubscription = async () => {
+      try {
+        const response = await getMySubscriptions();
+        const first = response.subscriptions?.[0] || null;
+        setSubscription(first || null);
+      } catch {
+        // ignore if not logged in or no subscription
+      }
+    };
+    fetchSubscription();
+  }, []);
 
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -115,6 +132,22 @@ function ProfilePage() {
       })
     : 'Unknown';
 
+  const parseList = (value?: string | null) =>
+    value ? value.split(',').map((item) => item.trim()).filter(Boolean) : [];
+
+  const handleUnsubscribe = async () => {
+    if (!subscription) {
+      return;
+    }
+    try {
+      await deleteSubscription(subscription.id);
+      setSubscription(null);
+      setIsSubscribeOpen(false);
+    } catch {
+      // ignore unsubscribe errors for now
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -130,6 +163,18 @@ function ProfilePage() {
               <p className="profile-page__registered">
                 Registered on {registeredDate}
               </p>
+            </div>
+            <div className="profile-page__header-actions">
+              <span className="profile-page__subscription-status">
+                {subscription ? 'Subscribed' : 'Not subscribed'}
+              </span>
+              <button
+                type="button"
+                className="navbar__btn navbar__btn--ghost"
+                onClick={() => setIsSubscribeOpen(true)}
+              >
+                Manage notifications
+              </button>
             </div>
           </header>
 
@@ -221,6 +266,18 @@ function ProfilePage() {
        onClose={() => setSelectedAnimal(null)}/>
        <VolunteerRegistrationModal key={selectedVolunteerRegistration?.id} volunteerRegistration={selectedVolunteerRegistration}
        onClose={() => setSelectedVolunteerRegistration(null)}/>
+      {isSubscribeOpen && (
+        <SubscribeModal
+          title="Manage notifications"
+          initial={{
+            animalType: subscription?.animal_type || '',
+            sizes: parseList(subscription?.size),
+            temperaments: parseList(subscription?.temperament),
+          }}
+          onClose={() => setIsSubscribeOpen(false)}
+          onUnsubscribe={subscription ? handleUnsubscribe : undefined}
+        />
+      )}
     </>
   );
 }

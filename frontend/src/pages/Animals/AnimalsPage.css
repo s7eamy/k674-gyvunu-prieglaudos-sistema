@@ -97,6 +97,28 @@
   line-height: 1.7;
 }
 
+.animals-page__subscribe {
+  margin-top: 28px;
+}
+
+.animals-page__subscribe-btn {
+  background: #fff;
+  color: #2E2116;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  padding: 0.8rem 1.6rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: box-shadow 180ms ease, transform 180ms ease, background-color 180ms ease;
+}
+
+.animals-page__subscribe-btn:hover {
+  background: #C3AeA0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  transform: translateY(-1px);
+}
+
 .animals-page__content {
   max-width: 1200px;
   margin: 0 auto;
