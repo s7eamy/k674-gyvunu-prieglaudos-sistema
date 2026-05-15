@@ -16,6 +16,7 @@ import AddAnimalPage from './pages/Admin/AddAnimalPage';
 import PostCreationPage from './pages/Admin/PostCreationPage';
 import PostsPage from './pages/Posts/PostsPage';
 import AdminFeaturePlaceholderPage from './pages/Admin/AdminFeaturePlaceholderPage';
+import LeaderboardPage from './pages/Leaderboard/LeaderboardPage';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path="/admin/post-creation" element={<PostCreationPage />} />
         <Route path="/merchandise" element={<MerchandisePage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/leaderboard" element={<LeaderboardPage />} />
         <Route path="/admin/add-animal" element={<AddAnimalPage />} />
         <Route
           path="/admin/merchandise"

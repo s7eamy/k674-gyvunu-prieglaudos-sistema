@@ -14,6 +14,17 @@ def get_all_users():
 
     return [user.to_dict() for user in allUsers]
 
+def get_leaderboard_users():
+    """
+    Get data of top 5 users based on vol and donate points
+    """
+    topUsers = User.query.filter(User.role!='admin').order_by((User.volunteer_points*25+User.donation_points).desc()).slice(0,5)
+    
+    if not topUsers:
+        return None, "Couldn't find users"
+
+    return [user.to_dict() for user in topUsers], None
+
 def get_user_by_id(id):
     """
     Get data of user with selected id
