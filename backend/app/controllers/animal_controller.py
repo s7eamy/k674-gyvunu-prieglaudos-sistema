@@ -123,6 +123,14 @@ def add_animal(data, files):
                     db.session.add(new_image)
 
         db.session.commit()
+        # Notify subscribers about new animal
+        try:
+            from app.controllers import subscription_controller
+            subscription_controller.notify_subscribers_for_animal(animal)
+        except Exception:
+            # don't fail the request if notifications fail
+            pass
+
         return animal.to_dict(), None
     except Exception as e:
         db.session.rollback()

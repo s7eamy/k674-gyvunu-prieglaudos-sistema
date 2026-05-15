@@ -6,9 +6,11 @@ import type { Animal } from '../../types/Animal';
 import Navbar from '../../components/layout/Navbar';
 import AnimalCard from '../../components/common/AnimalCard';
 import AnimalModal from '../../components/common/AnimalModal';
+import SubscribeModal from '../../components/common/SubscribeModal';
 import './AnimalsPage.css';
 
 export default function AnimalsPage() {
+  const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
   const [animals, setAnimals] = useState<Animal[]>([]);
   const [favoriteIds, setFavoriteIds] = useState<number[]>([]);
   const [adoptionStatusMap, setAdoptionStatusMap] = useState<Record<number, 'pending' | 'approved'>>({});
@@ -113,6 +115,15 @@ export default function AnimalsPage() {
                   <span className="stat-number">38</span>
                   <span className="stat-label">Foster Homes Needed</span>
                 </div>
+              </div>
+              <div className="animals-page__subscribe">
+                <button
+                  type="button"
+                  className="animals-page__subscribe-btn"
+                  onClick={() => setIsSubscribeOpen(true)}
+                >
+                  Subscribe to new animals
+                </button>
               </div>
             </div>
             
@@ -293,6 +304,7 @@ export default function AnimalsPage() {
        onClose={() => setSelectedAnimal(null)}
        onAdopt={handleAdoptionRequest}
        adoptionStatus={selectedAnimal ? (adoptionStatusMap[selectedAnimal.id] ?? null) : null}/>
+      {isSubscribeOpen && <SubscribeModal onClose={() => setIsSubscribeOpen(false)} />}
     </>
   );
 }
