@@ -66,6 +66,8 @@ def create_app():
     app.register_blueprint(post_bp, url_prefix='/api/posts')
     from app.routes.subscription_routes import subscription_bp
     app.register_blueprint(subscription_bp, url_prefix='/api/subscriptions')
+    from app.routes.leaderboard_routes import leaderboard_bp
+    app.register_blueprint(leaderboard_bp, url_prefix='/api/leaderboard')
 
     # Import all models so db.create_all() picks them up
     from app.models import animal, donation, user, volunteer_registration, merchandise, post, adoption_request, subscription # noqa: F401
