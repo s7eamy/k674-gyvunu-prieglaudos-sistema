@@ -137,7 +137,7 @@ function Navbar() {
                   to="/leaderboard"
                   className={`navbar__link ${isLeaderboardActive ? 'is-active' : ''}`}
                 >
-                  🏆 leaderboard
+                  🏆 Leaderboard
                 </Link>
               </>
             )}
