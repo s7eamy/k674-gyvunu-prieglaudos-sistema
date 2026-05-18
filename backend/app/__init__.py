@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from flask import Flask
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
+from sqlalchemy import text
 from app.models import db
 
 jwt = JWTManager()
@@ -72,8 +73,19 @@ def create_app():
     # Import all models so db.create_all() picks them up
     from app.models import animal, donation, user, volunteer_registration, merchandise, post, adoption_request, subscription # noqa: F401
 
-    # Create tables if they dont exist
+    # Create tables if they dont exist, and ensure the volunteer registrations schema is up to date
     with app.app_context():
         db.create_all()
+        ensure_volunteer_registration_schema()
     
     return app
+
+
+def ensure_volunteer_registration_schema():
+    """Ensure the volunteer_registrations table has the tasks column."""
+    result = db.session.execute(text("PRAGMA table_info(volunteer_registrations)"))
+    columns = [row[1] for row in result]
+    if 'tasks' not in columns:
+        db.session.execute(text("ALTER TABLE volunteer_registrations ADD COLUMN tasks JSON DEFAULT '[]'"))
+        db.session.execute(text("UPDATE volunteer_registrations SET tasks = '[]' WHERE tasks IS NULL"))
+        db.session.commit()
