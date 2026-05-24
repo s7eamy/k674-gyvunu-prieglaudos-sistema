@@ -1,0 +1,12 @@
+{
+  "defaultTitle": "Prenumeruoti naujus gyvūnus",
+  "subtitle": "Pasirinkite kriterijus, kad gautumėte tik aktualius pranešimus.",
+  "animalType": "Gyvūno rūšis",
+  "either": "Bet kuri",
+  "size": "Dydis",
+  "temperament": "Temperamentas",
+  "saveError": "Nepavyko išsaugoti prenumeratos",
+  "unsubscribe": "Atsisakyti prenumeratos",
+  "cancel": "Atšaukti",
+  "save": "Išsaugoti"
+}

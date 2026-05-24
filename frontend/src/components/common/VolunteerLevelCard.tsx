@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import type { VolunteerLevel } from '../../types/VolunteerLevel';
 import './VolunteerLevelCard.css';
 
@@ -6,12 +7,13 @@ type VolunteerLevelCardProps = {
 };
 
 function VolunteerLevelCard({ volunteerLevel }: VolunteerLevelCardProps) {
+  const { t } = useTranslation('volunteer');
   return (
     <div className="volunteer-level">
       <div className="volunteer-level__info">
-        <span className="volunteer-level__badge">Level {volunteerLevel.level}</span>
+        <span className="volunteer-level__badge">{t('level.badge', { level: volunteerLevel.level })}</span>
         <span className="volunteer-level__completed">
-          {volunteerLevel.completed_count} volunteering{volunteerLevel.completed_count !== 1 ? 's' : ''} completed
+          {t('level.completed', { count: volunteerLevel.completed_count })}
         </span>
       </div>
       <div className="volunteer-level__bar-container">
@@ -24,10 +26,10 @@ function VolunteerLevelCard({ volunteerLevel }: VolunteerLevelCardProps) {
       </div>
       {volunteerLevel.next_threshold !== null ? (
         <p className="volunteer-level__next">
-          Next level at {volunteerLevel.next_threshold} completed volunteerings
+          {t('level.nextThreshold', { count: volunteerLevel.next_threshold })}
         </p>
       ) : (
-        <p className="volunteer-level__next">Max level reached!</p>
+        <p className="volunteer-level__next">{t('level.maxLevel')}</p>
       )}
     </div>
   );

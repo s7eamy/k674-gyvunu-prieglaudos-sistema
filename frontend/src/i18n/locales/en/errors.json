@@ -1,0 +1,13 @@
+{
+  "generic": "An unexpected error occurred.",
+  "network": "Network error. Please try again.",
+  "server_unknown": "Unknown server error.",
+  "not_logged_in": "Please log in to continue.",
+  "not_admin": "Only administrators can perform this action.",
+  "validation_generic": "Validation error.",
+  "auth": {
+    "invalid_credentials": "Invalid username or password.",
+    "user_exists": "User with this username already exists.",
+    "email_exists": "User with this email already exists."
+  }
+}

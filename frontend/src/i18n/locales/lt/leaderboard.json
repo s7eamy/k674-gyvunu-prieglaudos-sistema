@@ -1,0 +1,15 @@
+{
+  "heroTitle": "🏆Lyderiai🏆",
+  "heroSubtitle": "Mūsų aktyviausi vartotojai",
+  "loading": "Kraunama lentelė…",
+  "errorPrefix": "Klaida: {{message}}",
+  "empty": "Vartotojų nerasta :(",
+  "loadFailed": "Nepavyko įkelti lyderių lentelės",
+  "columns": {
+    "rank": "Vieta",
+    "user": "Vartotojas",
+    "totalPoints": "Iš viso taškų",
+    "donationPoints": "Paramos taškų",
+    "volunteerPoints": "Savanorystės taškų"
+  }
+}

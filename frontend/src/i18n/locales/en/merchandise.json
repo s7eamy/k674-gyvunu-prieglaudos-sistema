@@ -1,0 +1,89 @@
+{
+  "hero": {
+    "title": "Exclusive Merchandise",
+    "subtitle": "Support our shelter with unique, beautifully designed merchandise. Every purchase directly supports animal rescue and care.",
+    "stats": {
+      "sold": "Items Sold",
+      "raised": "Raised for Animals",
+      "toCare": "To Animal Care"
+    }
+  },
+  "shop": {
+    "chooseTshirt": "Choose Your T-Shirt",
+    "customize": "Customize & Buy",
+    "color": "Color",
+    "size": "Size",
+    "quantity": "Quantity",
+    "unitPrice": "Unit price: {{price}}",
+    "totalLabel": "Total: {{price}}",
+    "donationPoints": "Donation points: {{count}}",
+    "addToCart": "Add to Cart",
+    "adding": "Adding…",
+    "errorAdd": "Failed to add item to cart."
+  },
+  "modal": {
+    "title": "Item added to cart",
+    "subtitleLoggedIn": "Your selection has been saved. Proceed to checkout now or continue shopping.",
+    "subtitleLoggedOut": "Your selection has been saved. Continue shopping now, and log in later to checkout.",
+    "continue": "Continue shopping",
+    "checkout": "Go to checkout"
+  },
+  "cart": {
+    "itemCount_one": "{{count}} item",
+    "itemCount_other": "{{count}} items",
+    "login": "Login",
+    "register": "Register",
+    "myCart": "My Cart",
+    "subtitle": "Items waiting for checkout",
+    "continueShopping": "Continue Shopping",
+    "empty": "Your cart is empty.",
+    "emptyHint": "Choose a design on the merchandise page and add it to your cart.",
+    "browse": "Browse Merchandise",
+    "inCart": "In cart",
+    "colorLabel": "Color:",
+    "sizeLabel": "Size:",
+    "qtyLabel": "Quantity:",
+    "remove": "Remove",
+    "summary": "Order summary",
+    "itemsTotal": "Items total",
+    "summaryNote": "Payment and shipping will be handled after login.",
+    "processing": "Processing…",
+    "checkout": "Checkout",
+    "loginToCheckout": "Login to Checkout",
+    "addBeforeCheckout": "Add some items to the cart before checkout.",
+    "checkoutSuccess": "Checkout completed successfully. Your orders are visible below.",
+    "checkoutFailed": "Checkout failed. Please try again.",
+    "loadOrdersFailed": "Failed to load orders. Please log in to view your purchase history."
+  },
+  "history": {
+    "title": "Purchase history",
+    "subtitle": "Completed orders appear here once you checkout.",
+    "hiddenNote": "Purchase history is hidden. Expand to load your completed orders.",
+    "noOrders": "No completed orders yet.",
+    "count_one": "{{count}} completed order",
+    "count_other": "{{count}} completed orders",
+    "loading": "Loading orders…",
+    "noPrevious": "No previous orders yet.",
+    "futurePurchases": "Your completed purchases will appear here.",
+    "viewHistory": "View history",
+    "hideHistory": "Hide history",
+    "showAll": "Show all {{count}} orders",
+    "showFewer": "Show fewer orders",
+    "loginPrompt": "Please log in to view order history.",
+    "loginButton": "Login",
+    "order": "Order #{{id}}",
+    "designLabel": "Design:",
+    "colorLabel": "Color:",
+    "sizeLabel": "Size:",
+    "qtyLabel": "Quantity:",
+    "priceLabel": "Price:",
+    "donationPointsLabel": "Donation Points:",
+    "orderedDate": "Ordered: {{date}}"
+  },
+  "designDescriptions": {
+    "shelter-love": "Show your love for the animals you help save.",
+    "rescue-me": "Help spread the message that rescue animals make great pets.",
+    "mix": "Celebrate the diversity of animals you can find at our shelter.",
+    "plain": "A simple T-Shirt design for a more subtle support."
+  }
+}

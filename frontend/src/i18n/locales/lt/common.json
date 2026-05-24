@@ -1,0 +1,42 @@
+{
+  "actions": {
+    "submit": "Pateikti",
+    "cancel": "Atšaukti",
+    "close": "Uždaryti",
+    "save": "Išsaugoti",
+    "delete": "Ištrinti",
+    "edit": "Redaguoti",
+    "back": "Atgal",
+    "next": "Toliau",
+    "previous": "Atgal",
+    "confirm": "Patvirtinti",
+    "view": "Peržiūrėti",
+    "search": "Ieškoti",
+    "loading": "Kraunama…",
+    "submitting": "Siunčiama…",
+    "saving": "Saugoma…",
+    "retry": "Bandyti dar kartą",
+    "yes": "Taip",
+    "no": "Ne"
+  },
+  "labels": {
+    "name": "Vardas",
+    "email": "El. paštas",
+    "phone": "Telefonas",
+    "date": "Data",
+    "time": "Laikas",
+    "status": "Būsena",
+    "details": "Išsami informacija",
+    "description": "Aprašymas",
+    "amount": "Suma",
+    "total": "Iš viso",
+    "unknown": "Nežinoma",
+    "optional": "neprivaloma",
+    "required": "privaloma"
+  },
+  "states": {
+    "empty": "Kol kas nieko nėra.",
+    "error": "Įvyko klaida.",
+    "loading": "Kraunama…"
+  }
+}

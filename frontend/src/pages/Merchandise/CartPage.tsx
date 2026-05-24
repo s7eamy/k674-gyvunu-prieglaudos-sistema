@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Navbar from '../../components/layout/Navbar';
 import * as merchandiseService from '../../services/merchandiseService';
 import type { Merchandise } from '../../types/Merchandise';
 import type { CartItem } from '../../types/CartItem';
+import { useEnumLabel } from '../../i18n/useEnumLabel';
+import { useFormatters } from '../../i18n/formatters';
 import './MerchandisePage.css';
 
 const MERCH_CART_STORAGE_KEY = 'merchandise_cart_items';
@@ -22,6 +25,9 @@ const saveCartItems = (items: CartItem[]) => {
 };
 
 export default function CartPage() {
+  const { t } = useTranslation('merchandise');
+  const enumLabel = useEnumLabel();
+  const { formatCurrency, formatDate } = useFormatters();
   const navigate = useNavigate();
   const [orders, setOrders] = useState<Merchandise[]>([]);
   const [cartItems, setCartItems] = useState<CartItem[]>(() => loadCartItems());
@@ -45,7 +51,7 @@ export default function CartPage() {
       setHistoryFetched(true);
       setError('');
     } catch (err) {
-      setError('Failed to load orders. Please log in to view your purchase history.');
+      setError(t('cart.loadOrdersFailed'));
       console.error(err);
     } finally {
       setLoading(false);
@@ -55,14 +61,13 @@ export default function CartPage() {
   const handleToggleHistory = async () => {
     const nextValue = !showHistory;
     setShowHistory(nextValue);
-
     if (nextValue && isLoggedIn && !historyFetched) {
       await fetchOrders();
     }
   };
 
   const handleRemoveCartItem = (itemId: string) => {
-    const updatedCart = cartItems.filter(item => item.id !== itemId);
+    const updatedCart = cartItems.filter((item) => item.id !== itemId);
     setCartItems(updatedCart);
     saveCartItems(updatedCart);
   };
@@ -74,7 +79,7 @@ export default function CartPage() {
     }
 
     if (cartItems.length === 0) {
-      setCheckoutMessage('Add some items to the cart before checkout.');
+      setCheckoutMessage(t('cart.addBeforeCheckout'));
       return;
     }
 
@@ -89,7 +94,7 @@ export default function CartPage() {
           size: item.size,
           design: item.design,
           quantity: item.quantity,
-          price: item.price
+          price: item.price,
         });
       }
 
@@ -97,38 +102,33 @@ export default function CartPage() {
       setCartItems(updatedCart);
       saveCartItems(updatedCart);
       await fetchOrders();
-      setCheckoutMessage('Checkout completed successfully. Your orders are visible below.');
+      setCheckoutMessage(t('cart.checkoutSuccess'));
     } catch (err) {
-      setError('Checkout failed. Please try again.');
+      setError(t('cart.checkoutFailed'));
       console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
-  const getDesignName = (designId: string) => {
-    const design = merchandiseService.AVAILABLE_DESIGNS.find(d => d.id === designId);
-    return design?.name || designId;
-  };
-
   const getCartItemImage = (designId: string, color: string) => {
     const shirtImages: Record<string, Record<string, string>> = {
       'shelter-love': {
         white: '/images/merch/white_shirt_cat.png',
-        black: '/images/merch/black_shirt_cat.png'
+        black: '/images/merch/black_shirt_cat.png',
       },
       'rescue-me': {
         white: '/images/merch/white_shirt_dog.png',
-        black: '/images/merch/black_shirt_dog.png'
+        black: '/images/merch/black_shirt_dog.png',
       },
       mix: {
         white: '/images/merch/white_shirt_mix.png',
-        black: '/images/merch/black_shirt_mix.png'
+        black: '/images/merch/black_shirt_mix.png',
       },
       plain: {
         white: '/images/merch/white_shirt.jpg',
-        black: '/images/merch/black_shirt.png'
-      }
+        black: '/images/merch/black_shirt.png',
+      },
     };
 
     const colors = shirtImages[designId] || shirtImages.plain;
@@ -143,14 +143,14 @@ export default function CartPage() {
       <div className="merchandise-page cart-page">
         <div className="page-heading">
           <div className="cart-top-right">
-            <div className="cart-count-pill">{cartItems.length} item{cartItems.length === 1 ? '' : 's'}</div>
+            <div className="cart-count-pill">{t('cart.itemCount', { count: cartItems.length })}</div>
             {!isLoggedIn && (
               <div className="auth-buttons">
                 <button type="button" className="btn-secondary" onClick={() => navigate('/login')}>
-                  Login
+                  {t('cart.login')}
                 </button>
                 <button type="button" className="btn-primary" onClick={() => navigate('/register')}>
-                  Register
+                  {t('cart.register')}
                 </button>
               </div>
             )}
@@ -164,45 +164,45 @@ export default function CartPage() {
           <section className="cart-panel panel-card">
             <div className="panel-header">
               <div>
-                <h2>My Cart</h2>
-                <p className="panel-subtitle">Items waiting for checkout</p>
+                <h2>{t('cart.myCart')}</h2>
+                <p className="panel-subtitle">{t('cart.subtitle')}</p>
               </div>
               <button type="button" className="btn-secondary" onClick={() => navigate('/merchandise')}>
-                Continue Shopping
+                {t('cart.continueShopping')}
               </button>
             </div>
 
             {cartItems.length === 0 ? (
               <div className="empty-state-card">
-                <p className="no-orders">Your cart is empty.</p>
-                <p className="empty-state-text">Choose a design on the merchandise page and add it to your cart.</p>
+                <p className="no-orders">{t('cart.empty')}</p>
+                <p className="empty-state-text">{t('cart.emptyHint')}</p>
                 <button type="button" className="btn-primary" onClick={() => navigate('/merchandise')}>
-                  Browse Merchandise
+                  {t('cart.browse')}
                 </button>
               </div>
             ) : (
               <div className="cart-item-list">
-                {cartItems.map(item => (
+                {cartItems.map((item) => (
                   <article key={item.id} className="cart-item-card">
                     <img
                       src={getCartItemImage(item.design, item.color)}
-                      alt={`${getDesignName(item.design)} tee`}
+                      alt={enumLabel('merch_design', item.design)}
                       className="cart-item-image"
                     />
                     <div className="cart-item-body">
                       <div className="order-header">
-                        <h3>{getDesignName(item.design)}</h3>
-                        <span className="badge-pending">In cart</span>
+                        <h3>{enumLabel('merch_design', item.design)}</h3>
+                        <span className="badge-pending">{t('cart.inCart')}</span>
                       </div>
                       <div className="cart-item-details">
-                        <p><strong>Color:</strong> {item.color.charAt(0).toUpperCase() + item.color.slice(1)}</p>
-                        <p><strong>Size:</strong> {item.size}</p>
-                        <p><strong>Quantity:</strong> {item.quantity}</p>
+                        <p><strong>{t('cart.colorLabel')}</strong> {enumLabel('merch_color', item.color)}</p>
+                        <p><strong>{t('cart.sizeLabel')}</strong> {item.size}</p>
+                        <p><strong>{t('cart.qtyLabel')}</strong> {item.quantity}</p>
                       </div>
                       <div className="cart-item-footer">
-                        <p className="cart-item-price">€{item.price.toFixed(2)}</p>
+                        <p className="cart-item-price">{formatCurrency(item.price)}</p>
                         <button type="button" className="btn-delete" onClick={() => handleRemoveCartItem(item.id)}>
-                          Remove
+                          {t('cart.remove')}
                         </button>
                       </div>
                     </div>
@@ -212,21 +212,21 @@ export default function CartPage() {
             )}
 
             <div className="cart-summary panel-card panel-shadow">
-              <h3>Order summary</h3>
+              <h3>{t('cart.summary')}</h3>
               <div className="summary-line">
-                <span>Items total</span>
-                <strong>€{cartTotal.toFixed(2)}</strong>
+                <span>{t('cart.itemsTotal')}</span>
+                <strong>{formatCurrency(cartTotal)}</strong>
               </div>
               <div className="summary-line summary-note">
-                <span>Payment and shipping will be handled after login.</span>
+                <span>{t('cart.summaryNote')}</span>
               </div>
               {isLoggedIn ? (
                 <button type="button" className="btn-primary btn-block" onClick={handleCheckout} disabled={loading}>
-                  {loading ? 'Processing...' : 'Checkout'}
+                  {loading ? t('cart.processing') : t('cart.checkout')}
                 </button>
               ) : (
                 <button type="button" className="btn-secondary btn-block" onClick={() => navigate('/login')}>
-                  Login to Checkout
+                  {t('cart.loginToCheckout')}
                 </button>
               )}
             </div>
@@ -235,8 +235,8 @@ export default function CartPage() {
           <aside className="history-panel panel-card">
             <div className="panel-header">
               <div>
-                <h2>Purchase history</h2>
-                <p className="panel-subtitle">Completed orders appear here once you checkout.</p>
+                <h2>{t('history.title')}</h2>
+                <p className="panel-subtitle">{t('history.subtitle')}</p>
               </div>
             </div>
 
@@ -246,48 +246,50 @@ export default function CartPage() {
                   <p className="panel-summary-text">
                     {historyFetched
                       ? orders.length === 0
-                        ? 'No completed orders yet.'
-                        : `${orders.length} completed order${orders.length === 1 ? '' : 's'}`
-                      : 'Purchase history is hidden. Expand to load your completed orders.'}
+                        ? t('history.noOrders')
+                        : t('history.count', { count: orders.length })
+                      : t('history.hiddenNote')}
                   </p>
                   <button type="button" className="btn-secondary btn-sm" onClick={handleToggleHistory}>
-                    {showHistory ? 'Hide history' : 'View history'}
+                    {showHistory ? t('history.hideHistory') : t('history.viewHistory')}
                   </button>
                 </div>
 
                 {showHistory && (
                   loading ? (
-                    <p className="loading">Loading orders...</p>
+                    <p className="loading">{t('history.loading')}</p>
                   ) : orders.length === 0 ? (
                     <div className="empty-state-card">
-                      <p className="no-orders">No previous orders yet.</p>
-                      <p className="empty-state-text">Your completed purchases will appear here.</p>
+                      <p className="no-orders">{t('history.noPrevious')}</p>
+                      <p className="empty-state-text">{t('history.futurePurchases')}</p>
                     </div>
                   ) : (
                     <>
                       <div className="orders-list orders-history-list">
-                        {(showAllHistory ? orders : orders.slice(0, 5)).map(order => (
+                        {(showAllHistory ? orders : orders.slice(0, 5)).map((order) => (
                           <div key={order.id} className="order-card">
                             <div className="order-header">
-                              <h3>Order #{order.id}</h3>
-                              <span className={`status-badge ${order.order_status}`}>{order.order_status}</span>
+                              <h3>{t('history.order', { id: order.id })}</h3>
+                              <span className={`status-badge ${order.order_status}`}>
+                                {enumLabel('order_status', order.order_status)}
+                              </span>
                             </div>
                             <div className="order-details order-details-grid">
-                              <p><strong>Design:</strong> {getDesignName(order.design)}</p>
-                              <p><strong>Color:</strong> {order.color.charAt(0).toUpperCase() + order.color.slice(1)}</p>
-                              <p><strong>Size:</strong> {order.size}</p>
-                              <p><strong>Quantity:</strong> {order.quantity}</p>
-                              <p><strong>Price:</strong> €{order.price.toFixed(2)}</p>
-                              <p className="donation-points"><strong>Donation Points:</strong> {order.donation_points}</p>
-                              <p className="order-date">Ordered: {new Date(order.created_at).toLocaleDateString()}</p>
+                              <p><strong>{t('history.designLabel')}</strong> {enumLabel('merch_design', order.design)}</p>
+                              <p><strong>{t('history.colorLabel')}</strong> {enumLabel('merch_color', order.color)}</p>
+                              <p><strong>{t('history.sizeLabel')}</strong> {order.size}</p>
+                              <p><strong>{t('history.qtyLabel')}</strong> {order.quantity}</p>
+                              <p><strong>{t('history.priceLabel')}</strong> {formatCurrency(order.price)}</p>
+                              <p className="donation-points"><strong>{t('history.donationPointsLabel')}</strong> {order.donation_points}</p>
+                              <p className="order-date">{t('history.orderedDate', { date: formatDate(order.created_at) })}</p>
                             </div>
                           </div>
                         ))}
                       </div>
 
                       {orders.length > 5 && (
-                        <button type="button" className="btn-secondary btn-sm history-toggle" onClick={() => setShowAllHistory(prev => !prev)}>
-                          {showAllHistory ? 'Show fewer orders' : `Show all ${orders.length} orders`}
+                        <button type="button" className="btn-secondary btn-sm history-toggle" onClick={() => setShowAllHistory((prev) => !prev)}>
+                          {showAllHistory ? t('history.showFewer') : t('history.showAll', { count: orders.length })}
                         </button>
                       )}
                     </>
@@ -296,9 +298,9 @@ export default function CartPage() {
               </>
             ) : (
               <div className="empty-state-card">
-                <p className="no-orders">Please log in to view order history.</p>
+                <p className="no-orders">{t('history.loginPrompt')}</p>
                 <button type="button" className="btn-primary btn-block" onClick={() => navigate('/login')}>
-                  Login
+                  {t('history.loginButton')}
                 </button>
               </div>
             )}

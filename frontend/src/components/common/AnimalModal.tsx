@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { Animal } from '../../types/Animal';
 import { createAdoptionRequest } from '../../services/adoptionRequestService';
+import { useEnumLabel } from '../../i18n/useEnumLabel';
+import { useFormatters } from '../../i18n/formatters';
+import { translateApiError } from '../../i18n/errorMap';
+import { getAnimalEmoji } from '../../utils/animalEmoji';
 import './AnimalModal.css';
 
 type AnimalModalProps = {
@@ -10,49 +15,16 @@ type AnimalModalProps = {
   adoptionStatus?: 'pending' | 'approved' | null;
 };
 
-const TEMPERAMENT_COPY: Record<string, string> = {
-  calm: 'Relaxed and easy-going — perfect for a quiet home.',
-  friendly: 'Loves everyone and thrives on social interaction.',
-  energetic: 'Full of life — a great companion for active owners.'
-};
-
 const TEMPERAMENT_EMOJI: Record<string, string> = {
   calm: '😌',
   friendly: '🤗',
-  energetic: '⚡'
-};
-
-const getAnimalEmoji = (type: string) => {
-  if (type === 'dog') {
-    return '🐕';
-  }
-
-  if (type === 'cat') {
-    return '🐈';
-  }
-
-  return '🐾';
-};
-
-const formatSize = (size: string) => {
-  if (!size) {
-    return 'Unknown';
-  }
-
-  return size[0].toUpperCase() + size.slice(1);
-};
-
-const formatAddedDate = (createdAt: Date | string) => {
-  const date = createdAt instanceof Date ? createdAt : new Date(createdAt);
-
-  if (Number.isNaN(date.getTime())) {
-    return 'Unknown';
-  }
-
-  return date.toLocaleDateString();
+  energetic: '⚡',
 };
 
 function AnimalModal({ animal, onClose, onAdopt, adoptionStatus }: AnimalModalProps) {
+  const { t } = useTranslation('animalModal');
+  const enumLabel = useEnumLabel();
+  const { formatDate } = useFormatters();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLoadingAdopt, setIsLoadingAdopt] = useState(false);
 
@@ -63,14 +35,10 @@ function AnimalModal({ animal, onClose, onAdopt, adoptionStatus }: AnimalModalPr
       await createAdoptionRequest(animal.id);
       onAdopt(animal.id);
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        if (err.message === "NOT_LOGGED_IN") {
-          alert("Please log in to adopt animals.");
-        } else {
-          alert(err.message);
-        }
+      if (err instanceof Error && err.message === 'NOT_LOGGED_IN') {
+        alert(t('alerts.loginToAdopt'));
       } else {
-        alert("An unexpected error occurred");
+        alert(translateApiError(err));
       }
     } finally {
       setIsLoadingAdopt(false);
@@ -124,40 +92,43 @@ function AnimalModal({ animal, onClose, onAdopt, adoptionStatus }: AnimalModalPr
         className="animal-modal"
         role="dialog"
         aria-modal="true"
-        aria-label={`${animal.name} details`}
+        aria-label={t('aria.dialog', { name: animal.name })}
         onClick={(event) => event.stopPropagation()}
       >
-        <button type="button" className="animal-modal__close" aria-label="Close modal" onClick={onClose}>
+        <button type="button" className="animal-modal__close" aria-label={t('aria.close')} onClick={onClose}>
           ✕
         </button>
 
         <div className="animal-modal__hero">
-          {!hasImages ? (<span className="animal-modal__emoji" aria-hidden="true">
-            {getAnimalEmoji(animalType)}
-          </span>) : (<div className="animal-modal__carousel">
-            {images.length > 1 && (
-              <>
-                <button className="carousel-btn prev" onClick={prevImage} aria-label="Previous image">‹</button>
-                <button className="carousel-btn next" onClick={nextImage} aria-label="Next image">›</button>
-              </>
-            )}
-            <img
-              src={images[currentImageIndex].url}
-              alt={images[currentImageIndex].alt_text || animal.name}
-              className="animal-modal__image"
-            />
-            {images.length > 1 && (
-              <div className="carousel-indicator">
-                {currentImageIndex + 1} / {images.length}
-              </div>
-            )}
-          </div>
+          {!hasImages ? (
+            <span className="animal-modal__emoji" aria-hidden="true">
+              {getAnimalEmoji(animalType)}
+            </span>
+          ) : (
+            <div className="animal-modal__carousel">
+              {images.length > 1 && (
+                <>
+                  <button className="carousel-btn prev" onClick={prevImage} aria-label={t('aria.prev')}>‹</button>
+                  <button className="carousel-btn next" onClick={nextImage} aria-label={t('aria.next')}>›</button>
+                </>
+              )}
+              <img
+                src={images[currentImageIndex].url}
+                alt={images[currentImageIndex].alt_text || animal.name}
+                className="animal-modal__image"
+              />
+              {images.length > 1 && (
+                <div className="carousel-indicator">
+                  {currentImageIndex + 1} / {images.length}
+                </div>
+              )}
+            </div>
           )}
 
           <span className={`animal-modal__type-badge animal-modal__type-badge--${animalType || 'other'}`}>
-            {animalType || 'animal'}
+            {enumLabel('animal_type', animalType, 'animal')}
           </span>
-          {isAdopted ? <span className="animal-modal__adopted-badge">Adopted</span> : null}
+          {isAdopted ? <span className="animal-modal__adopted-badge">{t('badges.adopted')}</span> : null}
         </div>
 
         <div className="animal-modal__content">
@@ -174,44 +145,49 @@ function AnimalModal({ animal, onClose, onAdopt, adoptionStatus }: AnimalModalPr
                 disabled={adoptionStatus === 'pending' || !onAdopt || isLoadingAdopt}
               >
                 {adoptionStatus === 'pending'
-                  ? 'Request Pending'
+                  ? t('actions.adoptPending')
                   : isLoadingAdopt
-                    ? 'Submitting...'
-                    : 'Adopt Me 🐾'}
+                    ? t('actions.adoptSubmitting')
+                    : t('actions.adopt')}
               </button>
             ) : null}
           </header>
 
-          <section className="animal-modal__stats" aria-label="Animal stats">
+          <section className="animal-modal__stats" aria-label={t('aria.stats')}>
             <div className="animal-modal__stat-item">
-              <span className="animal-modal__stat-label">Age</span>
-              <strong>{animal.age} years</strong>
+              <span className="animal-modal__stat-label">{t('stats.age')}</span>
+              <strong>{t('ageValue', { count: animal.age })}</strong>
             </div>
             <div className="animal-modal__stat-item">
-              <span className="animal-modal__stat-label">Size</span>
-              <strong>{formatSize(animal.size || '')}</strong>
+              <span className="animal-modal__stat-label">{t('stats.size')}</span>
+              <strong>{enumLabel('animal_size', animal.size)}</strong>
             </div>
             <div className="animal-modal__stat-item">
-              <span className="animal-modal__stat-label">Vaccinated</span>
-              <strong>{isVaccinated ? 'Yes' : 'No'}</strong>
+              <span className="animal-modal__stat-label">{t('stats.vaccinated')}</span>
+              <strong>{enumLabel('vaccinated', isVaccinated ? 'yes' : 'no')}</strong>
             </div>
             <div className="animal-modal__stat-item">
-              <span className="animal-modal__stat-label">Added date</span>
-              <strong>{formatAddedDate(animal.created_at)}</strong>
+              <span className="animal-modal__stat-label">{t('stats.added')}</span>
+              <strong>{formatDate(animal.created_at)}</strong>
             </div>
           </section>
 
           <section className="animal-modal__section">
-            <h3>Temperament</h3>
+            <h3>{t('sections.temperament')}</h3>
             <p className="animal-modal__temperament-line">
               <span aria-hidden="true">{TEMPERAMENT_EMOJI[temperament] || '🐾'}</span>
-              <strong>{temperament || 'unknown'}</strong>
+              <strong>{enumLabel('animal_temperament', temperament)}</strong>
             </p>
-            <p>{TEMPERAMENT_COPY[temperament] || 'A unique personality waiting to meet you.'}</p>
+            <p>
+              {(() => {
+                const key = (temperament || 'unknown') as 'calm' | 'friendly' | 'energetic' | 'unknown';
+                return t(`temperament_description.${key}`);
+              })()}
+            </p>
           </section>
 
           <section className="animal-modal__section">
-            <h3>About</h3>
+            <h3>{t('sections.about')}</h3>
             <p>{animal.description}</p>
           </section>
         </div>

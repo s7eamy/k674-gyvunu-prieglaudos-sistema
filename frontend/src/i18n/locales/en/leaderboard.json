@@ -1,0 +1,15 @@
+{
+  "heroTitle": "🏆Leaderboard🏆",
+  "heroSubtitle": "Our most active users",
+  "loading": "Loading leaderboard…",
+  "errorPrefix": "Error: {{message}}",
+  "empty": "No users found :(",
+  "loadFailed": "Failed to load leaderboard",
+  "columns": {
+    "rank": "Rank",
+    "user": "User",
+    "totalPoints": "Total Points",
+    "donationPoints": "Donation Points",
+    "volunteerPoints": "Volunteering Points"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "actions": {
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "close": "Close",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "confirm": "Confirm",
+    "view": "View",
+    "search": "Search",
+    "loading": "Loading…",
+    "submitting": "Submitting…",
+    "saving": "Saving…",
+    "retry": "Retry",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "labels": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "date": "Date",
+    "time": "Time",
+    "status": "Status",
+    "details": "Details",
+    "description": "Description",
+    "amount": "Amount",
+    "total": "Total",
+    "unknown": "Unknown",
+    "optional": "optional",
+    "required": "required"
+  },
+  "states": {
+    "empty": "Nothing to show yet.",
+    "error": "Something went wrong.",
+    "loading": "Loading…"
+  }
+}

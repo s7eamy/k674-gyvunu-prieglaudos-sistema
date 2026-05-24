@@ -1,0 +1,104 @@
+{
+  "loading": "Finding your perfect match…",
+  "tryAgain": "Try again",
+  "back": "Back",
+  "startOver": "↩ Start over",
+  "results": {
+    "title": "Your Best Matches 🐾",
+    "empty": "No matches found right now — check back as new animals arrive!",
+    "matchPercent": "Match: {{percent}}%",
+    "ageLabel_one": "yr",
+    "ageLabel_other": "yrs",
+    "vaccinatedBadge": "Vaccinated ✓",
+    "adopt": "Adopt Me 🐾",
+    "adoptPending": "Request Pending"
+  },
+  "alerts": {
+    "loginToAdopt": "Please log in to adopt animals."
+  },
+  "questions": {
+    "animal_type": {
+      "title": "What kind of companion are you looking for?",
+      "options": {
+        "dog": "🐕 Dog",
+        "cat": "🐈 Cat",
+        "either": "🐾 Open to both"
+      }
+    },
+    "living_space": {
+      "title": "Where do you live?",
+      "subtitle": "Your space shapes what animal will thrive with you.",
+      "options": {
+        "apartment": "🏢 Apartment",
+        "house_no_yard": "🏠 House without a yard",
+        "house_yard": "🏡 House with a yard"
+      }
+    },
+    "activity_level": {
+      "title": "How active are you?",
+      "subtitle": "Be honest — your match depends on it!",
+      "options": {
+        "low": "🛋️ Homebody",
+        "moderate": "🚶 Balanced",
+        "high": "🏃 Always on the go"
+      }
+    },
+    "experience": {
+      "title": "Have you owned a pet before?",
+      "options": {
+        "first_time": "🌱 First-time owner",
+        "some_experience": "🐾 I've had a pet or two",
+        "experienced": "⭐ Very experienced"
+      }
+    },
+    "time_at_home": {
+      "title": "How much time are you typically at home?",
+      "options": {
+        "rarely": "🏙️ Rarely — out most of the day",
+        "sometimes": "⏱️ Sometimes — a few hours a day",
+        "often": "🏠 Often — work from home or similar"
+      }
+    },
+    "children": {
+      "title": "Do you have children at home?",
+      "options": {
+        "yes_young": "👶 Yes — young children (under 8)",
+        "yes_older": "🧒 Yes — older children (8+)",
+        "no": "🧑 No children"
+      }
+    },
+    "other_pets": {
+      "title": "Do you already have other pets?",
+      "options": {
+        "yes": "🐶🐱 Yes, I have other pets",
+        "no": "🏡 No other pets"
+      }
+    },
+    "preferred_size": {
+      "title": "Any size preference?",
+      "options": {
+        "small": "🐹 Small",
+        "medium": "🐕 Medium",
+        "large": "🐕‍🦺 Large",
+        "no_preference": "💛 No preference"
+      }
+    },
+    "preferred_age": {
+      "title": "What age range appeals to you?",
+      "options": {
+        "young": "🐣 Young (0–2 yrs)",
+        "adult": "🐾 Adult (3–7 yrs)",
+        "senior": "🤍 Senior (8+ yrs)",
+        "no_preference": "💛 No preference"
+      }
+    },
+    "energy_match": {
+      "title": "What energy level suits your lifestyle?",
+      "options": {
+        "calm": "😌 Calm & mellow",
+        "moderate": "😊 Playful but chill",
+        "energetic": "🤩 Energetic & adventurous"
+      }
+    }
+  }
+}

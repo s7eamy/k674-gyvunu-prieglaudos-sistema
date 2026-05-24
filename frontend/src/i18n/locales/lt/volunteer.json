@@ -1,0 +1,98 @@
+{
+  "hero": {
+    "title": "Savanorio registracija",
+    "subtitle": "Pasirinkite, su kuo norėtumėte padėti, nurodykite laisvas dienas, ir mes patvirtinsime jūsų laikus. Kiekviena valanda svarbi.",
+    "steps": {
+      "tasks": "Pasirinkite užduotis",
+      "schedule": "Tvarkaraštis"
+    },
+    "stats": {
+      "hours": "Savanorystės valandų",
+      "active": "Aktyvių savanorių",
+      "helped": "Padėta gyvūnų"
+    },
+    "quotes": {
+      "q1": "„Padėti gyvūnams – tai pati prasmingiausia mano patirtis!\"",
+      "q1Author": "— Sarah M.",
+      "q2": "„Kiekviena akimirka su gyvūnais yra to verta.\"",
+      "q2Author": "— James T.",
+      "q3": "„Čia įgijau nuostabių draugų!\"",
+      "q3Author": "— Emma K.",
+      "q4": "„Geriausias mano sprendimas – tapti savanore čia!\"",
+      "q4Author": "— Michael R."
+    }
+  },
+  "form": {
+    "timeHeading": "Koks laikas jums tinka?",
+    "tasksHeading": "Kuo galite padėti?",
+    "date": "Data",
+    "start": "Pradžios laikas",
+    "end": "Pabaigos laikas",
+    "submit": "Sukurti registraciją"
+  },
+  "tasks": {
+    "walk_dogs": "Vedžioti šunis",
+    "feed_animals": "Maitinti gyvūnus",
+    "clean_cages": "Valyti narvus",
+    "play_socialize": "Žaisti ir socializuoti",
+    "groom_animals": "Prižiūrėti kailį",
+    "photography": "Fotografuoti",
+    "event_support": "Pagalba renginiuose"
+  },
+  "registrations": {
+    "heading": "Jūsų savanorystės registracijos",
+    "loginPrompt": "Norėdami matyti registracijas, prisijunkite.",
+    "empty": "Registracijų nerasta.",
+    "count_one": "Rasta {{count}} jūsų registracija",
+    "count_few": "Rastos {{count}} jūsų registracijos",
+    "count_many": "Rasta {{count}} jūsų registracijų",
+    "count_other": "Rasta {{count}} jūsų registracijų",
+    "ariaGrid": "Savanorystės registracijų kortelės"
+  },
+  "card": {
+    "aria": "Savanorystės registracijos kortelė",
+    "approved": "✔ patvirtinta",
+    "waiting": "⏳ laukiama patvirtinimo",
+    "attended": "🎉 dalyvauta",
+    "viewDetails": "Peržiūrėti"
+  },
+  "modal": {
+    "title": "Savanorystės pamaina",
+    "aria": "Savanorystės registracijos informacija",
+    "close": "Uždaryti langą",
+    "stats": {
+      "start": "Pradžia",
+      "end": "Pabaiga",
+      "status": "Būsena",
+      "registered": "Užregistruota"
+    },
+    "sections": {
+      "tasks": "Pasirinktos užduotys",
+      "tasksEmpty": "Užduočių nepasirinkta.",
+      "approval": "Patvirtinimas",
+      "attendance": "Dalyvavimas"
+    },
+    "approval": {
+      "approved": "Šią savanorystės pamainą administratorius patvirtino.",
+      "pending": "Laukiama administratoriaus patvirtinimo."
+    },
+    "attendance": {
+      "attended": "Dalyvavimas patvirtintas.",
+      "pending": "Dalyvavimas dar nepatvirtintas."
+    },
+    "status": {
+      "pending": "Laukia patvirtinimo",
+      "approved": "Patvirtinta",
+      "attended": "Dalyvauta"
+    }
+  },
+  "level": {
+    "badge": "Lygis {{level}}",
+    "completed_one": "Atlikta {{count}} savanorystė",
+    "completed_few": "Atliktos {{count}} savanorystės",
+    "completed_many": "Atlikta {{count}} savanorysčių",
+    "completed_other": "Atlikta {{count}} savanorystės",
+    "nextThreshold": "Kitas lygis nuo {{count}} atliktų savanorysčių",
+    "maxLevel": "Pasiektas aukščiausias lygis!"
+  }
+}
