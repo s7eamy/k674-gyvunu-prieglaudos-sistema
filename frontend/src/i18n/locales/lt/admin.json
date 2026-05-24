@@ -12,7 +12,7 @@
       "default": "Atidaryti",
       "manageRegistrations": "Tvarkyti registracijas",
       "createPost": "Sukurti įrašą",
-      "manageAdoptions": "Tvarkyti įvaikinimus",
+      "manageAdoptions": "Tvarkyti priglobimo prašymus",
       "addAnimal": "Pridėti gyvūną",
       "openPlaceholder": "Atidaryti vietą"
     },
@@ -26,8 +26,8 @@
         "description": "Skelbkite prieglaudos naujienas, istorijas ir pranešimus lankytojams."
       },
       "adoption": {
-        "title": "Įvaikinimo prašymų valdymas",
-        "description": "Peržiūrėkite ir patvirtinkite arba atmeskite gyvūnų įvaikinimo prašymus."
+        "title": "Priglobimo prašymų valdymas",
+        "description": "Peržiūrėkite ir patvirtinkite arba atmeskite gyvūnų priglobimo prašymus."
       },
       "animals": {
         "title": "Gyvūnų valdymas",
@@ -63,14 +63,14 @@
     "attendanceFail": "Nepavyko pažymėti dalyvavimo"
   },
   "adoption": {
-    "title": "Įvaikinimo prašymų valdymas",
+    "title": "Priglobimo prašymų valdymas",
     "loginPrompt": "Norėdami matyti prašymus, prisijunkite kaip administratorius.",
-    "count_one": "{{count}} laukiantis įvaikinimo prašymas",
-    "count_few": "{{count}} laukiantys įvaikinimo prašymai",
-    "count_many": "{{count}} laukiančių įvaikinimo prašymų",
-    "count_other": "{{count}} laukiančio įvaikinimo prašymo",
+    "count_one": "{{count}} laukiantis priglobimo prašymas",
+    "count_few": "{{count}} laukiantys priglobimo prašymai",
+    "count_many": "{{count}} laukiančių priglobimo prašymų",
+    "count_other": "{{count}} laukiančio priglobimo prašymo",
     "empty": "Laukiančių prašymų nėra.",
-    "ariaGrid": "Įvaikinimo prašymų kortelės",
+    "ariaGrid": "Priglobimo prašymų kortelės",
     "requestedBy": "Prašė:",
     "submittedDate": "Pateikta: {{date}}",
     "approve": "Patvirtinti",

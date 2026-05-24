@@ -1,6 +1,6 @@
 {
-  "title": "Prieglaudos naujienos ir istorijos",
-  "subtitle": "Skaitykite mūsų prieglaudos naujienas ir istorijas",
+  "title": "Prieglaudos skelbimai",
+  "subtitle": "Skaitykite mūsų prieglaudos skelbimus",
   "loading": "Kraunami įrašai…",
   "errorPrefix": "Klaida: {{message}}",
   "empty": "Įrašų dar nėra. Užsukite vėliau!",

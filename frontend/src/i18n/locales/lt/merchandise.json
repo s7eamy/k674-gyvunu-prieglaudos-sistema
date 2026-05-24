@@ -16,7 +16,7 @@
     "quantity": "Kiekis",
     "unitPrice": "Vieneto kaina: {{price}}",
     "totalLabel": "Iš viso: {{price}}",
-    "donationPoints": "Aukos taškai: {{count}}",
+    "donationPoints": "Paramos taškai: {{count}}",
     "addToCart": "Į krepšelį",
     "adding": "Pridedama…",
     "errorAdd": "Nepavyko pridėti į krepšelį."
@@ -81,7 +81,7 @@
     "sizeLabel": "Dydis:",
     "qtyLabel": "Kiekis:",
     "priceLabel": "Kaina:",
-    "donationPointsLabel": "Aukos taškai:",
+    "donationPointsLabel": "Paramos taškai:",
     "orderedDate": "Užsakyta: {{date}}"
   },
   "designDescriptions": {

@@ -10,14 +10,14 @@
     "age": "Amžius",
     "size": "Dydis",
     "vaccinated": "Skiepytas",
-    "added": "Pridėtas"
+    "added": "Laukia draugo nuo"
   },
   "ageValue_one": "{{count}} metai",
   "ageValue_few": "{{count}} metai",
   "ageValue_many": "{{count}} metų",
   "ageValue_other": "{{count}} metų",
   "actions": {
-    "adopt": "Įvaikinti 🐾",
+    "adopt": "Priglausti 🐾",
     "adoptPending": "Prašymas pateiktas",
     "adoptSubmitting": "Siunčiama…"
   },
@@ -28,14 +28,14 @@
   "temperament_description": {
     "calm": "Ramus ir taikingas — puikiai tiks ramiems namams.",
     "friendly": "Myli visus ir mėgsta bendrauti.",
-    "energetic": "Kupinas gyvybės — puikus draugas aktyviems šeimininkams.",
+    "energetic": "Kupinas energijos — puikus draugas aktyviems šeimininkams.",
     "unknown": "Unikalus charakteris, laukiantis pažinties."
   },
   "badges": {
-    "adopted": "Įvaikintas"
+    "adopted": "Priglaustas"
   },
   "alerts": {
-    "loginToAdopt": "Norėdami įvaikinti gyvūną, prisijunkite.",
+    "loginToAdopt": "Norėdami priglausti gyvūną, prisijunkite.",
     "unexpected": "Įvyko netikėta klaida"
   }
 }

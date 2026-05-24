@@ -1,12 +1,12 @@
 {
   "hero": {
-    "eyebrow": "Įvaikink su meile",
+    "eyebrow": "Priglausk su meile",
     "title": "Rask savo <1>AMŽINĄ</1> kompanioną",
-    "subtitle": "Kiekvienas gyvūnas čia laukia mylinčių namų. Naršykite, susipažinkite ir pakeiskite gyvenimą — taip pat ir savo.",
+    "subtitle": "Kiekvienas gyvūnas čia laukia mylinčių namų. Naršykite, susipažinkite ir pakeiskite tiek savo, tiek gyvūno gyvenimus.",
     "subscribe": "Pranešti apie naujus gyvūnus",
     "stats": {
       "available": "Šiuo metu laisvi",
-      "adopted_this_year": "Įvaikinta šiemet",
+      "adopted_this_year": "Priglausta šiemet",
       "foster_needed": "Reikalingi globos namai"
     }
   },
@@ -15,16 +15,16 @@
     "size": "Dydis",
     "temperament": "Temperamentas",
     "vaccinated": "Skiepytas",
-    "adopted": "Įvaikinimo būsena",
+    "adopted": "Globos būsena",
     "age": "Amžius",
     "allTypes": "Visos rūšys",
     "allSizes": "Visi dydžiai",
     "allTemperaments": "Visi temperamentai",
-    "allVaccinated": "Skiepyti (visi)",
+    "allVaccinated": "Visi",
     "vaccinatedOnly": "Skiepyti",
     "notVaccinated": "Neskiepyti",
     "available": "Laisvi",
-    "adopted_status": "Įvaikinti",
+    "adopted_status": "Priglausti",
     "allAdoption": "Visi",
     "allAges": "Visi amžiai",
     "ageYoung": "Jauni (0–2)",
@@ -54,7 +54,7 @@
     "favoriteRemove": "★ Mėgstamas",
     "favoriteAdding": "Pridedama…",
     "favoriteRemoving": "Šalinama…",
-    "adopt": "Įvaikinti",
+    "adopt": "Priglausti",
     "adoptPending": "Prašymas pateiktas",
     "adoptSubmitting": "Siunčiama…",
     "about": "Apie {{name}}"
@@ -64,7 +64,7 @@
     "grid": "Gyvūnų kortelės"
   },
   "alerts": {
-    "loginToAdopt": "Norėdami įvaikinti gyvūną, prisijunkite.",
+    "loginToAdopt": "Norėdami priglausti gyvūną, prisijunkite.",
     "loginToFavorite": "Norėdami pridėti į mėgstamus, prisijunkite.",
     "unexpected": "Įvyko netikėta klaida"
   }

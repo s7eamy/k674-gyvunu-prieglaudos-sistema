@@ -29,7 +29,7 @@
     "approved": "Patvirtinta",
     "rejected": "Atmesta",
     "cancelled": "Atšaukta",
-    "adopted": "Įvaikintas"
+    "adopted": "Priglaustas"
   },
   "order_status": {
     "pending": "Laukiama",

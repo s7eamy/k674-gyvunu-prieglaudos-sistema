@@ -9,16 +9,16 @@
     "manage": "Tvarkyti pranešimus"
   },
   "levels": {
-    "donor": "💝 Aukotojo lygis",
+    "donor": "💝 Paramos lygis",
     "volunteer": "📄 Savanorio lygis"
   },
   "adoption": {
-    "title": "Įvaikinimo prašymai",
+    "title": "Priglobimo prašymai",
     "count_one": "{{count}} prašymas",
     "count_few": "{{count}} prašymai",
     "count_many": "{{count}} prašymų",
     "count_other": "{{count}} prašymo",
-    "empty": "Įvaikinimo prašymų dar nėra. Naršykite gyvūnus ir paspauskite „Įvaikinti“.",
+    "empty": "Priglobimo prašymų dar nėra. Naršykite gyvūnus ir paspauskite „Priglausti“.",
     "typeLabel": "Rūšis: {{type}}",
     "submittedLabel": "Pateikta: {{date}}"
   },

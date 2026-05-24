@@ -12,11 +12,11 @@
     "ageLabel_many": "m.",
     "ageLabel_other": "m.",
     "vaccinatedBadge": "Skiepytas ✓",
-    "adopt": "Įvaikinti 🐾",
+    "adopt": "Priglausti 🐾",
     "adoptPending": "Prašymas pateiktas"
   },
   "alerts": {
-    "loginToAdopt": "Norėdami įvaikinti gyvūną, prisijunkite."
+    "loginToAdopt": "Norėdami priglausti gyvūną, prisijunkite."
   },
   "questions": {
     "animal_type": {

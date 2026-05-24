@@ -1,7 +1,7 @@
 {
   "hero": {
     "title": "Paremkite mūsų prieglaudą",
-    "subtitle": "Jūsų auka padeda užtikrinti maistą, gydymą ir saugius namus gyvūnams. Kiekviena suma turi reikšmės.",
+    "subtitle": "Jūsų parama padeda užtikrinti maistą, medicininę priežiūrą ir saugius namus gyvūnams. Kiekviena auka turi reikšmę.",
     "stats": {
       "helped": "Padėta gyvūnų",
       "raised": "Surinkta šiemet",
@@ -9,7 +9,7 @@
     }
   },
   "step1": {
-    "title": "1 žingsnis: Pasirinkite aukos sumą",
+    "title": "1 žingsnis: Pasirinkite paramos sumą",
     "or": "arba",
     "customLabel": "Įveskite kitą sumą (€)",
     "customPlaceholder": "pvz., 25,50",
@@ -44,7 +44,7 @@
     "selectAmount": "Pasirinkite sumą, kad tęstumėte"
   },
   "errors": {
-    "invalidAmount": "Pasirinkite arba įveskite galiojančią aukos sumą.",
+    "invalidAmount": "Pasirinkite arba įveskite galiojančią paramos sumą.",
     "missingName": "Įveskite savo vardą.",
     "missingEmail": "Įveskite savo el. paštą.",
     "invalidEmail": "Įveskite teisingą el. pašto adresą.",
@@ -60,7 +60,7 @@
   "anonymous": "Anoniminis",
   "confirmation": {
     "title": "🎉 Ačiū jums!",
-    "subtitle": "Jūsų auka sėkmingai apdorota",
+    "subtitle": "Jūsų parama sėkmingai apdorota",
     "amountLabel": "Aukos suma",
     "nameLabel": "Vardas:",
     "emailLabel": "El. paštas:",
@@ -68,7 +68,7 @@
     "pointsValue": "⭐ {{count}} taškų",
     "messageLabel": "Žinutė:",
     "receipt": "Kvitas išsiųstas adresu <1>{{email}}</1>.",
-    "anonymousNote": "Ši auka pateikta anonimiškai.",
+    "anonymousNote": "Ši parama pateikta anonimiškai.",
     "thanks": "Ačiū už paramą! Jūsų auka tiesiogiai padės gyvūnams mūsų prieglaudoje.",
     "done": "Baigta"
   },
@@ -87,7 +87,7 @@
     "pointsToNext": "{{count}} taškų iki kito lygio",
     "maxLevel": "Pasiektas aukščiausias lygis! 🎉",
     "explanation": "Kaip rinkti taškus:",
-    "rule1": "€1 aukos = 1 taškas",
+    "rule1": "€1 paaukotas  = 1 taškas",
     "rule2": "Savanorystė taip pat didina jūsų rėmėjo juostą!"
   }
 }
