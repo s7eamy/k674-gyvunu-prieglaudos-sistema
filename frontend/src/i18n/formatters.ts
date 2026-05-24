@@ -8,10 +8,16 @@ const localeMap: Record<string, string> = {
 
 const localeOf = (lang?: string) => localeMap[lang ?? i18n.language] ?? 'en-US';
 
+const pad2 = (n: number) => (n < 10 ? `0${n}` : String(n));
+
+const formatYmd = (d: Date) =>
+  `${d.getFullYear()}/${pad2(d.getMonth() + 1)}/${pad2(d.getDate())}`;
+
 export function formatDate(value: Date | string | null | undefined, opts?: Intl.DateTimeFormatOptions, lang?: string): string {
   if (value === null || value === undefined || value === '') return '';
   const d = value instanceof Date ? value : new Date(value);
   if (Number.isNaN(d.getTime())) return '';
+  if (!opts) return formatYmd(d);
   return d.toLocaleDateString(localeOf(lang), opts);
 }
 
@@ -19,7 +25,8 @@ export function formatDateTime(value: Date | string | null | undefined, lang?: s
   if (value === null || value === undefined || value === '') return '';
   const d = value instanceof Date ? value : new Date(value);
   if (Number.isNaN(d.getTime())) return '';
-  return d.toLocaleString(localeOf(lang));
+  const timePart = d.toLocaleTimeString(localeOf(lang));
+  return `${formatYmd(d)} ${timePart}`;
 }
 
 export function formatNumber(value: number, opts?: Intl.NumberFormatOptions, lang?: string): string {
