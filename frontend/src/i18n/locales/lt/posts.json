@@ -1,0 +1,10 @@
+{
+  "title": "Prieglaudos naujienos ir istorijos",
+  "subtitle": "Skaitykite mūsų prieglaudos naujienas ir istorijas",
+  "loading": "Kraunami įrašai…",
+  "errorPrefix": "Klaida: {{message}}",
+  "empty": "Įrašų dar nėra. Užsukite vėliau!",
+  "ariaGrid": "Prieglaudos įrašai",
+  "author": "Administratorius #{{id}}",
+  "loadFailed": "Nepavyko įkelti įrašų"
+}

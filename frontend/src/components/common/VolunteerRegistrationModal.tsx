@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { VolunteerRegistration } from '../../types/VolunteerRegistration';
+import { useFormatters } from '../../i18n/formatters';
 import './VolunteerRegistrationModal.css';
 
 type VolunteerRegistrationModalProps = {
@@ -7,43 +9,28 @@ type VolunteerRegistrationModalProps = {
   onClose: () => void;
 };
 
-const formatDate = (date: Date | string) => {
-  const d = date instanceof Date ? date : new Date(date);
-
-  if (Number.isNaN(d.getTime())) {
-    return 'Unknown';
-  }
-
-  return d.toLocaleDateString();
+const TASK_EN_TO_ID: Record<string, string> = {
+  'Walk dogs': 'walk_dogs',
+  'Feed animals': 'feed_animals',
+  'Clean cages': 'clean_cages',
+  'Play & socialize': 'play_socialize',
+  'Groom animals': 'groom_animals',
+  'Photography': 'photography',
+  'Event support': 'event_support',
 };
 
-const formatCreatedDate = (date: Date | string) => {
-  const d = date instanceof Date ? date : new Date(date);
-
-  if (Number.isNaN(d.getTime())) {
-    return 'Unknown';
-  }
-
-  return d.toLocaleString();
-};
-
-function VolunteerRegistrationModal({
-  volunteerRegistration,
-  onClose
-}: VolunteerRegistrationModalProps) {
+function VolunteerRegistrationModal({ volunteerRegistration, onClose }: VolunteerRegistrationModalProps) {
+  const { t } = useTranslation('volunteer');
+  const { formatDate, formatDateTime } = useFormatters();
 
   useEffect(() => {
-    if (!volunteerRegistration) {
-      return;
-    }
+    if (!volunteerRegistration) return;
 
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        onClose();
-      }
+      if (event.key === 'Escape') onClose();
     };
 
     window.addEventListener('keydown', handleEscape);
@@ -54,34 +41,33 @@ function VolunteerRegistrationModal({
     };
   }, [volunteerRegistration, onClose]);
 
-  if (!volunteerRegistration) {
-    return null;
-  }
+  if (!volunteerRegistration) return null;
 
-  const status = !volunteerRegistration.approved
-    ? 'Pending approval'
+  const statusKey = !volunteerRegistration.approved
+    ? 'pending'
     : volunteerRegistration.attended
-    ? 'Attended'
-    : 'Approved';
+      ? 'attended'
+      : 'approved';
+
+  const translateTask = (raw: string): string => {
+    const id = TASK_EN_TO_ID[raw];
+    if (id) return t(`tasks.${id}` as never);
+    return raw;
+  };
 
   return (
-    <div
-      className="volunteer-modal__backdrop"
-      role="presentation"
-      onClick={onClose}
-    >
+    <div className="volunteer-modal__backdrop" role="presentation" onClick={onClose}>
       <div
         className="volunteer-modal"
         role="dialog"
         aria-modal="true"
-        aria-label="Volunteer registration details"
+        aria-label={t('modal.aria')}
         onClick={(event) => event.stopPropagation()}
       >
-
         <button
           type="button"
           className="volunteer-modal__close"
-          aria-label="Close modal"
+          aria-label={t('modal.close')}
           onClick={onClose}
         >
           ✕
@@ -92,73 +78,60 @@ function VolunteerRegistrationModal({
         </div>
 
         <div className="volunteer-modal__content">
-
           <header className="volunteer-modal__heading">
-            <h2>Volunteer Shift</h2>
+            <h2>{t('modal.title')}</h2>
             <p>{formatDate(volunteerRegistration.date)}</p>
           </header>
 
           <section className="volunteer-modal__stats">
-
             <div className="volunteer-modal__stat-item">
-              <span className="volunteer-modal__stat-label">Start</span>
+              <span className="volunteer-modal__stat-label">{t('modal.stats.start')}</span>
               <strong>{volunteerRegistration.time_from}</strong>
             </div>
 
             <div className="volunteer-modal__stat-item">
-              <span className="volunteer-modal__stat-label">End</span>
+              <span className="volunteer-modal__stat-label">{t('modal.stats.end')}</span>
               <strong>{volunteerRegistration.time_to}</strong>
             </div>
 
             <div className="volunteer-modal__stat-item">
-              <span className="volunteer-modal__stat-label">Status</span>
-              <strong>{status}</strong>
+              <span className="volunteer-modal__stat-label">{t('modal.stats.status')}</span>
+              <strong>{t(`modal.status.${statusKey}` as never)}</strong>
             </div>
 
             <div className="volunteer-modal__stat-item">
-              <span className="volunteer-modal__stat-label">Registered</span>
-              <strong>{formatCreatedDate(volunteerRegistration.created_at)}</strong>
+              <span className="volunteer-modal__stat-label">{t('modal.stats.registered')}</span>
+              <strong>{formatDateTime(volunteerRegistration.created_at)}</strong>
             </div>
-
           </section>
 
           <section className="volunteer-modal__section">
-            <h3>Available tasks</h3>
-            
-             {volunteerRegistration.tasks.length > 0 ?
+            <h3>{t('modal.sections.tasks')}</h3>
+
+            {volunteerRegistration.tasks.length > 0 ? (
               volunteerRegistration.tasks.map((task, index) => (
-                <div style={{ display:'inline-block' }}>
-                <span 
-                  key={index} 
-                  className="volunteer-modal__task"
-                >
-                  {task}
-                </span>
+                <div key={index} style={{ display: 'inline-block' }}>
+                  <span className="volunteer-modal__task">{translateTask(task)}</span>
                 </div>
               ))
-            : (<p>No tasks selected.</p>) 
-             }
-            
+            ) : (
+              <p>{t('modal.sections.tasksEmpty')}</p>
+            )}
           </section>
 
           <section className="volunteer-modal__section">
-            <h3>Approval</h3>
+            <h3>{t('modal.sections.approval')}</h3>
             <p>
-              {volunteerRegistration.approved
-                ? 'This volunteer shift has been approved by an administrator.'
-                : 'Waiting for administrator approval.'}
+              {volunteerRegistration.approved ? t('modal.approval.approved') : t('modal.approval.pending')}
             </p>
           </section>
 
           <section className="volunteer-modal__section">
-            <h3>Attendance</h3>
+            <h3>{t('modal.sections.attendance')}</h3>
             <p>
-              {volunteerRegistration.attended
-                ? 'Attendance has been confirmed.'
-                : 'Attendance has not yet been confirmed.'}
+              {volunteerRegistration.attended ? t('modal.attendance.attended') : t('modal.attendance.pending')}
             </p>
           </section>
-
         </div>
       </div>
     </div>

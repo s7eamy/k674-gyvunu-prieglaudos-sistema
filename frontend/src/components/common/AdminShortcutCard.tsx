@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './AdminShortcutCard.css';
 
 type AdminShortcutCardProps = {
@@ -16,8 +17,10 @@ export default function AdminShortcutCard({
   to,
   icon,
   badge,
-  actionLabel = 'Open section',
+  actionLabel,
 }: AdminShortcutCardProps) {
+  const { t } = useTranslation('admin');
+  const displayAction = actionLabel ?? t('dashboard.actions.default');
   return (
     <Link to={to} className="admin-shortcut-card">
       <span className="admin-shortcut-card__icon" aria-hidden="true">
@@ -30,7 +33,7 @@ export default function AdminShortcutCard({
         </div>
         <p>{description}</p>
       </div>
-      <span className="admin-shortcut-card__action">{actionLabel}</span>
+      <span className="admin-shortcut-card__action">{displayAction}</span>
     </Link>
   );
 }

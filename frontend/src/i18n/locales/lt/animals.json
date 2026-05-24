@@ -1,0 +1,71 @@
+{
+  "hero": {
+    "eyebrow": "Įvaikink su meile",
+    "title": "Rask savo <1>AMŽINĄ</1> kompanioną",
+    "subtitle": "Kiekvienas gyvūnas čia laukia mylinčių namų. Naršykite, susipažinkite ir pakeiskite gyvenimą — taip pat ir savo.",
+    "subscribe": "Pranešti apie naujus gyvūnus",
+    "stats": {
+      "available": "Šiuo metu laisvi",
+      "adopted_this_year": "Įvaikinta šiemet",
+      "foster_needed": "Reikalingi globos namai"
+    }
+  },
+  "filters": {
+    "type": "Rūšis",
+    "size": "Dydis",
+    "temperament": "Temperamentas",
+    "vaccinated": "Skiepytas",
+    "adopted": "Įvaikinimo būsena",
+    "age": "Amžius",
+    "allTypes": "Visos rūšys",
+    "allSizes": "Visi dydžiai",
+    "allTemperaments": "Visi temperamentai",
+    "allVaccinated": "Skiepyti (visi)",
+    "vaccinatedOnly": "Skiepyti",
+    "notVaccinated": "Neskiepyti",
+    "available": "Laisvi",
+    "adopted_status": "Įvaikinti",
+    "allAdoption": "Visi",
+    "allAges": "Visi amžiai",
+    "ageYoung": "Jauni (0–2)",
+    "ageAdult": "Suaugę (3–7)",
+    "ageSenior": "Vyresni (8+)",
+    "reset": "Atstatyti"
+  },
+  "list": {
+    "empty": "Pagal jūsų filtrus gyvūnų nerasta. Pabandykite išplėsti paiešką.",
+    "emptyHint": "Išplėskite filtrus arba užsukite vėliau — netrukus pasirodys naujų draugų.",
+    "loading": "Kraunami gyvūnai…",
+    "count_one": "{{count}} gyvūnas",
+    "count_few": "{{count}} gyvūnai",
+    "count_many": "{{count}} gyvūnų",
+    "count_other": "{{count}} gyvūno"
+  },
+  "featured": {
+    "label": "Šiandienos draugas ⭐",
+    "viewProfile": "Peržiūrėti {{name}} profilį →"
+  },
+  "card": {
+    "ariaCard": "{{name}} kortelė",
+    "sizeTitle": "Dydis: {{size}}",
+    "vaccinated": "💉 skiepytas",
+    "yearShort": "{{count}}m.",
+    "favoriteAdd": "⚝ Pridėti į mėgstamus",
+    "favoriteRemove": "★ Mėgstamas",
+    "favoriteAdding": "Pridedama…",
+    "favoriteRemoving": "Šalinama…",
+    "adopt": "Įvaikinti",
+    "adoptPending": "Prašymas pateiktas",
+    "adoptSubmitting": "Siunčiama…",
+    "about": "Apie {{name}}"
+  },
+  "aria": {
+    "filters": "Gyvūnų filtrai",
+    "grid": "Gyvūnų kortelės"
+  },
+  "alerts": {
+    "loginToAdopt": "Norėdami įvaikinti gyvūną, prisijunkite.",
+    "loginToFavorite": "Norėdami pridėti į mėgstamus, prisijunkite.",
+    "unexpected": "Įvyko netikėta klaida"
+  }
+}

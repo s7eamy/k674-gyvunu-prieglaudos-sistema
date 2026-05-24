@@ -1,0 +1,106 @@
+{
+  "loading": "Ieškoma jūsų tobulo draugo…",
+  "tryAgain": "Bandyti dar kartą",
+  "back": "Atgal",
+  "startOver": "↩ Pradėti iš naujo",
+  "results": {
+    "title": "Geriausi atitikmenys 🐾",
+    "empty": "Šiuo metu atitikmenų nerasta — užsukite vėliau, kai pasirodys nauji gyvūnai!",
+    "matchPercent": "Atitikimas: {{percent}}%",
+    "ageLabel_one": "m.",
+    "ageLabel_few": "m.",
+    "ageLabel_many": "m.",
+    "ageLabel_other": "m.",
+    "vaccinatedBadge": "Skiepytas ✓",
+    "adopt": "Įvaikinti 🐾",
+    "adoptPending": "Prašymas pateiktas"
+  },
+  "alerts": {
+    "loginToAdopt": "Norėdami įvaikinti gyvūną, prisijunkite."
+  },
+  "questions": {
+    "animal_type": {
+      "title": "Kokio kompaniono ieškote?",
+      "options": {
+        "dog": "🐕 Šuns",
+        "cat": "🐈 Katės",
+        "either": "🐾 Atviras abiem"
+      }
+    },
+    "living_space": {
+      "title": "Kur gyvenate?",
+      "subtitle": "Erdvė lemia, koks gyvūnas jaučiasi gerai su jumis.",
+      "options": {
+        "apartment": "🏢 Bute",
+        "house_no_yard": "🏠 Name be kiemo",
+        "house_yard": "🏡 Name su kiemu"
+      }
+    },
+    "activity_level": {
+      "title": "Kiek esate aktyvus?",
+      "subtitle": "Būkite atviri — nuo to priklauso atitikimas!",
+      "options": {
+        "low": "🛋️ Mėgstu namus",
+        "moderate": "🚶 Vidutiniškai",
+        "high": "🏃 Visada kelionėje"
+      }
+    },
+    "experience": {
+      "title": "Ar anksčiau turėjote augintinį?",
+      "options": {
+        "first_time": "🌱 Tai bus pirmas",
+        "some_experience": "🐾 Turėjau vieną ar du",
+        "experienced": "⭐ Labai patyręs"
+      }
+    },
+    "time_at_home": {
+      "title": "Kiek laiko paprastai būnate namuose?",
+      "options": {
+        "rarely": "🏙️ Retai — didžiąją dienos dalį nesu",
+        "sometimes": "⏱️ Kartais — kelias valandas per dieną",
+        "often": "🏠 Dažnai — dirbu iš namų ar pan."
+      }
+    },
+    "children": {
+      "title": "Ar namuose yra vaikų?",
+      "options": {
+        "yes_young": "👶 Taip — mažų vaikų (iki 8 m.)",
+        "yes_older": "🧒 Taip — vyresnių vaikų (8+ m.)",
+        "no": "🧑 Vaikų nėra"
+      }
+    },
+    "other_pets": {
+      "title": "Ar jau turite kitų augintinių?",
+      "options": {
+        "yes": "🐶🐱 Taip, turiu kitų augintinių",
+        "no": "🏡 Kitų augintinių nėra"
+      }
+    },
+    "preferred_size": {
+      "title": "Kokio dydžio gyvūną norėtumėte?",
+      "options": {
+        "small": "🐹 Mažo",
+        "medium": "🐕 Vidutinio",
+        "large": "🐕‍🦺 Didelio",
+        "no_preference": "💛 Neturiu pirmenybės"
+      }
+    },
+    "preferred_age": {
+      "title": "Koks amžius jums patinka?",
+      "options": {
+        "young": "🐣 Jaunas (0–2 m.)",
+        "adult": "🐾 Suaugęs (3–7 m.)",
+        "senior": "🤍 Vyresnis (8+ m.)",
+        "no_preference": "💛 Neturiu pirmenybės"
+      }
+    },
+    "energy_match": {
+      "title": "Kokios energijos gyvūnas jums tinka?",
+      "options": {
+        "calm": "😌 Ramus ir lėtas",
+        "moderate": "😊 Žaismingas, bet ramus",
+        "energetic": "🤩 Energingas ir nuotykingas"
+      }
+    }
+  }
+}

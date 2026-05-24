@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Navbar from '../../components/layout/Navbar';
 import DonorLevelCard from '../../components/common/DonorLevelCard';
 import VolunteerLevelCard from '../../components/common/VolunteerLevelCard';
@@ -12,13 +13,18 @@ import { getFavoriteAnimals } from '../../services/animalService';
 import { getUserAdoptionRequests } from '../../services/adoptionRequestService';
 import { getUserVolunteerRegistrations } from '../../services/volunteerRegistrationService';
 import { deleteSubscription, getMySubscriptions, type Subscription } from '../../services/subscriptionService';
-import type {Animal} from '../../types/Animal';
+import type { Animal } from '../../types/Animal';
 import type { AdoptionRequest } from '../../types/AdoptionRequest';
 import type { VolunteerRegistration } from '../../types/VolunteerRegistration';
 import { getUserProfile, type UserProfile } from '../../services/userService';
+import { useEnumLabel } from '../../i18n/useEnumLabel';
+import { useFormatters } from '../../i18n/formatters';
 import './ProfilePage.css';
 
 function ProfilePage() {
+  const { t } = useTranslation('profile');
+  const enumLabel = useEnumLabel();
+  const { formatDate } = useFormatters();
   const navigate = useNavigate();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -34,24 +40,22 @@ function ProfilePage() {
   useEffect(() => {
     const fetchProfile = async () => {
       const token = localStorage.getItem('access_token');
-      
       if (!token) {
         navigate('/login');
         return;
       }
-
       try {
         const data = await getUserProfile();
         setProfile(data);
       } catch {
-        setError('Failed to load profile. Please try again.');
+        setError(t('error'));
       } finally {
         setIsLoading(false);
       }
     };
 
     void fetchProfile();
-  }, [navigate]);
+  }, [navigate, t]);
 
   useEffect(() => {
     const fetchSubscription = async () => {
@@ -68,13 +72,13 @@ function ProfilePage() {
 
   useEffect(() => {
     const fetchFavorites = async () => {
-    try {
-      const favorites = await getFavoriteAnimals();
-      setFavoriteAnimals(favorites);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+      try {
+        const favorites = await getFavoriteAnimals();
+        setFavoriteAnimals(favorites);
+      } catch (err) {
+        console.error(err);
+      }
+    };
     fetchFavorites();
   }, []);
 
@@ -95,7 +99,7 @@ function ProfilePage() {
       try {
         const registrations = await getUserVolunteerRegistrations();
         setVolunteerRegistrations(registrations);
-      } catch(err) {
+      } catch (err) {
         console.error(err);
       }
     };
@@ -107,7 +111,7 @@ function ProfilePage() {
       <>
         <Navbar />
         <main className="profile-page">
-          <div className="profile-page__loading">Loading profile...</div>
+          <div className="profile-page__loading">{t('loading')}</div>
         </main>
       </>
     );
@@ -118,27 +122,21 @@ function ProfilePage() {
       <>
         <Navbar />
         <main className="profile-page">
-          <div className="profile-page__error">{error || 'Unable to load profile'}</div>
+          <div className="profile-page__error">{error || t('errorGeneric')}</div>
         </main>
       </>
     );
   }
 
-  const registeredDate = profile.user.created_at 
-    ? new Date(profile.user.created_at).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      })
-    : 'Unknown';
+  const registeredDate = profile.user.created_at
+    ? formatDate(profile.user.created_at, { year: 'numeric', month: 'long', day: 'numeric' })
+    : t('common:labels.unknown', { defaultValue: 'Unknown' });
 
   const parseList = (value?: string | null) =>
     value ? value.split(',').map((item) => item.trim()).filter(Boolean) : [];
 
   const handleUnsubscribe = async () => {
-    if (!subscription) {
-      return;
-    }
+    if (!subscription) return;
     try {
       await deleteSubscription(subscription.id);
       setSubscription(null);
@@ -154,50 +152,46 @@ function ProfilePage() {
       <main className="profile-page">
         <div className="profile-page__container">
           <header className="profile-page__header">
-            <div className="profile-page__avatar">
-              {profile.user.name.charAt(0).toUpperCase()}
-            </div>
+            <div className="profile-page__avatar">{profile.user.name.charAt(0).toUpperCase()}</div>
             <div className="profile-page__header-content">
               <h1>{profile.user.name}</h1>
               <p className="profile-page__email">{profile.user.email}</p>
-              <p className="profile-page__registered">
-                Registered on {registeredDate}
-              </p>
+              <p className="profile-page__registered">{t('registeredOn', { date: registeredDate })}</p>
             </div>
             <div className="profile-page__header-actions">
               <span className="profile-page__subscription-status">
-                {subscription ? 'Subscribed' : 'Not subscribed'}
+                {subscription ? t('subscription.subscribed') : t('subscription.notSubscribed')}
               </span>
               <button
                 type="button"
                 className="navbar__btn navbar__btn--ghost"
                 onClick={() => setIsSubscribeOpen(true)}
               >
-                Manage notifications
+                {t('subscription.manage')}
               </button>
             </div>
           </header>
 
           <section className="profile-page__levels">
             <div className="profile-page__level-card">
-              <h2>💝 Donation Level</h2>
+              <h2>{t('levels.donor')}</h2>
               <DonorLevelCard donorLevel={profile.donor_level} />
             </div>
 
             <div className="profile-page__level-card">
-              <h2>📄 Volunteer Level</h2>
+              <h2>{t('levels.volunteer')}</h2>
               <VolunteerLevelCard volunteerLevel={profile.volunteer_level} />
             </div>
           </section>
 
           <section className="profile-page__adoption-requests">
             <header className="animals-page__header">
-              <h1>Adoption Requests</h1>
-              <p>{adoptionRequests.length} request{adoptionRequests.length !== 1 ? 's' : ''}</p>
+              <h1>{t('adoption.title')}</h1>
+              <p>{t('adoption.count', { count: adoptionRequests.length })}</p>
             </header>
 
             {adoptionRequests.length === 0 ? (
-              <p className="animals-page__empty">No adoption requests yet. Browse animals and click "Adopt Me" to get started.</p>
+              <p className="animals-page__empty">{t('adoption.empty')}</p>
             ) : (
               <div className="profile-page__adoption-grid">
                 {adoptionRequests.map((req) => (
@@ -205,12 +199,12 @@ function ProfilePage() {
                     <div className="profile-page__adoption-card-header">
                       <span className="profile-page__adoption-animal-name">{req.animal_name}</span>
                       <span className={`profile-page__adoption-status profile-page__adoption-status--${req.status}`}>
-                        {req.status}
+                        {enumLabel('adoption_status', req.status)}
                       </span>
                     </div>
                     <div className="profile-page__adoption-card-details">
-                      <span>Type: {req.animal_type}</span>
-                      <span>Submitted: {new Date(req.created_at).toLocaleDateString()}</span>
+                      <span>{t('adoption.typeLabel', { type: enumLabel('animal_type', req.animal_type) })}</span>
+                      <span>{t('adoption.submittedLabel', { date: formatDate(req.created_at) })}</span>
                     </div>
                   </div>
                 ))}
@@ -219,56 +213,62 @@ function ProfilePage() {
           </section>
 
           <header className="animals-page__header">
-          <h1>Favorite animals</h1>
-          <p>{favoriteAnimals.length} animals are favorited</p>
-        </header>
+            <h1>{t('favorites.title')}</h1>
+            <p>{t('favorites.count', { count: favoriteAnimals.length })}</p>
+          </header>
 
-        {favoriteAnimals.length === 0 ? (
-          <p className="animals-page__empty"> Add an animal to favorites to see them here.</p>
-        ) : (
-          <section className="animals-page__grid" aria-label="Animal cards">
-            {favoriteAnimals.map((animal) => {
-              const adoptionStatus = adoptionRequests
-                .filter(r => r.animal_id === animal.id && (r.status === 'pending' || r.status === 'approved'))
-                .map(r => r.status as 'pending' | 'approved')[0] ?? null;
-              return (
-                <AnimalCard key={animal.id} animal={animal} onAbout={(a) => setSelectedAnimal(a)}
-                isFavorited={favoriteAnimals.includes(animal)}
-                onFavorite={() =>{setFavoriteAnimals((prev) => [...prev, animal]);}}
-                onFavoriteRemove={() => {setFavoriteAnimals((prev) => prev.filter((favId) => favId !== animal));}}
-                adoptionStatus={adoptionStatus}
+          {favoriteAnimals.length === 0 ? (
+            <p className="animals-page__empty">{t('favorites.empty')}</p>
+          ) : (
+            <section className="animals-page__grid" aria-label={t('favorites.ariaGrid')}>
+              {favoriteAnimals.map((animal) => {
+                const adoptionStatus = adoptionRequests
+                  .filter((r) => r.animal_id === animal.id && (r.status === 'pending' || r.status === 'approved'))
+                  .map((r) => r.status as 'pending' | 'approved')[0] ?? null;
+                return (
+                  <AnimalCard
+                    key={animal.id}
+                    animal={animal}
+                    onAbout={(a) => setSelectedAnimal(a)}
+                    isFavorited={favoriteAnimals.includes(animal)}
+                    onFavorite={() => setFavoriteAnimals((prev) => [...prev, animal])}
+                    onFavoriteRemove={() => setFavoriteAnimals((prev) => prev.filter((favId) => favId !== animal))}
+                    adoptionStatus={adoptionStatus}
+                  />
+                );
+              })}
+            </section>
+          )}
+
+          <header className="animals-page__header">
+            <h1>{t('volunteering.title')}</h1>
+            <p>{t('volunteering.count', { count: volunteerRegistrations.length })}</p>
+          </header>
+
+          {volunteerRegistrations.length === 0 ? (
+            <p className="animals-page__empty">{t('volunteering.empty')}</p>
+          ) : (
+            <div className="profile-page__adoption-grid">
+              {volunteerRegistrations.map((volunteerRegistration) => (
+                <VolunteerRegistrationCard
+                  key={volunteerRegistration.id}
+                  volunteerRegistration={volunteerRegistration}
+                  onAbout={(v) => setSelectedVolunteerRegistration(v)}
                 />
-              );
-            })}
-          </section> 
-        )}
-        <header className="animals-page__header">
-              <h1>Volunteering history</h1>
-              <p>{volunteerRegistrations.length} volunteering{volunteerRegistrations.length !== 1 ? 's' : ''}</p>
-            </header>
-
-            {volunteerRegistrations.length === 0 ? (
-              <p className="animals-page__empty">No volunteering sessions yet. Go to the volunteering page and make a registration to get started.</p>
-            ) : (
-              <div className="profile-page__adoption-grid">
-                          {volunteerRegistrations.map((volunteerRegistration) => (
-                    <VolunteerRegistrationCard 
-                      key={volunteerRegistration.id}
-                      volunteerRegistration={volunteerRegistration} 
-                      onAbout={(v) => setSelectedVolunteerRegistration(v)} 
-                    />
-                  ))}
-              </div>
-            )}
+              ))}
+            </div>
+          )}
         </div>
       </main>
-       <AnimalModal key={selectedAnimal?.id} animal={selectedAnimal}
-       onClose={() => setSelectedAnimal(null)}/>
-       <VolunteerRegistrationModal key={selectedVolunteerRegistration?.id} volunteerRegistration={selectedVolunteerRegistration}
-       onClose={() => setSelectedVolunteerRegistration(null)}/>
+
+      <AnimalModal key={selectedAnimal?.id} animal={selectedAnimal} onClose={() => setSelectedAnimal(null)} />
+      <VolunteerRegistrationModal
+        key={selectedVolunteerRegistration?.id}
+        volunteerRegistration={selectedVolunteerRegistration}
+        onClose={() => setSelectedVolunteerRegistration(null)}
+      />
       {isSubscribeOpen && (
         <SubscribeModal
-          title="Manage notifications"
           initial={{
             animalType: subscription?.animal_type || '',
             sizes: parseList(subscription?.size),

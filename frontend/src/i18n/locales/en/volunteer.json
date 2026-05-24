@@ -1,0 +1,94 @@
+{
+  "hero": {
+    "title": "Volunteer sign-up",
+    "subtitle": "Choose what you'd like to help with, pick your available dates, and we'll confirm your slots. Every hour makes a difference.",
+    "steps": {
+      "tasks": "Choose Tasks",
+      "schedule": "Schedule"
+    },
+    "stats": {
+      "hours": "Hours Volunteered",
+      "active": "Active Volunteers",
+      "helped": "Animals Helped"
+    },
+    "quotes": {
+      "q1": "\"Helping animals has been the most rewarding experience of my life!\"",
+      "q1Author": "— Sarah M.",
+      "q2": "\"Every moment with the animals makes it all worth it.\"",
+      "q2Author": "— James T.",
+      "q3": "\"I've made such wonderful friends here!\"",
+      "q3Author": "— Emma K.",
+      "q4": "\"The best decision I made was to volunteer here!\"",
+      "q4Author": "— Michael R."
+    }
+  },
+  "form": {
+    "timeHeading": "What time works for you?",
+    "tasksHeading": "What can you help with?",
+    "date": "Date",
+    "start": "Start Hour",
+    "end": "End Hour",
+    "submit": "Create registration"
+  },
+  "tasks": {
+    "walk_dogs": "Walk dogs",
+    "feed_animals": "Feed animals",
+    "clean_cages": "Clean cages",
+    "play_socialize": "Play & socialize",
+    "groom_animals": "Groom animals",
+    "photography": "Photography",
+    "event_support": "Event support"
+  },
+  "registrations": {
+    "heading": "Your volunteering registrations",
+    "loginPrompt": "Please log in to see your volunteer registrations.",
+    "empty": "No volunteer registrations found.",
+    "count_one": "Found {{count}} of your registrations",
+    "count_other": "Found {{count}} of your registrations",
+    "ariaGrid": "Volunteer Registrations cards"
+  },
+  "card": {
+    "aria": "Volunteer registration card",
+    "approved": "✔ approved",
+    "waiting": "⏳ waiting approval",
+    "attended": "🎉 attended",
+    "viewDetails": "View Details"
+  },
+  "modal": {
+    "title": "Volunteer Shift",
+    "aria": "Volunteer registration details",
+    "close": "Close modal",
+    "stats": {
+      "start": "Start",
+      "end": "End",
+      "status": "Status",
+      "registered": "Registered"
+    },
+    "sections": {
+      "tasks": "Selected tasks",
+      "tasksEmpty": "No tasks selected.",
+      "approval": "Approval",
+      "attendance": "Attendance"
+    },
+    "approval": {
+      "approved": "This volunteer shift has been approved by an administrator.",
+      "pending": "Waiting for administrator approval."
+    },
+    "attendance": {
+      "attended": "Attendance has been confirmed.",
+      "pending": "Attendance has not yet been confirmed."
+    },
+    "status": {
+      "pending": "Pending approval",
+      "approved": "Approved",
+      "attended": "Attended"
+    }
+  },
+  "level": {
+    "badge": "Level {{level}}",
+    "completed_one": "{{count}} volunteering completed",
+    "completed_other": "{{count}} volunteerings completed",
+    "nextThreshold": "Next level at {{count}} completed volunteerings",
+    "maxLevel": "Max level reached!"
+  }
+}

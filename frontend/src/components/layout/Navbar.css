@@ -59,6 +59,7 @@
 .navbar__links {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.25rem;
 }
 
@@ -191,7 +192,7 @@
   transform: translateY(-9px) rotate(-45deg);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 900px) {
   .navbar {
     height: auto;
     min-height: var(--nav-h);

@@ -1,5 +1,5 @@
-// Donation page — users can make donations to support the shelter
 import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 import { CardElement, Elements, useElements, useStripe } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import Navbar from '../../components/layout/Navbar';
@@ -7,6 +7,7 @@ import DonationConfirmationModal from '../../components/common/DonationConfirmat
 import DonorLevelCard from '../../components/common/DonorLevelCard';
 import { createDonationPaymentIntent, finalizeDonationPayment, getDonorLevel } from '../../services/donorService';
 import type { DonorLevel } from '../../types/DonorLevel';
+import { useFormatters } from '../../i18n/formatters';
 import './DonationPage.css';
 
 const PREDEFINED_AMOUNTS = [5, 10, 20, 50, 100];
@@ -29,6 +30,8 @@ type DonationPreview = {
 };
 
 function DonationPageContent() {
+  const { t } = useTranslation('donation');
+  const { formatCurrency } = useFormatters();
   const stripe = useStripe();
   const elements = useElements();
 
@@ -49,10 +52,7 @@ function DonationPageContent() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const fetchDonorLevel = useCallback(async () => {
-    if (!isLoggedIn) {
-      return;
-    }
-
+    if (!isLoggedIn) return;
     try {
       const level = await getDonorLevel();
       setDonorLevel(level);
@@ -61,23 +61,16 @@ function DonationPageContent() {
     }
   }, [isLoggedIn]);
 
-  // Fetch donor level on mount
   useEffect(() => {
     void fetchDonorLevel();
   }, [fetchDonorLevel]);
 
-  // Prefill user data from localStorage when logged in
   useEffect(() => {
     if (isLoggedIn) {
       const userName = localStorage.getItem('user_name');
       const userEmail = localStorage.getItem('user_email');
-      
       if (userName && userEmail) {
-        setFormData((prev) => ({
-          ...prev,
-          donorName: userName,
-          donorEmail: userEmail,
-        }));
+        setFormData((prev) => ({ ...prev, donorName: userName, donorEmail: userEmail }));
       }
     }
   }, [isLoggedIn]);
@@ -94,20 +87,13 @@ function DonationPageContent() {
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const resetDonationForm = () => {
     setSelectedAmount(null);
     setCustomAmount('');
-    setFormData({
-      donorName: '',
-      donorEmail: '',
-      message: '',
-    });
+    setFormData({ donorName: '', donorEmail: '', message: '' });
     setIsAnonymous(false);
     setPaymentError('');
     setPageError('');
@@ -117,35 +103,33 @@ function DonationPageContent() {
     const amount = selectedAmount || parseFloat(customAmount);
 
     if (!amount || amount <= 0) {
-      setPageError('Please select or enter a valid donation amount.');
+      setPageError(t('errors.invalidAmount'));
       return;
     }
 
     if (!isAnonymous) {
       if (!formData.donorName.trim()) {
-        setPageError('Please enter your name.');
+        setPageError(t('errors.missingName'));
         return;
       }
-
       if (!formData.donorEmail.trim()) {
-        setPageError('Please enter your email.');
+        setPageError(t('errors.missingEmail'));
         return;
       }
-
       if (!EMAIL_PATTERN.test(formData.donorEmail.trim())) {
-        setPageError('Please enter a valid email address.');
+        setPageError(t('errors.invalidEmail'));
         return;
       }
     }
 
     if (!stripe || !elements) {
-      setPageError('Stripe is still loading. Please try again in a moment.');
+      setPageError(t('errors.stripeLoading'));
       return;
     }
 
     const cardElement = elements.getElement(CardElement);
     if (!cardElement) {
-      setPageError('Payment form is not ready yet.');
+      setPageError(t('errors.cardNotReady'));
       return;
     }
 
@@ -154,9 +138,11 @@ function DonationPageContent() {
     setPageError('');
 
     try {
+      // Canonical English value sent to backend; UI shows translated label via t('anonymous').
+      const ANONYMOUS_BACKEND_VALUE = 'Anonymous';
       const response = await createDonationPaymentIntent({
         amount,
-        donorName: isAnonymous ? 'Anonymous' : formData.donorName.trim(),
+        donorName: isAnonymous ? ANONYMOUS_BACKEND_VALUE : formData.donorName.trim(),
         donorEmail: isAnonymous ? '' : formData.donorEmail.trim(),
         message: formData.message.trim(),
         isAnonymous,
@@ -166,20 +152,20 @@ function DonationPageContent() {
         payment_method: {
           card: cardElement,
           billing_details: {
-            name: isAnonymous ? 'Anonymous donor' : formData.donorName.trim(),
+            name: isAnonymous ? ANONYMOUS_BACKEND_VALUE : formData.donorName.trim(),
             email: isAnonymous ? undefined : formData.donorEmail.trim(),
           },
         },
       });
 
       if (error) {
-        setPaymentError(error.message || 'Payment failed.');
+        setPaymentError(error.message || t('errors.paymentFailed'));
         return;
       }
 
       if (paymentIntent?.status === 'succeeded') {
         if (!paymentIntent.id) {
-          setPaymentError('Payment succeeded, but confirmation ID is missing.');
+          setPaymentError(t('errors.paymentMissingId'));
           return;
         }
 
@@ -192,7 +178,7 @@ function DonationPageContent() {
 
         setDonationData({
           amount,
-          donorName: isAnonymous ? 'Anonymous' : formData.donorName.trim(),
+          donorName: isAnonymous ? '' : formData.donorName.trim(),
           donorEmail: isAnonymous ? '' : formData.donorEmail.trim(),
           message: formData.message.trim(),
           pointsAwarded,
@@ -201,10 +187,10 @@ function DonationPageContent() {
         return;
       }
 
-      setPaymentError(`Payment completed with unexpected status: ${paymentIntent?.status || 'unknown'}.`);
+      setPaymentError(t('errors.paymentUnknownStatus', { status: paymentIntent?.status || 'unknown' }));
     } catch (error) {
       console.error('Donation payment failed', error);
-      setPaymentError('Unable to start the donation payment. Please try again.');
+      setPaymentError(t('errors.paymentStart'));
     } finally {
       setIsSubmitting(false);
     }
@@ -228,39 +214,33 @@ function DonationPageContent() {
         fontSize: '16px',
         fontSmoothing: 'antialiased',
         iconColor: '#8a7060',
-        '::placeholder': {
-          color: '#8a7060',
-        },
+        '::placeholder': { color: '#8a7060' },
       },
-      invalid: {
-        color: '#b91c1c',
-        iconColor: '#b91c1c',
-      },
+      invalid: { color: '#b91c1c', iconColor: '#b91c1c' },
     },
   };
 
   return (
     <>
       <Navbar />
-      
-      {/* Hero Section */}
+
       <section className="donation-page__hero">
         <div className="donation-page__hero-content">
-          <h1>Support Our Shelter</h1>
-          <p>Your donation helps us provide food, medical care, and a safe home for animals in need. Every contribution makes a real difference.</p>
-          
+          <h1>{t('hero.title')}</h1>
+          <p>{t('hero.subtitle')}</p>
+
           <div className="donation-page__stats">
             <div className="stat-item">
               <span className="stat-number">1,250</span>
-              <span className="stat-label">Animals Helped</span>
+              <span className="stat-label">{t('hero.stats.helped')}</span>
             </div>
             <div className="stat-item">
               <span className="stat-number">€45K</span>
-              <span className="stat-label">Raised This Year</span>
+              <span className="stat-label">{t('hero.stats.raised')}</span>
             </div>
             <div className="stat-item">
               <span className="stat-number">98%</span>
-              <span className="stat-label">Goes to Care</span>
+              <span className="stat-label">{t('hero.stats.care')}</span>
             </div>
           </div>
         </div>
@@ -269,7 +249,7 @@ function DonationPageContent() {
       <div className="donation-page">
         <div className="donation-page__container">
           <div className="donation-page__section">
-            <h2>Step 1: Choose Your Donation Amount</h2>
+            <h2>{t('step1.title')}</h2>
 
             <div className="donation-amounts">
               {PREDEFINED_AMOUNTS.map((amount) => (
@@ -285,17 +265,17 @@ function DonationPageContent() {
             </div>
 
             <div className="donation-page__divider">
-              <span>or</span>
+              <span>{t('step1.or')}</span>
             </div>
 
             <div className="donation-page__custom">
-              <label htmlFor="custom-amount">Enter a custom amount (€)</label>
+              <label htmlFor="custom-amount">{t('step1.customLabel')}</label>
               <input
                 id="custom-amount"
                 type="number"
                 min="0.01"
                 step="0.01"
-                placeholder="e.g., 25.50"
+                placeholder={t('step1.customPlaceholder')}
                 value={customAmount}
                 onChange={(e) => handleCustomAmount(e.target.value)}
               />
@@ -309,69 +289,68 @@ function DonationPageContent() {
 
             {!isLoggedIn && (
               <div className="donation-page__login-prompt">
-                <p>📝 <strong>Log in to track your donor level and earn points!</strong></p>
+                <p>{t('step1.loginPrompt')}</p>
               </div>
             )}
 
             {totalAmount > 0 && (
               <div className="donation-page__selected">
-                <span>Selected amount:</span>
-                <strong>€{totalAmount.toFixed(2)}</strong>
+                <span>{t('step1.selected')}</span>
+                <strong>{formatCurrency(totalAmount)}</strong>
               </div>
             )}
           </div>
 
-          {/* Right: Donor Information */}
           <div className="donation-page__section">
-            <h2>Step 2: Your Information</h2>
-            <p className="donation-page__info-text">Let us know who you are so we'd know who to thank!</p>
+            <h2>{t('step2.title')}</h2>
+            <p className="donation-page__info-text">{t('step2.subtitle')}</p>
 
             {!isAnonymous ? (
               <>
                 <div className="donation-page__form-group">
-                  <label htmlFor="donor-name">Full Name *</label>
+                  <label htmlFor="donor-name">{t('step2.nameLabel')}</label>
                   <input
                     id="donor-name"
                     type="text"
                     name="donorName"
                     value={formData.donorName}
                     onChange={handleInputChange}
-                    placeholder="Your name"
+                    placeholder={t('step2.namePlaceholder')}
                   />
                 </div>
 
                 <div className="donation-page__form-group">
-                  <label htmlFor="donor-email">Email Address *</label>
+                  <label htmlFor="donor-email">{t('step2.emailLabel')}</label>
                   <input
                     id="donor-email"
                     type="email"
                     name="donorEmail"
                     value={formData.donorEmail}
                     onChange={handleInputChange}
-                    placeholder="your.email@example.com"
+                    placeholder={t('step2.emailPlaceholder')}
                   />
                 </div>
               </>
             ) : (
               <div className="donation-page__anonymous-info">
-                <p>You're donating <strong>anonymously</strong>.</p>
+                <p>{t('step2.anonymousNote')}</p>
               </div>
             )}
 
             <div className="donation-page__form-group">
-              <label htmlFor="message">Message (Optional)</label>
+              <label htmlFor="message">{t('step2.messageLabel')}</label>
               <textarea
                 id="message"
                 name="message"
                 value={formData.message}
                 onChange={handleInputChange}
-                placeholder="Share why you're supporting us..."
+                placeholder={t('step2.messagePlaceholder')}
                 rows={4}
               />
             </div>
 
             <div className="donation-page__form-group">
-              <label htmlFor="card-element">Card Details *</label>
+              <label htmlFor="card-element">{t('step2.cardLabel')}</label>
               <div className="donation-page__card-element">
                 <CardElement id="card-element" options={cardElementOptions} />
               </div>
@@ -383,7 +362,7 @@ function DonationPageContent() {
                 className="donation-page__anonymous-btn"
                 onClick={() => setIsAnonymous(true)}
               >
-                Donate Anonymously
+                {t('step2.donateAnonymously')}
               </button>
             ) : (
               <button
@@ -391,19 +370,18 @@ function DonationPageContent() {
                 className="donation-page__anonymous-btn donation-page__anonymous-btn--active"
                 onClick={() => setIsAnonymous(false)}
               >
-                Provide Your Information
+                {t('step2.provideInfo')}
               </button>
             )}
 
-            {/* Impact info */}
             <div className="donation-page__impact">
-              <h3>Your Impact 🌟</h3>
+              <h3>{t('impact.title')}</h3>
               <ul>
-                <li>€5 provides food for 2 animals for a day</li>
-                <li>€10 covers medical supplies for one animal</li>
-                <li>€20 helps with shelter utilities</li>
-                <li>€50 supports emergency medical care</li>
-                <li>€100+ provides comprehensive care for a month</li>
+                <li>{t('impact.item1')}</li>
+                <li>{t('impact.item2')}</li>
+                <li>{t('impact.item3')}</li>
+                <li>{t('impact.item4')}</li>
+                <li>{t('impact.item5')}</li>
               </ul>
             </div>
 
@@ -417,10 +395,10 @@ function DonationPageContent() {
               disabled={totalAmount <= 0 || isSubmitting || !stripe || !elements}
             >
               {isSubmitting
-                ? 'Processing payment...'
+                ? t('cta.processing')
                 : totalAmount > 0
-                  ? `Donate €${totalAmount.toFixed(2)}`
-                  : 'Select an amount to proceed'}
+                  ? t('cta.donate', { amount: formatCurrency(totalAmount) })
+                  : t('cta.selectAmount')}
             </button>
           </div>
         </div>
@@ -434,14 +412,17 @@ function DonationPageContent() {
 }
 
 export default function DonationPage() {
+  const { t, i18n } = useTranslation('donation');
+  const stripeLocale = i18n.language.startsWith('lt') ? 'lt' : 'en';
+
   if (!stripePublishableKey) {
     return (
       <>
         <Navbar />
         <div className="donation-page">
           <div className="donation-page__header">
-            <h1>💝 Support Our Shelter</h1>
-            <p>Stripe is not configured yet. Set VITE_STRIPE_PUBLISHABLE_KEY in the frontend env file.</p>
+            <h1>{t('notConfiguredTitle')}</h1>
+            <p>{t('notConfigured')}</p>
           </div>
         </div>
       </>
@@ -449,7 +430,7 @@ export default function DonationPage() {
   }
 
   return (
-    <Elements stripe={stripePromise}>
+    <Elements stripe={stripePromise} options={{ locale: stripeLocale }} key={stripeLocale}>
       <DonationPageContent />
     </Elements>
   );

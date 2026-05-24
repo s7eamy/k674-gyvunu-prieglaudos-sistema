@@ -1,6 +1,6 @@
-// Post Creation page - admin form for creating shelter posts
 import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import Navbar from '../../components/layout/Navbar';
 import { getUsers } from '../../services/adminService';
@@ -8,6 +8,7 @@ import { createPost } from '../../services/postService';
 import './PostCreationPage.css';
 
 export default function PostCreationPage() {
+  const { t } = useTranslation('admin');
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: '',
@@ -42,18 +43,18 @@ export default function PostCreationPage() {
     const newErrors: Record<string, string> = {};
 
     if (!formData.title || formData.title.trim() === '') {
-      newErrors.title = 'Title is required';
+      newErrors.title = t('postCreation.validation.titleRequired');
     }
 
     if (!formData.content || formData.content.trim() === '') {
-      newErrors.content = 'Content is required';
+      newErrors.content = t('postCreation.validation.contentRequired');
     }
 
     if (formData.image_url && formData.image_url.trim() !== '') {
       try {
         new URL(formData.image_url.trim());
       } catch {
-        newErrors.image_url = 'Image URL must be a valid URL';
+        newErrors.image_url = t('postCreation.validation.imageUrlInvalid');
       }
     }
 
@@ -63,11 +64,7 @@ export default function PostCreationPage() {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-
+    setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: '' }));
     }
@@ -78,9 +75,7 @@ export default function PostCreationPage() {
     setErrors({});
     setSuccessMessage('');
 
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     setIsSubmitting(true);
 
@@ -91,18 +86,14 @@ export default function PostCreationPage() {
         image_url: formData.image_url.trim() || undefined,
       });
 
-      setSuccessMessage('Post created successfully!');
-      setFormData({
-        title: '',
-        content: '',
-        image_url: '',
-      });
+      setSuccessMessage(t('postCreation.success'));
+      setFormData({ title: '', content: '', image_url: '' });
     } catch (error: unknown) {
-      const errorMsg = error instanceof Error ? error.message : 'Failed to create post';
+      const errorMsg = error instanceof Error ? error.message : t('postCreation.errors.generic');
       if (errorMsg === 'NOT_LOGGED_IN') {
-        setErrors({ general: 'Please log in to continue' });
+        setErrors({ general: t('postCreation.errors.notLoggedIn') });
       } else if (errorMsg === 'USER_NOT_ADMIN') {
-        setErrors({ general: 'Only admins can create posts' });
+        setErrors({ general: t('postCreation.errors.notAdmin') });
       } else {
         setErrors({ general: errorMsg });
       }
@@ -116,21 +107,17 @@ export default function PostCreationPage() {
       <Navbar />
       <main className="post-creation-page">
         <section className="post-creation-card">
-          <h1>Create New Post</h1>
-          <p className="post-creation-subtitle">
-            Publish shelter news, stories, and updates for visitors.
-          </p>
+          <h1>{t('postCreation.title')}</h1>
+          <p className="post-creation-subtitle">{t('postCreation.subtitle')}</p>
 
           {(!isAdmin || !loggedIn) && (
-            <p className="post-creation-empty">
-              Please log in as admin to create posts.
-            </p>
+            <p className="post-creation-empty">{t('postCreation.loginPrompt')}</p>
           )}
 
           {isAdmin && loggedIn && (
             <form onSubmit={handleSubmit} className="post-creation-form">
               <div className="form-field post-creation-form__full-width">
-                <label htmlFor="title">Title</label>
+                <label htmlFor="title">{t('postCreation.fields.title')}</label>
                 <input
                   type="text"
                   id="title"
@@ -143,7 +130,7 @@ export default function PostCreationPage() {
               </div>
 
               <div className="form-field post-creation-form__full-width">
-                <label htmlFor="content">Content</label>
+                <label htmlFor="content">{t('postCreation.fields.content')}</label>
                 <textarea
                   id="content"
                   name="content"
@@ -156,7 +143,7 @@ export default function PostCreationPage() {
               </div>
 
               <div className="form-field post-creation-form__full-width">
-                <label htmlFor="image_url">Image URL (Optional)</label>
+                <label htmlFor="image_url">{t('postCreation.fields.imageUrl')}</label>
                 <input
                   type="url"
                   id="image_url"
@@ -164,7 +151,7 @@ export default function PostCreationPage() {
                   value={formData.image_url}
                   onChange={handleChange}
                   disabled={isSubmitting}
-                  placeholder="https://example.com/image.jpg"
+                  placeholder={t('postCreation.fields.imageUrlPlaceholder')}
                 />
                 {errors.image_url && <p className="form-error">{errors.image_url}</p>}
               </div>
@@ -173,7 +160,7 @@ export default function PostCreationPage() {
               {successMessage && <p className="form-success">{successMessage}</p>}
 
               <button type="submit" disabled={isSubmitting} className="post-creation-form__submit">
-                {isSubmitting ? 'Creating Post...' : 'Create Post'}
+                {isSubmitting ? t('postCreation.submitting') : t('postCreation.submit')}
               </button>
             </form>
           )}
@@ -183,7 +170,7 @@ export default function PostCreationPage() {
             onClick={() => navigate('/admin')}
             className="post-creation-form__secondary"
           >
-            Back to dashboard
+            {t('postCreation.backToDashboard')}
           </button>
         </section>
       </main>

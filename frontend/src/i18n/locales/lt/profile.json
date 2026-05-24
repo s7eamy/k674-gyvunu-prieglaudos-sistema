@@ -1,0 +1,42 @@
+{
+  "loading": "Kraunamas profilis…",
+  "error": "Nepavyko įkelti profilio. Bandykite dar kartą.",
+  "errorGeneric": "Nepavyko įkelti profilio",
+  "registeredOn": "Registracija: {{date}}",
+  "subscription": {
+    "subscribed": "Prenumeruojate",
+    "notSubscribed": "Neprenumeruojate",
+    "manage": "Tvarkyti pranešimus"
+  },
+  "levels": {
+    "donor": "💝 Aukotojo lygis",
+    "volunteer": "📄 Savanorio lygis"
+  },
+  "adoption": {
+    "title": "Įvaikinimo prašymai",
+    "count_one": "{{count}} prašymas",
+    "count_few": "{{count}} prašymai",
+    "count_many": "{{count}} prašymų",
+    "count_other": "{{count}} prašymo",
+    "empty": "Įvaikinimo prašymų dar nėra. Naršykite gyvūnus ir paspauskite „Įvaikinti“.",
+    "typeLabel": "Rūšis: {{type}}",
+    "submittedLabel": "Pateikta: {{date}}"
+  },
+  "favorites": {
+    "title": "Mėgstami gyvūnai",
+    "count_one": "{{count}} mėgstamas gyvūnas",
+    "count_few": "{{count}} mėgstami gyvūnai",
+    "count_many": "{{count}} mėgstamų gyvūnų",
+    "count_other": "{{count}} mėgstamo gyvūno",
+    "empty": "Pridėkite gyvūną prie mėgstamų, kad jis pasirodytų čia.",
+    "ariaGrid": "Gyvūnų kortelės"
+  },
+  "volunteering": {
+    "title": "Savanorystės istorija",
+    "count_one": "{{count}} savanorystė",
+    "count_few": "{{count}} savanorystės",
+    "count_many": "{{count}} savanorysčių",
+    "count_other": "{{count}} savanorystės",
+    "empty": "Savanorystės pamainų dar nėra. Eikite į savanorystės puslapį ir užsiregistruokite."
+  }
+}

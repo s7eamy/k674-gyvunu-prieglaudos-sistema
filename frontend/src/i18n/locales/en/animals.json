@@ -1,0 +1,69 @@
+{
+  "hero": {
+    "eyebrow": "Adopt with love",
+    "title": "Find your <1>FOREVER</1> companion",
+    "subtitle": "Every animal here is waiting for a loving home. Browse, connect and change a life — including yours.",
+    "subscribe": "Subscribe to new animals",
+    "stats": {
+      "available": "Available now",
+      "adopted_this_year": "Adopted This Year",
+      "foster_needed": "Foster Homes Needed"
+    }
+  },
+  "filters": {
+    "type": "Type",
+    "size": "Size",
+    "temperament": "Temperament",
+    "vaccinated": "Vaccinated",
+    "adopted": "Adoption status",
+    "age": "Age",
+    "allTypes": "All types",
+    "allSizes": "All sizes",
+    "allTemperaments": "All temperaments",
+    "allVaccinated": "Vaccinated (all)",
+    "vaccinatedOnly": "Vaccinated",
+    "notVaccinated": "Not vaccinated",
+    "available": "Available",
+    "adopted_status": "Adopted",
+    "allAdoption": "All",
+    "allAges": "All ages",
+    "ageYoung": "Young (0–2)",
+    "ageAdult": "Adult (3–7)",
+    "ageSenior": "Senior (8+)",
+    "reset": "Reset"
+  },
+  "list": {
+    "empty": "No animals found. Try widening your filters.",
+    "emptyHint": "Try widening your filters or check back soon — new friends arrive often.",
+    "loading": "Loading animals…",
+    "count_one": "{{count}} animal",
+    "count_other": "{{count}} animals"
+  },
+  "featured": {
+    "label": "Featured Today ⭐",
+    "viewProfile": "View {{name}}'s Profile →"
+  },
+  "card": {
+    "ariaCard": "{{name}} card",
+    "sizeTitle": "Size: {{size}}",
+    "vaccinated": "💉 vaccinated",
+    "yearShort": "{{count}}y",
+    "favoriteAdd": "⚝ Add to favorites",
+    "favoriteRemove": "★ Favorited",
+    "favoriteAdding": "Adding…",
+    "favoriteRemoving": "Removing…",
+    "adopt": "Adopt Me",
+    "adoptPending": "Request Pending",
+    "adoptSubmitting": "Submitting…",
+    "about": "About {{name}}"
+  },
+  "aria": {
+    "filters": "Animal filters",
+    "grid": "Animal cards"
+  },
+  "alerts": {
+    "loginToAdopt": "Please log in to adopt animals.",
+    "loginToFavorite": "Please log in to favorite animals.",
+    "unexpected": "An unexpected error occurred"
+  }
+}

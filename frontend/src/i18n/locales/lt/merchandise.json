@@ -1,0 +1,93 @@
+{
+  "hero": {
+    "title": "Išskirtinės prekės",
+    "subtitle": "Paremkite mūsų prieglaudą su unikalia, gražiai sukurta atributika. Kiekvienas pirkinys tiesiogiai prisideda prie gyvūnų gelbėjimo ir priežiūros.",
+    "stats": {
+      "sold": "Parduota prekių",
+      "raised": "Surinkta gyvūnams",
+      "toCare": "Skirta priežiūrai"
+    }
+  },
+  "shop": {
+    "chooseTshirt": "Pasirinkite marškinėlius",
+    "customize": "Pritaikykite ir pirkite",
+    "color": "Spalva",
+    "size": "Dydis",
+    "quantity": "Kiekis",
+    "unitPrice": "Vieneto kaina: {{price}}",
+    "totalLabel": "Iš viso: {{price}}",
+    "donationPoints": "Aukos taškai: {{count}}",
+    "addToCart": "Į krepšelį",
+    "adding": "Pridedama…",
+    "errorAdd": "Nepavyko pridėti į krepšelį."
+  },
+  "modal": {
+    "title": "Prekė pridėta į krepšelį",
+    "subtitleLoggedIn": "Jūsų pasirinkimas išsaugotas. Galite eiti į apmokėjimą arba tęsti apsipirkimą.",
+    "subtitleLoggedOut": "Jūsų pasirinkimas išsaugotas. Tęskite apsipirkimą, o vėliau prisijunkite ir apmokėkite.",
+    "continue": "Tęsti apsipirkimą",
+    "checkout": "Eiti į apmokėjimą"
+  },
+  "cart": {
+    "itemCount_one": "{{count}} prekė",
+    "itemCount_few": "{{count}} prekės",
+    "itemCount_many": "{{count}} prekių",
+    "itemCount_other": "{{count}} prekės",
+    "login": "Prisijungti",
+    "register": "Registruotis",
+    "myCart": "Mano krepšelis",
+    "subtitle": "Prekės laukia apmokėjimo",
+    "continueShopping": "Tęsti apsipirkimą",
+    "empty": "Krepšelis tuščias.",
+    "emptyHint": "Pasirinkite dizainą prekių puslapyje ir pridėkite į krepšelį.",
+    "browse": "Naršyti prekes",
+    "inCart": "Krepšelyje",
+    "colorLabel": "Spalva:",
+    "sizeLabel": "Dydis:",
+    "qtyLabel": "Kiekis:",
+    "remove": "Pašalinti",
+    "summary": "Užsakymo santrauka",
+    "itemsTotal": "Iš viso prekių",
+    "summaryNote": "Apmokėjimas ir pristatymas bus apdorotas po prisijungimo.",
+    "processing": "Apdorojama…",
+    "checkout": "Apmokėti",
+    "loginToCheckout": "Prisijungti ir apmokėti",
+    "addBeforeCheckout": "Prieš apmokėjimą pridėkite prekių į krepšelį.",
+    "checkoutSuccess": "Apmokėjimas sėkmingas. Jūsų užsakymai matomi žemiau.",
+    "checkoutFailed": "Apmokėjimas nepavyko. Bandykite dar kartą.",
+    "loadOrdersFailed": "Nepavyko įkelti užsakymų. Prisijunkite, kad matytumėte pirkimo istoriją."
+  },
+  "history": {
+    "title": "Pirkimo istorija",
+    "subtitle": "Užbaigti užsakymai bus matomi čia po apmokėjimo.",
+    "hiddenNote": "Pirkimo istorija paslėpta. Išplėskite, kad pamatytumėte užsakymus.",
+    "noOrders": "Užbaigtų užsakymų dar nėra.",
+    "count_one": "{{count}} užbaigtas užsakymas",
+    "count_few": "{{count}} užbaigti užsakymai",
+    "count_many": "{{count}} užbaigtų užsakymų",
+    "count_other": "{{count}} užbaigto užsakymo",
+    "loading": "Kraunami užsakymai…",
+    "noPrevious": "Ankstesnių užsakymų dar nėra.",
+    "futurePurchases": "Jūsų užbaigti pirkiniai bus matomi čia.",
+    "viewHistory": "Rodyti istoriją",
+    "hideHistory": "Slėpti istoriją",
+    "showAll": "Rodyti visus {{count}} užsakymus",
+    "showFewer": "Rodyti mažiau",
+    "loginPrompt": "Prisijunkite, kad matytumėte užsakymų istoriją.",
+    "loginButton": "Prisijungti",
+    "order": "Užsakymas #{{id}}",
+    "designLabel": "Dizainas:",
+    "colorLabel": "Spalva:",
+    "sizeLabel": "Dydis:",
+    "qtyLabel": "Kiekis:",
+    "priceLabel": "Kaina:",
+    "donationPointsLabel": "Aukos taškai:",
+    "orderedDate": "Užsakyta: {{date}}"
+  },
+  "designDescriptions": {
+    "shelter-love": "Parodykite meilę gyvūnams, kuriems padedate.",
+    "rescue-me": "Skleiskite žinią, kad išgelbėti gyvūnai tampa puikiais augintiniais.",
+    "mix": "Pažymėkite gyvūnų įvairovę mūsų prieglaudoje.",
+    "plain": "Paprastas dizainas subtiliai paramai."
+  }
+}

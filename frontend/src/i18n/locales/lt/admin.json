@@ -1,0 +1,166 @@
+{
+  "dashboard": {
+    "eyebrow": "Administravimo skydelis",
+    "title": "Pasirinkite valdymo sritį",
+    "subtitle": "Naudokitės žemiau esančiomis nuorodomis, kad greitai pasiektumėte reikiamus administratoriaus įrankius. Pagrindiniai veiksmai jau paruošti, kiti pasirengę kaip nuorodos.",
+    "ariaShortcuts": "Administratoriaus nuorodos",
+    "badges": {
+      "active": "Aktyvu",
+      "soon": "Greitai"
+    },
+    "actions": {
+      "default": "Atidaryti",
+      "manageRegistrations": "Tvarkyti registracijas",
+      "createPost": "Sukurti įrašą",
+      "manageAdoptions": "Tvarkyti įvaikinimus",
+      "addAnimal": "Pridėti gyvūną",
+      "openPlaceholder": "Atidaryti vietą"
+    },
+    "shortcuts": {
+      "volunteer": {
+        "title": "Savanorystės registracijų valdymas",
+        "description": "Peržiūrėkite savanorystės prašymus, patvirtinimus ir dalyvavimo žymas."
+      },
+      "post": {
+        "title": "Įrašų kūrimas",
+        "description": "Skelbkite prieglaudos naujienas, istorijas ir pranešimus lankytojams."
+      },
+      "adoption": {
+        "title": "Įvaikinimo prašymų valdymas",
+        "description": "Peržiūrėkite ir patvirtinkite arba atmeskite gyvūnų įvaikinimo prašymus."
+      },
+      "animals": {
+        "title": "Gyvūnų valdymas",
+        "description": "Pridėkite naujų šunų, kačių ir kitų gyvūnų į prieglaudą."
+      },
+      "merchandise": {
+        "title": "Prekių valdymas",
+        "description": "Paruoškite prekių sąrašus ir atnaujinkite parduotuvės turinį."
+      },
+      "donations": {
+        "title": "Aukų valdymas",
+        "description": "Sekite aukų rinkimo įrankius ir paramos užduotis."
+      },
+      "users": {
+        "title": "Vartotojų ir administratorių valdymas",
+        "description": "Peržiūrėkite vartotojus ir administratoriaus prieigos įrankius vienoje vietoje."
+      }
+    }
+  },
+  "backLink": "Grįžti į administravimo skydelį",
+  "volunteer": {
+    "title": "Savanorystės registracijų valdymas",
+    "loginPrompt": "Norėdami matyti registracijas, prisijunkite kaip administratorius.",
+    "userPrefix": "Vartotojas: {{name}}",
+    "ariaGrid": "Savanorystės registracijų kortelės",
+    "count_one": "Rasta {{count}} vartotojo registracija",
+    "count_few": "Rastos {{count}} vartotojų registracijos",
+    "count_many": "Rasta {{count}} vartotojų registracijų",
+    "count_other": "Rasta {{count}} vartotojų registracijų",
+    "approve": "Patvirtinti",
+    "markAttendance": "Žymėti dalyvavimą",
+    "approveFail": "Nepavyko patvirtinti registracijos",
+    "attendanceFail": "Nepavyko pažymėti dalyvavimo"
+  },
+  "adoption": {
+    "title": "Įvaikinimo prašymų valdymas",
+    "loginPrompt": "Norėdami matyti prašymus, prisijunkite kaip administratorius.",
+    "count_one": "{{count}} laukiantis įvaikinimo prašymas",
+    "count_few": "{{count}} laukiantys įvaikinimo prašymai",
+    "count_many": "{{count}} laukiančių įvaikinimo prašymų",
+    "count_other": "{{count}} laukiančio įvaikinimo prašymo",
+    "empty": "Laukiančių prašymų nėra.",
+    "ariaGrid": "Įvaikinimo prašymų kortelės",
+    "requestedBy": "Prašė:",
+    "submittedDate": "Pateikta: {{date}}",
+    "approve": "Patvirtinti",
+    "reject": "Atmesti",
+    "processing": "Apdorojama…",
+    "approveFail": "Nepavyko patvirtinti prašymo",
+    "rejectFail": "Nepavyko atmesti prašymo"
+  },
+  "addAnimal": {
+    "title": "Pridėti naują gyvūną",
+    "subtitle": "Padėkite gyvūnams rasti mylinčius namus pridedami juos prie prieglaudos.",
+    "loginPrompt": "Norėdami pridėti gyvūnus, prisijunkite kaip administratorius.",
+    "fields": {
+      "name": "Vardas",
+      "type": "Rūšis",
+      "breed": "Veislė",
+      "size": "Dydis",
+      "age": "Amžius (metais)",
+      "vaccinated": "Skiepytas",
+      "temperament": "Temperamentas",
+      "description": "Aprašymas (neprivaloma)",
+      "descriptionPlaceholder": "Pridėkite specialių pastabų apie šį gyvūną…",
+      "image": "Nuotraukos įkėlimas"
+    },
+    "validation": {
+      "nameRequired": "Vardas privalomas",
+      "typeRequired": "Rūšis privaloma",
+      "breedRequired": "Veislė privaloma",
+      "sizeRequired": "Dydis privalomas",
+      "ageRequired": "Amžius privalomas",
+      "ageInvalid": "Amžius turi būti galiojantis neneigiamas skaičius",
+      "temperamentRequired": "Temperamentas privalomas"
+    },
+    "submit": "Pridėti gyvūną",
+    "submitting": "Pridedama…",
+    "success": "Gyvūnas sėkmingai pridėtas!",
+    "viewAll": "Peržiūrėti visus gyvūnus",
+    "errors": {
+      "notLoggedIn": "Norėdami tęsti, prisijunkite",
+      "notAdmin": "Gyvūnus pridėti gali tik administratoriai",
+      "generic": "Nepavyko pridėti gyvūno"
+    }
+  },
+  "postCreation": {
+    "title": "Sukurti naują įrašą",
+    "subtitle": "Skelbkite prieglaudos naujienas, istorijas ir atnaujinimus lankytojams.",
+    "loginPrompt": "Norėdami kurti įrašus, prisijunkite kaip administratorius.",
+    "fields": {
+      "title": "Pavadinimas",
+      "content": "Turinys",
+      "imageUrl": "Nuotraukos URL (neprivalomas)",
+      "imageUrlPlaceholder": "https://example.com/image.jpg"
+    },
+    "validation": {
+      "titleRequired": "Pavadinimas privalomas",
+      "contentRequired": "Turinys privalomas",
+      "imageUrlInvalid": "Nuotraukos URL turi būti galiojantis"
+    },
+    "submit": "Sukurti įrašą",
+    "submitting": "Kuriama…",
+    "success": "Įrašas sėkmingai sukurtas!",
+    "backToDashboard": "Atgal į skydelį",
+    "errors": {
+      "notLoggedIn": "Norėdami tęsti, prisijunkite",
+      "notAdmin": "Įrašus kurti gali tik administratoriai",
+      "generic": "Nepavyko sukurti įrašo"
+    }
+  },
+  "placeholder": {
+    "eyebrow": "Administratoriaus įrankiai",
+    "status": "Šis puslapis yra būsimos administravimo srities vieta.",
+    "merchandise": {
+      "title": "Prekių valdymas",
+      "description": "Šis skyrius valdys prieglaudos prekių sąrašus ir susijusius atnaujinimus.",
+      "note": "Šiuo metu prekes galima įsigyti viešame prekių puslapyje."
+    },
+    "donations": {
+      "title": "Aukų valdymas",
+      "description": "Šis skyrius valdys aukų valdymo įrankius ir paramos darbus.",
+      "note": "Lankytojai aukoti gali viešame aukų puslapyje."
+    },
+    "users": {
+      "title": "Vartotojų / administratorių valdymas",
+      "description": "Šis skyrius sujungs vartotojų ir administratoriaus prieigos valdymo įrankius.",
+      "note": "Vartotojų valdymo įrankiai bus prijungti, kai darbo eiga bus paruošta."
+    },
+    "notFound": {
+      "title": "Skyrius nerastas",
+      "description": "Šio administratoriaus puslapio dar nėra. Naudokitės skydeliu, kad pasirinktumėte palaikomą sritį.",
+      "note": "Skydelis palaiko aktyvius administravimo maršrutus, o nežinomus nukreipia čia, kad nesutriktų navigacija."
+    }
+  }
+}

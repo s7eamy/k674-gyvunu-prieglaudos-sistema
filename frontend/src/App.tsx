@@ -1,4 +1,4 @@
-import './App.css'
+import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AnimalsPage from './pages/Animals/AnimalsPage';
 import MatchPage from './pages/Match/MatchPage';
@@ -17,14 +17,16 @@ import PostCreationPage from './pages/Admin/PostCreationPage';
 import PostsPage from './pages/Posts/PostsPage';
 import AdminFeaturePlaceholderPage from './pages/Admin/AdminFeaturePlaceholderPage';
 import LeaderboardPage from './pages/Leaderboard/LeaderboardPage';
+import HtmlLangSync from './components/common/HtmlLangSync';
 
 function App() {
   return (
     <BrowserRouter>
+      <HtmlLangSync />
       <Routes>
         <Route path="/" element={<AnimalsPage />} />
         <Route path="/match" element={<MatchPage />} />
-        <Route path="/volunteer" element={<VolunteerPage/>} />
+        <Route path="/volunteer" element={<VolunteerPage />} />
         <Route path="/donate" element={<DonationPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/register" element={<RegisterPage />} />
@@ -37,46 +39,10 @@ function App() {
         <Route path="/cart" element={<CartPage />} />
         <Route path="/leaderboard" element={<LeaderboardPage />} />
         <Route path="/admin/add-animal" element={<AddAnimalPage />} />
-        <Route
-          path="/admin/merchandise"
-          element={
-            <AdminFeaturePlaceholderPage
-              title="Merchandise management"
-              description="This section will manage shelter merchandise listings and related updates."
-              note="For now, merchandise shopping is available on the public merchandise page."
-            />
-          }
-        />
-        <Route
-          path="/admin/donations"
-          element={
-            <AdminFeaturePlaceholderPage
-              title="Donation management"
-              description="This section will handle donation-related admin tools and support workflows."
-              note="Donation collection for visitors remains available on the public donation page."
-            />
-          }
-        />
-        <Route
-          path="/admin/users"
-          element={
-            <AdminFeaturePlaceholderPage
-              title="User / admin management"
-              description="This section will centralize user and admin access management tools."
-              note="User management tools will be connected here when the admin workflow is ready."
-            />
-          }
-        />
-        <Route
-          path="/admin/*"
-          element={
-            <AdminFeaturePlaceholderPage
-              title="Admin section not found"
-              description="This admin page does not exist yet. Use the dashboard to choose a supported admin area."
-              note="The dashboard keeps the active admin routes available and sends unknown routes here instead of breaking."
-            />
-          }
-        />
+        <Route path="/admin/merchandise" element={<AdminFeaturePlaceholderPage keyPrefix="merchandise" />} />
+        <Route path="/admin/donations" element={<AdminFeaturePlaceholderPage keyPrefix="donations" />} />
+        <Route path="/admin/users" element={<AdminFeaturePlaceholderPage keyPrefix="users" />} />
+        <Route path="/admin/*" element={<AdminFeaturePlaceholderPage keyPrefix="notFound" />} />
         <Route path="/postcreation" element={<PostCreationPage />} />
         <Route path="/posts" element={<PostsPage />} />
       </Routes>
@@ -84,4 +50,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

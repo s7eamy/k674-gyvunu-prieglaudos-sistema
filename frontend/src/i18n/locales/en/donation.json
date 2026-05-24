@@ -1,0 +1,91 @@
+{
+  "hero": {
+    "title": "Support Our Shelter",
+    "subtitle": "Your donation helps us provide food, medical care, and a safe home for animals in need. Every contribution makes a real difference.",
+    "stats": {
+      "helped": "Animals Helped",
+      "raised": "Raised This Year",
+      "care": "Goes to Care"
+    }
+  },
+  "step1": {
+    "title": "Step 1: Choose Your Donation Amount",
+    "or": "or",
+    "customLabel": "Enter a custom amount (€)",
+    "customPlaceholder": "e.g., 25.50",
+    "selected": "Selected amount:",
+    "loginPrompt": "📝 Log in to track your donor level and earn points!"
+  },
+  "step2": {
+    "title": "Step 2: Your Information",
+    "subtitle": "Let us know who you are so we'd know who to thank!",
+    "nameLabel": "Full Name *",
+    "namePlaceholder": "Your name",
+    "emailLabel": "Email Address *",
+    "emailPlaceholder": "your.email@example.com",
+    "messageLabel": "Message (Optional)",
+    "messagePlaceholder": "Share why you're supporting us…",
+    "cardLabel": "Card Details *",
+    "anonymousNote": "You're donating anonymously.",
+    "donateAnonymously": "Donate Anonymously",
+    "provideInfo": "Provide Your Information"
+  },
+  "impact": {
+    "title": "Your Impact 🌟",
+    "item1": "€5 provides food for 2 animals for a day",
+    "item2": "€10 covers medical supplies for one animal",
+    "item3": "€20 helps with shelter utilities",
+    "item4": "€50 supports emergency medical care",
+    "item5": "€100+ provides comprehensive care for a month"
+  },
+  "cta": {
+    "processing": "Processing payment…",
+    "donate": "Donate {{amount}}",
+    "selectAmount": "Select an amount to proceed"
+  },
+  "errors": {
+    "invalidAmount": "Please select or enter a valid donation amount.",
+    "missingName": "Please enter your name.",
+    "missingEmail": "Please enter your email.",
+    "invalidEmail": "Please enter a valid email address.",
+    "stripeLoading": "Stripe is still loading. Please try again in a moment.",
+    "cardNotReady": "Payment form is not ready yet.",
+    "paymentFailed": "Payment failed.",
+    "paymentMissingId": "Payment succeeded, but confirmation ID is missing.",
+    "paymentUnknownStatus": "Payment completed with unexpected status: {{status}}.",
+    "paymentStart": "Unable to start the donation payment. Please try again."
+  },
+  "notConfigured": "Stripe is not configured yet. Set VITE_STRIPE_PUBLISHABLE_KEY in the frontend env file.",
+  "notConfiguredTitle": "💝 Support Our Shelter",
+  "anonymous": "Anonymous",
+  "confirmation": {
+    "title": "🎉 Thank You!",
+    "subtitle": "Your donation was processed successfully",
+    "amountLabel": "Donation Amount",
+    "nameLabel": "Name:",
+    "emailLabel": "Email:",
+    "pointsLabel": "Points Earned:",
+    "pointsValue": "⭐ {{count}} points",
+    "messageLabel": "Message:",
+    "receipt": "We captured the receipt email <1>{{email}}</1> for this donation.",
+    "anonymousNote": "This donation was submitted anonymously.",
+    "thanks": "Thank you for your support! Your donation will directly help us care for animals in our shelter.",
+    "done": "Done"
+  },
+  "level": {
+    "names": {
+      "1": "Beginner",
+      "2": "Supporter",
+      "3": "Advocate",
+      "4": "Champion",
+      "5": "Platinum Supporter"
+    },
+    "points_one": "{{count}} point earned",
+    "points_other": "{{count}} points earned",
+    "pointsToNext": "{{count}} points to next level",
+    "maxLevel": "Max level reached! 🎉",
+    "explanation": "How to earn points:",
+    "rule1": "€1 donated = 1 point",
+    "rule2": "Volunteering also progresses your supporter bar!"
+  }
+}
