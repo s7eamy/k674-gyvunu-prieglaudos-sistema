@@ -4,13 +4,15 @@
     "animals": "🐾 Animals",
     "publicAnimals": "🐾 Public Animals",
     "match": "💛 Find My Match",
+    "posts": "✉️ Posts",
     "volunteer": "📄 Volunteer",
     "donate": "💝 Donations",
     "merchandise": "🎽 Merchandise",
     "cart": "🛒 Cart",
     "leaderboard": "🏆 Leaderboard",
-    "adminDashboard": "🛡 Admin Dashboard",
-    "addAnimal": "➕ Add Animal"
+    "adminDashboard": "Admin Dashboard",
+    "browse": "Browse",
+    "help": "Help"
   },
   "auth": {
     "login": "Login",
