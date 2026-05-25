@@ -10,8 +10,17 @@ def score_animal(animal, answers):
     
     # --- ANIMAL TYPE (20pts) - HARD FILTER ---
     animal_type_answer = answers.get("animal_type", "either")
-    if animal_type_answer in ("dog", "cat"):
-        if animal.type != animal_type_answer:
+    if animal_type_answer == "other":
+        if animal.type in ("cat", "dog"):
+            return -1.0
+    if animal_type_answer == "cat_or_dog":
+        if animal.type not in ("cat", "dog"):
+            return -1.0
+    if animal_type_answer == "cat":
+        if animal.type not in ("cat"):
+            return -1.0    
+    if animal_type_answer == "dog":
+        if animal.type not in ("dog"):
             return -1.0
     animal_type_score = 20.0
     
@@ -20,6 +29,7 @@ def score_animal(animal, answers):
     size = animal.size or ""
     
     living_space_multiplier = 0.0
+    print(animal_type_score)
     if living_space == "apartment":
         if size == "small":
             living_space_multiplier = 1.0

@@ -22,7 +22,9 @@
       "options": {
         "dog": "🐕 Dog",
         "cat": "🐈 Cat",
-        "either": "🐾 Open to both"
+        "cat_or_dog": "🐈 Cat or 🐕 Dog",
+        "other": "🐰 Other",
+        "any": "🐾 Open to all"
       }
     },
     "living_space": {
