@@ -13,3 +13,16 @@ export const getUserProfile = async (): Promise<UserProfile> => {
   const response = await api.get('/api/auth/profile');
   return response.data;
 };
+
+export const uploadAvatar = async (file: File): Promise<{ avatar_filename: string }> => {
+  const form = new FormData();
+  form.append('file', file);
+  const response = await api.post('/api/auth/avatar', form, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+  return response.data;
+};
+
+export const deleteAvatar = async (): Promise<void> => {
+  await api.delete('/api/auth/avatar');
+};
