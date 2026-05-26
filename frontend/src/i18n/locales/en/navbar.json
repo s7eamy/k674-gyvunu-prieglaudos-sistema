@@ -1,0 +1,30 @@
+{
+  "brand": "PawFinder",
+  "links": {
+    "animals": "🐾 Animals",
+    "publicAnimals": "🐾 Public Animals",
+    "match": "💛 Find My Match",
+    "posts": "✉️ Posts",
+    "volunteer": "📄 Volunteer",
+    "donate": "💝 Donations",
+    "merchandise": "🎽 Merchandise",
+    "cart": "🛒 Cart",
+    "leaderboard": "🏆 Leaderboard",
+    "adminDashboard": "Admin Dashboard",
+    "browse": "Browse",
+    "help": "Help"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "profileTitle": "View profile"
+  },
+  "aria": {
+    "brand_home": "Go to home page",
+    "toggle_menu": "Toggle navigation menu",
+    "primary_nav": "Primary navigation",
+    "authentication": "Authentication",
+    "language_switcher": "Language"
+  }
+}

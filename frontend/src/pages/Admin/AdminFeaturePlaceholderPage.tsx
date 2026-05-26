@@ -1,34 +1,30 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Navbar from '../../components/layout/Navbar';
 import './AdminFeaturePlaceholderPage.css';
 
 type AdminFeaturePlaceholderPageProps = {
-  title: string;
-  description: string;
-  note: string;
+  keyPrefix: 'merchandise' | 'donations' | 'users' | 'notFound';
   backTo?: string;
-  backLabel?: string;
 };
 
 export default function AdminFeaturePlaceholderPage({
-  title,
-  description,
-  note,
+  keyPrefix,
   backTo = '/admin',
-  backLabel = 'Back to Admin Dashboard',
 }: AdminFeaturePlaceholderPageProps) {
+  const { t } = useTranslation('admin');
   return (
     <>
       <Navbar />
       <main className="admin-feature-page">
         <section className="admin-feature-page__card">
-          <p className="admin-feature-page__eyebrow">Admin tools</p>
-          <h1>{title}</h1>
-          <p className="admin-feature-page__description">{description}</p>
-          <p className="admin-feature-page__status">This page is a placeholder for a future admin workflow.</p>
-          <p className="admin-feature-page__note">{note}</p>
+          <p className="admin-feature-page__eyebrow">{t('placeholder.eyebrow')}</p>
+          <h1>{t(`placeholder.${keyPrefix}.title` as never)}</h1>
+          <p className="admin-feature-page__description">{t(`placeholder.${keyPrefix}.description` as never)}</p>
+          <p className="admin-feature-page__status">{t('placeholder.status')}</p>
+          <p className="admin-feature-page__note">{t(`placeholder.${keyPrefix}.note` as never)}</p>
           <Link to={backTo} className="admin-feature-page__button">
-            {backLabel}
+            {t('backLink')}
           </Link>
         </section>
       </main>

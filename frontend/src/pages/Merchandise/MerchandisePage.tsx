@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Navbar from '../../components/layout/Navbar';
 import * as merchandiseService from '../../services/merchandiseService';
 import type { CartItem } from '../../types/CartItem';
+import { useEnumLabel } from '../../i18n/useEnumLabel';
+import { useFormatters } from '../../i18n/formatters';
 import './MerchandisePage.css';
 
 const MERCH_CART_STORAGE_KEY = 'merchandise_cart_items';
@@ -21,6 +24,9 @@ const saveCartItems = (items: CartItem[]) => {
 };
 
 export default function MerchandisePage() {
+  const { t } = useTranslation('merchandise');
+  const enumLabel = useEnumLabel();
+  const { formatCurrency } = useFormatters();
   const navigate = useNavigate();
   const [cartItems, setCartItems] = useState<CartItem[]>(() => loadCartItems());
   const [loading, setLoading] = useState(false);
@@ -28,51 +34,48 @@ export default function MerchandisePage() {
   const [cartMessage, setCartMessage] = useState('');
   const [showCartModal, setShowCartModal] = useState(false);
 
-  // Form state
   const [formData, setFormData] = useState({
     color: 'black',
     size: 'M',
     design: 'shelter-love',
     quantity: 1,
-    price: merchandiseService.MERCHANDISE_PRICE
+    price: merchandiseService.MERCHANDISE_PRICE,
   });
 
   const isLoggedIn = Boolean(localStorage.getItem('access_token'));
 
   const selectedDesign =
-    merchandiseService.AVAILABLE_DESIGNS.find(d => d.id === formData.design) ||
+    merchandiseService.AVAILABLE_DESIGNS.find((d) => d.id === formData.design) ||
     merchandiseService.AVAILABLE_DESIGNS[0];
 
   const handleDesignSelect = (designId: string) => {
-    setFormData(prev => ({ ...prev, design: designId }));
+    setFormData((prev) => ({ ...prev, design: designId }));
   };
 
-  // Get product image based on selected design and color
   const getProductImage = (designId = formData.design) => {
     const shirtImages: Record<string, Record<string, string>> = {
       'shelter-love': {
         white: '/images/merch/white_shirt_cat.png',
-        black: '/images/merch/black_shirt_cat.png'
+        black: '/images/merch/black_shirt_cat.png',
       },
       'rescue-me': {
         white: '/images/merch/white_shirt_dog.png',
-        black: '/images/merch/black_shirt_dog.png'
+        black: '/images/merch/black_shirt_dog.png',
       },
       mix: {
         white: '/images/merch/white_shirt_mix.png',
-        black: '/images/merch/black_shirt_mix.png'
+        black: '/images/merch/black_shirt_mix.png',
       },
       plain: {
         white: '/images/merch/white_shirt.jpg',
-        black: '/images/merch/black_shirt.png'
-      }
+        black: '/images/merch/black_shirt.png',
+      },
     };
 
     const colors = shirtImages[designId] || shirtImages.plain;
     return colors[formData.color] || colors.black;
   };
 
-  // Donation points calculation
   const donationPoints = Math.floor(formData.price * 0.1 * 10);
   const totalPrice = formData.price * formData.quantity;
 
@@ -82,9 +85,9 @@ export default function MerchandisePage() {
 
   const handleFormChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: name === 'quantity' ? parseInt(value) : value
+      [name]: name === 'quantity' ? parseInt(value) : value,
     }));
   };
 
@@ -100,7 +103,7 @@ export default function MerchandisePage() {
         design: formData.design,
         quantity: formData.quantity,
         price: totalPrice,
-        created_at: new Date().toISOString()
+        created_at: new Date().toISOString(),
       };
 
       const updatedCart = [...cartItems, newItem];
@@ -115,10 +118,10 @@ export default function MerchandisePage() {
         size: 'M',
         design: 'shelter-love',
         quantity: 1,
-        price: merchandiseService.MERCHANDISE_PRICE
+        price: merchandiseService.MERCHANDISE_PRICE,
       });
     } catch (err) {
-      setError('Failed to add item to cart.');
+      setError(t('shop.errorAdd'));
       console.error(err);
     } finally {
       setLoading(false);
@@ -139,20 +142,20 @@ export default function MerchandisePage() {
       <Navbar />
       <section className="merchandise-page__hero">
         <div className="merchandise-page__hero-content">
-          <h1>Exclusive Merchandise</h1>
-          <p>Support our shelter with unique, beautifully designed merchandise. Every purchase directly supports animal rescue and care.</p>
+          <h1>{t('hero.title')}</h1>
+          <p>{t('hero.subtitle')}</p>
           <div className="merchandise-page__stats">
             <div className="stat-item">
               <span className="stat-number">2,500+</span>
-              <span className="stat-label">Items Sold</span>
+              <span className="stat-label">{t('hero.stats.sold')}</span>
             </div>
             <div className="stat-item">
               <span className="stat-number">€15K</span>
-              <span className="stat-label">Raised for Animals</span>
+              <span className="stat-label">{t('hero.stats.raised')}</span>
             </div>
             <div className="stat-item">
               <span className="stat-number">100%</span>
-              <span className="stat-label">To Animal Care</span>
+              <span className="stat-label">{t('hero.stats.toCare')}</span>
             </div>
           </div>
         </div>
@@ -163,16 +166,14 @@ export default function MerchandisePage() {
         {showCartModal && (
           <div className="modal-overlay" role="dialog" aria-modal="true">
             <div className="cart-confirmation-modal">
-              <h2>Item added to cart</h2>
-              <p>
-                Your selection has been saved. {isLoggedIn ? 'Proceed to checkout now or continue shopping.' : 'Continue shopping now, and log in later to checkout.'}
-              </p>
+              <h2>{t('modal.title')}</h2>
+              <p>{isLoggedIn ? t('modal.subtitleLoggedIn') : t('modal.subtitleLoggedOut')}</p>
               <div className="modal-buttons">
                 <button type="button" className="btn-secondary" onClick={handleCloseModal}>
-                  Continue shopping
+                  {t('modal.continue')}
                 </button>
                 <button type="button" className="btn-primary" onClick={handleGoToCheckout}>
-                  Go to checkout
+                  {t('modal.checkout')}
                 </button>
               </div>
             </div>
@@ -182,30 +183,25 @@ export default function MerchandisePage() {
         <div className="merchandise-container">
           <div className="shop-view">
             <div className="product-preview">
-              <h2>Choose Your T-Shirt</h2>
+              <h2>{t('shop.chooseTshirt')}</h2>
               <img
                 src={getProductImage()}
-                alt={selectedDesign.name}
+                alt={enumLabel('merch_design', selectedDesign.id)}
                 className="main-product-image"
               />
-              <p className="selected-design-name">{selectedDesign.name}</p>
-              <p className="selected-design-desc">{selectedDesign.description}</p>
+              <p className="selected-design-name">{enumLabel('merch_design', selectedDesign.id)}</p>
+              <p className="selected-design-desc">{t(`designDescriptions.${selectedDesign.id}` as never)}</p>
 
               <div className="design-thumbnail-list">
-                {merchandiseService.AVAILABLE_DESIGNS.map(design => (
+                {merchandiseService.AVAILABLE_DESIGNS.map((design) => (
                   <button
                     key={design.id}
                     type="button"
                     className={`design-thumb ${formData.design === design.id ? 'active' : ''}`}
                     onClick={() => handleDesignSelect(design.id)}
                   >
-                    <img
-                      src={design.image}
-                      alt={design.name}
-                      width={80}
-                      height={80}
-                    />
-                    <small>{design.name}</small>
+                    <img src={design.image} alt={enumLabel('merch_design', design.id)} width={80} height={80} />
+                    <small>{enumLabel('merch_design', design.id)}</small>
                   </button>
                 ))}
               </div>
@@ -213,36 +209,38 @@ export default function MerchandisePage() {
 
             <div className="product-options">
               <form onSubmit={handleOrderSubmit} className="merchandise-form">
-                <h2>Customize & Buy</h2>
+                <h2>{t('shop.customize')}</h2>
 
                 <div className="form-group">
-                  <label htmlFor="color">Color</label>
+                  <label htmlFor="color">{t('shop.color')}</label>
                   <div className="color-options">
-                    {merchandiseService.AVAILABLE_COLORS.map(color => (
+                    {merchandiseService.AVAILABLE_COLORS.map((color) => (
                       <button
                         key={color}
                         type="button"
                         className={`color-swatch ${formData.color === color ? 'selected' : ''}`}
                         style={{ backgroundColor: color === 'black' ? '#111' : '#fff', borderColor: '#999' }}
-                        onClick={() => setFormData(prev => ({ ...prev, color }))}
+                        onClick={() => setFormData((prev) => ({ ...prev, color }))}
                       >
-                        {color}
+                        {enumLabel('merch_color', color)}
                       </button>
                     ))}
                   </div>
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="size">Size</label>
+                  <label htmlFor="size">{t('shop.size')}</label>
                   <select id="size" name="size" value={formData.size} onChange={handleFormChange}>
-                    {merchandiseService.AVAILABLE_SIZES.map(size => (
-                      <option key={size} value={size}>{size}</option>
+                    {merchandiseService.AVAILABLE_SIZES.map((size) => (
+                      <option key={size} value={size}>
+                        {size}
+                      </option>
                     ))}
                   </select>
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="quantity">Quantity</label>
+                  <label htmlFor="quantity">{t('shop.quantity')}</label>
                   <input
                     type="number"
                     id="quantity"
@@ -255,14 +253,14 @@ export default function MerchandisePage() {
                 </div>
 
                 <div className="price-info">
-                  <p>Unit price: €{formData.price.toFixed(2)}</p>
-                  <p>Total: €{totalPrice.toFixed(2)}</p>
-                  <p>Donation points: {donationPoints * formData.quantity}</p>
+                  <p>{t('shop.unitPrice', { price: formatCurrency(formData.price) })}</p>
+                  <p>{t('shop.totalLabel', { price: formatCurrency(totalPrice) })}</p>
+                  <p>{t('shop.donationPoints', { count: donationPoints * formData.quantity })}</p>
                 </div>
 
                 <div className="form-actions">
                   <button type="submit" className="btn-primary" disabled={loading}>
-                    {loading ? 'Adding...' : 'Add to Cart'}
+                    {loading ? t('shop.adding') : t('shop.addToCart')}
                   </button>
                 </div>
               </form>

@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { createOrUpdateSubscription } from '../../services/subscriptionService';
+import { useEnumLabel } from '../../i18n/useEnumLabel';
 import './SubscribeModal.css';
 
 type Props = {
@@ -18,6 +20,8 @@ const SIZE_OPTIONS = ['small', 'medium', 'large'];
 const TEMPERAMENT_OPTIONS = ['calm', 'friendly', 'energetic'];
 
 export default function SubscribeModal({ onClose, title, initial, onUnsubscribe }: Props) {
+  const { t } = useTranslation('subscribe');
+  const enumLabel = useEnumLabel();
   const [animalType, setAnimalType] = useState(initial?.animalType || '');
   const [sizes, setSizes] = useState<string[]>(initial?.sizes || []);
   const [temperaments, setTemperaments] = useState<string[]>(initial?.temperaments || []);
@@ -46,7 +50,7 @@ export default function SubscribeModal({ onClose, title, initial, onUnsubscribe 
       });
       onClose();
     } catch {
-      setError('Failed to save subscription');
+      setError(t('saveError'));
     } finally {
       setIsSaving(false);
     }
@@ -55,17 +59,17 @@ export default function SubscribeModal({ onClose, title, initial, onUnsubscribe 
   return (
     <div className="subscribe-modal__backdrop">
       <div className="subscribe-modal">
-        <h3>{title || 'Subscribe to new animals'}</h3>
-        <p>Set optional criteria to only receive relevant notifications.</p>
+        <h3>{title || t('defaultTitle')}</h3>
+        <p>{t('subtitle')}</p>
 
-        <label>Animal type</label>
+        <label>{t('animalType')}</label>
         <div className="subscribe-modal__options">
           <button
             type="button"
             className={`subscribe-modal__option ${animalType === '' ? 'is-selected' : ''}`}
             onClick={() => setAnimalType('')}
           >
-            Either
+            {t('either')}
           </button>
           {ANIMAL_TYPES.map((option) => (
             <button
@@ -74,12 +78,12 @@ export default function SubscribeModal({ onClose, title, initial, onUnsubscribe 
               className={`subscribe-modal__option ${animalType === option ? 'is-selected' : ''}`}
               onClick={() => setAnimalType(option)}
             >
-              {option}
+              {enumLabel('animal_type', option)}
             </button>
           ))}
         </div>
 
-        <label>Size</label>
+        <label>{t('size')}</label>
         <div className="subscribe-modal__options">
           {SIZE_OPTIONS.map((option) => (
             <button
@@ -88,12 +92,12 @@ export default function SubscribeModal({ onClose, title, initial, onUnsubscribe 
               className={`subscribe-modal__option ${sizeSet.has(option) ? 'is-selected' : ''}`}
               onClick={() => toggleValue(option, sizes, setSizes)}
             >
-              {option}
+              {enumLabel('animal_size', option)}
             </button>
           ))}
         </div>
 
-        <label>Temperament</label>
+        <label>{t('temperament')}</label>
         <div className="subscribe-modal__options">
           {TEMPERAMENT_OPTIONS.map((option) => (
             <button
@@ -102,7 +106,7 @@ export default function SubscribeModal({ onClose, title, initial, onUnsubscribe 
               className={`subscribe-modal__option ${temperamentSet.has(option) ? 'is-selected' : ''}`}
               onClick={() => toggleValue(option, temperaments, setTemperaments)}
             >
-              {option}
+              {enumLabel('animal_temperament', option)}
             </button>
           ))}
         </div>
@@ -117,11 +121,15 @@ export default function SubscribeModal({ onClose, title, initial, onUnsubscribe 
               onClick={onUnsubscribe}
               disabled={isSaving}
             >
-              Unsubscribe
+              {t('unsubscribe')}
             </button>
           )}
-          <button className="navbar__btn navbar__btn--ghost" onClick={onClose} disabled={isSaving}>Cancel</button>
-          <button className="navbar__btn navbar__btn--primary" onClick={handleSave} disabled={isSaving}>Save</button>
+          <button className="navbar__btn navbar__btn--ghost" onClick={onClose} disabled={isSaving}>
+            {t('cancel')}
+          </button>
+          <button className="navbar__btn navbar__btn--primary" onClick={handleSave} disabled={isSaving}>
+            {t('save')}
+          </button>
         </div>
       </div>
     </div>

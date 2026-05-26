@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import type { DonorLevel } from '../../types/DonorLevel';
 import './DonorLevelCard.css';
 
@@ -5,20 +6,23 @@ type DonorLevelCardProps = {
   donorLevel: DonorLevel;
 };
 
-const DONOR_LEVELS = [
-  { level: 1, name: 'Beginner', emoji: '🌱' },
-  { level: 2, name: 'Supporter', emoji: '🤝' },
-  { level: 3, name: 'Advocate', emoji: '💪' },
-  { level: 4, name: 'Champion', emoji: '⭐' },
-  { level: 5, name: 'Platinum Supporter', emoji: '💎' },
-];
+const DONOR_LEVEL_EMOJI: Record<number, string> = {
+  1: '🌱',
+  2: '🤝',
+  3: '💪',
+  4: '⭐',
+  5: '💎',
+};
 
 function DonorLevelCard({ donorLevel }: DonorLevelCardProps) {
-  const currentLevelInfo = DONOR_LEVELS.find((l) => l.level === donorLevel.level) || DONOR_LEVELS[0];
+  const { t } = useTranslation('donation');
+  const emoji = DONOR_LEVEL_EMOJI[donorLevel.level] || '🌱';
+  const levelName = t(`level.names.${donorLevel.level}` as never, { defaultValue: '' });
+
   const progressPercentage = donorLevel.next_threshold
     ? Math.min(
         100,
-        ((donorLevel.total_points % (donorLevel.next_threshold || 1)) / (donorLevel.next_threshold || 1)) * 100
+        ((donorLevel.total_points % (donorLevel.next_threshold || 1)) / (donorLevel.next_threshold || 1)) * 100,
       )
     : 100;
 
@@ -26,38 +30,34 @@ function DonorLevelCard({ donorLevel }: DonorLevelCardProps) {
     <div className="donor-level">
       <div className="donor-level__info">
         <span className="donor-level__badge">
-          {currentLevelInfo.emoji} {currentLevelInfo.name}
+          {emoji} {levelName}
         </span>
         <span className="donor-level__points">
-          {donorLevel.total_points} point{donorLevel.total_points !== 1 ? 's' : ''} earned
-        </span>
-      </div>
-      
-      <div className="donor-level__progress-container">
-        <div className="donor-level__progress-bar">
-          <div
-            className="donor-level__progress-fill"
-            style={{ width: `${progressPercentage}%` }}
-          />
-        </div>
-        <span className="donor-level__progress-label">
-          {donorLevel.next_threshold
-            ? `${donorLevel.points_to_next_level} points to next level`
-            : 'Max level reached! 🎉'}
+          {t('level.points', { count: donorLevel.total_points })}
         </span>
       </div>
 
-      {/* Donation points explanation */}
+      <div className="donor-level__progress-container">
+        <div className="donor-level__progress-bar">
+          <div className="donor-level__progress-fill" style={{ width: `${progressPercentage}%` }} />
+        </div>
+        <span className="donor-level__progress-label">
+          {donorLevel.next_threshold
+            ? t('level.pointsToNext', { count: donorLevel.points_to_next_level })
+            : t('level.maxLevel')}
+        </span>
+      </div>
+
       <div className="donor-level__explanation">
-        <h4>How to earn points:</h4>
+        <h4>{t('level.explanation')}</h4>
         <div className="donor-level__points-breakdown">
           <div className="points-item">
             <span className="points-icon">💝</span>
-            <span className="points-text">€1 donated = 1 point</span>
+            <span className="points-text">{t('level.rule1')}</span>
           </div>
           <div className="points-item">
             <span className="points-icon"></span>
-            <span className="points-text">Volunteering also progresses your supporter bar!</span>
+            <span className="points-text">{t('level.rule2')}</span>
           </div>
         </div>
       </div>

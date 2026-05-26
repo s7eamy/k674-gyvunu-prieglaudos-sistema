@@ -1,0 +1,13 @@
+{
+  "generic": "Įvyko netikėta klaida.",
+  "network": "Tinklo klaida. Bandykite dar kartą.",
+  "server_unknown": "Nežinoma serverio klaida.",
+  "not_logged_in": "Norėdami tęsti, prisijunkite.",
+  "not_admin": "Šį veiksmą gali atlikti tik administratorius.",
+  "validation_generic": "Tikrinimo klaida.",
+  "auth": {
+    "invalid_credentials": "Neteisingas vartotojo vardas arba slaptažodis.",
+    "user_exists": "Vartotojas su šiuo vardu jau egzistuoja.",
+    "email_exists": "Vartotojas su šiuo el. paštu jau egzistuoja."
+  }
+}

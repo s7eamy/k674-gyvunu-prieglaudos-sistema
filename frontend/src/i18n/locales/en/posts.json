@@ -1,0 +1,10 @@
+{
+  "title": "Shelter News & Stories",
+  "subtitle": "Read updates and stories from our shelter",
+  "loading": "Loading posts…",
+  "errorPrefix": "Error: {{message}}",
+  "empty": "No posts yet. Check back soon!",
+  "ariaGrid": "Shelter posts",
+  "author": "By Admin #{{id}}",
+  "loadFailed": "Failed to load posts"
+}

@@ -1,0 +1,39 @@
+.lang-switcher {
+  display: inline-flex;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.lang-switcher__btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0.35rem 0.75rem;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.lang-switcher__btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.lang-switcher__btn--active {
+  background: var(--color-primary, #c44d3a);
+  color: #fff;
+}
+
+.lang-switcher__btn--active:hover {
+  background: var(--color-primary-dark, #a8392b);
+}
+
+.lang-switcher__btn:focus-visible {
+  outline: 2px solid var(--color-primary, #c44d3a);
+  outline-offset: 2px;
+}

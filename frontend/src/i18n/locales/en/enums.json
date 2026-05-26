@@ -1,0 +1,60 @@
+{
+  "animal_type": {
+    "dog": "Dog",
+    "cat": "Cat",
+    "other": "Other",
+    "animal": "Animal",
+    "unknown": "Animal"
+  },
+  "animal_size": {
+    "small": "Small",
+    "medium": "Medium",
+    "large": "Large",
+    "unknown": "Unknown"
+  },
+  "animal_size_short": {
+    "small": "S",
+    "medium": "M",
+    "large": "L",
+    "unknown": "?"
+  },
+  "animal_temperament": {
+    "calm": "Calm",
+    "friendly": "Friendly",
+    "energetic": "Energetic",
+    "unknown": "Unknown"
+  },
+  "adoption_status": {
+    "pending": "Pending",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "cancelled": "Cancelled",
+    "adopted": "Adopted"
+  },
+  "order_status": {
+    "pending": "Pending",
+    "paid": "Paid",
+    "shipped": "Shipped",
+    "delivered": "Delivered",
+    "cancelled": "Cancelled"
+  },
+  "volunteer_status": {
+    "pending": "Pending",
+    "approved": "Approved",
+    "attended": "Attended"
+  },
+  "merch_color": {
+    "black": "Black",
+    "white": "White"
+  },
+  "merch_design": {
+    "shelter-love": "Shelter Love",
+    "rescue-me": "Rescue Me",
+    "mix": "Mix Animals",
+    "plain": "Plain T-Shirt"
+  },
+  "vaccinated": {
+    "yes": "Yes",
+    "no": "No"
+  }
+}

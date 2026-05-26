@@ -1,0 +1,60 @@
+{
+  "animal_type": {
+    "dog": "Šuo",
+    "cat": "Katė",
+    "other": "Kitas",
+    "animal": "Gyvūnas",
+    "unknown": "Gyvūnas"
+  },
+  "animal_size": {
+    "small": "Mažas",
+    "medium": "Vidutinis",
+    "large": "Didelis",
+    "unknown": "Nežinomas"
+  },
+  "animal_size_short": {
+    "small": "M",
+    "medium": "V",
+    "large": "D",
+    "unknown": "?"
+  },
+  "animal_temperament": {
+    "calm": "Ramus",
+    "friendly": "Draugiškas",
+    "energetic": "Energingas",
+    "unknown": "Nežinomas"
+  },
+  "adoption_status": {
+    "pending": "Laukiama",
+    "approved": "Patvirtinta",
+    "rejected": "Atmesta",
+    "cancelled": "Atšaukta",
+    "adopted": "Priglaustas"
+  },
+  "order_status": {
+    "pending": "Laukiama",
+    "paid": "Apmokėta",
+    "shipped": "Išsiųsta",
+    "delivered": "Pristatyta",
+    "cancelled": "Atšaukta"
+  },
+  "volunteer_status": {
+    "pending": "Laukiama",
+    "approved": "Patvirtinta",
+    "attended": "Dalyvauta"
+  },
+  "merch_color": {
+    "black": "Juoda",
+    "white": "Balta"
+  },
+  "merch_design": {
+    "shelter-love": "Prieglaudos meilė",
+    "rescue-me": "Išgelbėk mane",
+    "mix": "Visi gyvūnai",
+    "plain": "Paprasti marškinėliai"
+  },
+  "vaccinated": {
+    "yes": "Taip",
+    "no": "Ne"
+  }
+}

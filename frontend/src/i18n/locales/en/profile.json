@@ -1,0 +1,36 @@
+{
+  "loading": "Loading profile…",
+  "error": "Failed to load profile. Please try again.",
+  "errorGeneric": "Unable to load profile",
+  "registeredOn": "Registered on {{date}}",
+  "subscription": {
+    "subscribed": "Subscribed",
+    "notSubscribed": "Not subscribed",
+    "manage": "Manage notifications"
+  },
+  "levels": {
+    "donor": "💝 Donation Level",
+    "volunteer": "📄 Volunteer Level"
+  },
+  "adoption": {
+    "title": "Adoption Requests",
+    "count_one": "{{count}} request",
+    "count_other": "{{count}} requests",
+    "empty": "No adoption requests yet. Browse animals and click \"Adopt Me\" to get started.",
+    "typeLabel": "Type: {{type}}",
+    "submittedLabel": "Submitted: {{date}}"
+  },
+  "favorites": {
+    "title": "Favorite animals",
+    "count_one": "{{count}} animal is favorited",
+    "count_other": "{{count}} animals are favorited",
+    "empty": "Add an animal to favorites to see them here.",
+    "ariaGrid": "Animal cards"
+  },
+  "volunteering": {
+    "title": "Volunteering history",
+    "count_one": "{{count}} volunteering",
+    "count_other": "{{count}} volunteerings",
+    "empty": "No volunteering sessions yet. Go to the volunteering page and make a registration to get started."
+  }
+}

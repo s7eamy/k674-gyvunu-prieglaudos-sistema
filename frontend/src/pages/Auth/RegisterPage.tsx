@@ -1,10 +1,12 @@
-// Register page - user registration form with validation
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { register } from '../../services/authService';
 import Navbar from '../../components/layout/Navbar';
+import { translateApiError } from '../../i18n/errorMap';
 import './AuthPage.css';
 
 export default function RegisterPage() {
+  const { t } = useTranslation('auth');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -12,35 +14,30 @@ export default function RegisterPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
 
-   // validate name/email/password on client before sending
   const validateForm = (): boolean => {
     const newErrors: { name?: string; email?: string; password?: string } = {};
 
-    // name 3-50 characters
     if (!name || name.length < 3) {
-      newErrors.name = 'Username must be at least 3 characters';
+      newErrors.name = t('validation.username_min', { min: 3 });
     } else if (name.length > 50) {
-      newErrors.name = 'Username must be at most 50 characters';
+      newErrors.name = t('validation.username_max', { max: 50 });
     }
 
-    // email basic validation
     if (!email || !email.includes('@') || !email.includes('.')) {
-      newErrors.email = 'Please enter a valid email address';
+      newErrors.email = t('validation.email_invalid');
     }
 
-    // pass 8-128 characters + complexity
     if (!password || password.length < 8) {
-      newErrors.password = 'Password must be at least 8 characters';
+      newErrors.password = t('validation.password_min', { min: 8 });
     } else if (password.length > 128) {
-      newErrors.password = 'Password must be at most 128 characters';
+      newErrors.password = t('validation.password_max', { max: 128 });
     } else {
-      // 1 uppercase, 1 lowercase, 1 digit
       const hasUpperCase = /[A-Z]/.test(password);
       const hasLowerCase = /[a-z]/.test(password);
       const hasDigit = /\d/.test(password);
 
       if (!hasUpperCase || !hasLowerCase || !hasDigit) {
-        newErrors.password = 'Password must contain uppercase, lowercase, and a digit';
+        newErrors.password = t('validation.password_complexity');
       }
     }
 
@@ -53,7 +50,6 @@ export default function RegisterPage() {
     setErrors({});
     setSuccessMessage('');
 
-    // client side validation
     if (!validateForm()) {
       return;
     }
@@ -62,20 +58,12 @@ export default function RegisterPage() {
 
     try {
       await register({ name, email, password });
-      setSuccessMessage('Registration successful');
+      setSuccessMessage(t('register.success'));
       setName('');
       setEmail('');
       setPassword('');
     } catch (error: unknown) {
-      const errorObj = error as { status: number; message: string };
-      // backend error handling
-      if (errorObj.status === 409) {
-        setErrors({ general: 'User with this username already exists' });
-      } else if (errorObj.status === 500) {
-        setErrors({ general: 'Unknown server error' });
-      } else {
-        setErrors({ general: errorObj.message || 'Registration failed' });
-      }
+      setErrors({ general: translateApiError(error) });
     } finally {
       setIsSubmitting(false);
     }
@@ -86,13 +74,13 @@ export default function RegisterPage() {
       <Navbar />
 
       <main className="auth-page">
-        <section className="auth-card" aria-label="Register form">
-          <h1>Register</h1>
-          <p className="auth-card__subtitle">Create your account and help pets find homes.</p>
+        <section className="auth-card" aria-label={t('register.ariaForm')}>
+          <h1>{t('register.title')}</h1>
+          <p className="auth-card__subtitle">{t('register.subtitle')}</p>
 
           <form onSubmit={handleSubmit} className="auth-form">
             <div className="auth-form__field">
-              <label htmlFor="name">Username</label>
+              <label htmlFor="name">{t('fields.username')}</label>
               <input
                 type="text"
                 id="name"
@@ -104,7 +92,7 @@ export default function RegisterPage() {
             </div>
 
             <div className="auth-form__field">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">{t('fields.email')}</label>
               <input
                 type="email"
                 id="email"
@@ -116,7 +104,7 @@ export default function RegisterPage() {
             </div>
 
             <div className="auth-form__field">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password">{t('fields.password')}</label>
               <input
                 type="password"
                 id="password"
@@ -131,11 +119,11 @@ export default function RegisterPage() {
             {successMessage && <p className="auth-success">{successMessage}</p>}
 
             <button type="submit" disabled={isSubmitting} className="auth-form__submit">
-              {isSubmitting ? 'Registering...' : 'Register'}
+              {isSubmitting ? t('register.submitting') : t('register.submit')}
             </button>
           </form>
 
-          <p className="auth-card__subtitle">Password must be at least 8 chars and contain upper/lower/digit</p>
+          <p className="auth-card__subtitle">{t('validation.password_complexity')}</p>
         </section>
       </main>
     </>

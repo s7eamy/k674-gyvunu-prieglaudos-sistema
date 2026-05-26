@@ -1,0 +1,166 @@
+{
+  "dashboard": {
+    "eyebrow": "Admin dashboard",
+    "title": "Choose a management area",
+    "subtitle": "Use the shortcuts below to jump straight to the admin tools you need. The most common workflows are ready now, and the rest are prepared as dashboard links.",
+    "ariaShortcuts": "Admin shortcuts",
+    "badges": {
+      "active": "Active",
+      "soon": "Soon"
+    },
+    "actions": {
+      "default": "Open section",
+      "manageRegistrations": "Manage registrations",
+      "createPost": "Create a post",
+      "manageAdoptions": "Manage adoptions",
+      "addAnimal": "Add an animal",
+      "openPlaceholder": "Open placeholder"
+    },
+    "shortcuts": {
+      "volunteer": {
+        "title": "Volunteer registration management",
+        "description": "Review volunteer shift requests, approvals, and attendance updates."
+      },
+      "post": {
+        "title": "Post creation",
+        "description": "Publish shelter updates, stories, and announcements for visitors."
+      },
+      "adoption": {
+        "title": "Adoption request management",
+        "description": "Review and approve or reject animal adoption requests from users."
+      },
+      "animals": {
+        "title": "Animal management",
+        "description": "Add new dogs, cats, and other animals to the shelter listings."
+      },
+      "merchandise": {
+        "title": "Merchandise management",
+        "description": "Prepare merchandise listings and keep store content up to date."
+      },
+      "donations": {
+        "title": "Donation management",
+        "description": "Track donation related admin tools and fundraising support tasks."
+      },
+      "users": {
+        "title": "User and admin management",
+        "description": "Review users and admin access tools from one place."
+      }
+    }
+  },
+  "backLink": "Back to Admin Dashboard",
+  "volunteer": {
+    "title": "Volunteer registration management",
+    "loginPrompt": "Please log in as admin to see volunteer registrations.",
+    "userPrefix": "User: {{name}}",
+    "ariaGrid": "Volunteer Registrations cards",
+    "count_one": "Found {{count}} user created registration",
+    "count_other": "Found {{count}} user created registrations",
+    "approve": "Approve",
+    "markAttendance": "Mark Attendance",
+    "approveFail": "Failed to approve registration",
+    "attendanceFail": "Failed to mark registration attendance"
+  },
+  "adoption": {
+    "title": "Adoption request management",
+    "loginPrompt": "Please log in as admin to see adoption requests.",
+    "count_one": "{{count}} pending adoption request",
+    "count_other": "{{count}} pending adoption requests",
+    "empty": "No pending adoption requests.",
+    "ariaGrid": "Adoption request cards",
+    "requestedBy": "Requested by:",
+    "submittedDate": "Submitted: {{date}}",
+    "approve": "Approve",
+    "reject": "Reject",
+    "processing": "Processing…",
+    "approveFail": "Failed to approve request",
+    "rejectFail": "Failed to reject request"
+  },
+  "addAnimal": {
+    "title": "Add New Animal",
+    "subtitle": "Help more pets find loving homes by adding them to the shelter.",
+    "loginPrompt": "Please log in as admin to add animals.",
+    "fields": {
+      "name": "Name",
+      "type": "Type",
+      "breed": "Breed",
+      "size": "Size",
+      "age": "Age (years)",
+      "vaccinated": "Vaccinated",
+      "temperament": "Temperament",
+      "description": "English description (Optional)",
+      "descriptionPlaceholder": "Add any special notes (personality, behaviour, health info) about this animal in english…",
+      "description_lt": "Lithuanian description (Optional)",
+      "description_ltPlaceholder": "Add any special notes (personality, behaviour, health info) about this animal in lithuanian…",
+      "image": "Image Upload"
+    },
+    "validation": {
+      "nameRequired": "Name is required",
+      "typeRequired": "Type is required",
+      "breedRequired": "Breed is required",
+      "sizeRequired": "Size is required",
+      "ageRequired": "Age is required",
+      "ageInvalid": "Age must be a valid non-negative number",
+      "temperamentRequired": "Temperament is required",
+      "descriptionRequired": "If there is a lithuanian description, english must also be provided",
+      "description_ltRequired": "If there is an english description, lithuanian must also be provied"
+    },
+    "submit": "Add Animal",
+    "submitting": "Adding Animal…",
+    "success": "Animal added successfully!",
+    "viewAll": "View All Animals",
+    "errors": {
+      "notLoggedIn": "Please log in to continue",
+      "notAdmin": "Only admins can add animals",
+      "generic": "Failed to add animal"
+    }
+  },
+  "postCreation": {
+    "title": "Create New Post",
+    "subtitle": "Publish shelter news, stories, and updates for visitors.",
+    "loginPrompt": "Please log in as admin to create posts.",
+    "fields": {
+      "title": "Title",
+      "content": "Content",
+      "imageUrl": "Image URL (Optional)",
+      "imageUrlPlaceholder": "https://example.com/image.jpg"
+    },
+    "validation": {
+      "titleRequired": "Title is required",
+      "contentRequired": "Content is required",
+      "imageUrlInvalid": "Image URL must be a valid URL"
+    },
+    "submit": "Create Post",
+    "submitting": "Creating Post…",
+    "success": "Post created successfully!",
+    "backToDashboard": "Back to dashboard",
+    "errors": {
+      "notLoggedIn": "Please log in to continue",
+      "notAdmin": "Only admins can create posts",
+      "generic": "Failed to create post"
+    }
+  },
+  "placeholder": {
+    "eyebrow": "Admin tools",
+    "status": "This page is a placeholder for a future admin workflow.",
+    "merchandise": {
+      "title": "Merchandise management",
+      "description": "This section will manage shelter merchandise listings and related updates.",
+      "note": "For now, merchandise shopping is available on the public merchandise page."
+    },
+    "donations": {
+      "title": "Donation management",
+      "description": "This section will handle donation-related admin tools and support workflows.",
+      "note": "Donation collection for visitors remains available on the public donation page."
+    },
+    "users": {
+      "title": "User / admin management",
+      "description": "This section will centralize user and admin access management tools.",
+      "note": "User management tools will be connected here when the admin workflow is ready."
+    },
+    "notFound": {
+      "title": "Admin section not found",
+      "description": "This admin page does not exist yet. Use the dashboard to choose a supported admin area.",
+      "note": "The dashboard keeps the active admin routes available and sends unknown routes here instead of breaking."
+    }
+  }
+}

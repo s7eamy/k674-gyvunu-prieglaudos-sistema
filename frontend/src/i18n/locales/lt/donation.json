@@ -1,0 +1,93 @@
+{
+  "hero": {
+    "title": "Paremkite mūsų prieglaudą",
+    "subtitle": "Jūsų parama padeda užtikrinti maistą, medicininę priežiūrą ir saugius namus gyvūnams. Kiekviena auka turi reikšmę.",
+    "stats": {
+      "helped": "Padėta gyvūnų",
+      "raised": "Surinkta šiemet",
+      "care": "Skiriama priežiūrai"
+    }
+  },
+  "step1": {
+    "title": "1 žingsnis: Pasirinkite paramos sumą",
+    "or": "arba",
+    "customLabel": "Įveskite kitą sumą (€)",
+    "customPlaceholder": "pvz., 25,50",
+    "selected": "Pasirinkta suma:",
+    "loginPrompt": "📝 Prisijunkite, kad galėtumėte rinkti taškus ir kelti rėmėjo lygį!"
+  },
+  "step2": {
+    "title": "2 žingsnis: Jūsų informacija",
+    "subtitle": "Praneškite mums, kas esate, kad žinotume, kam padėkoti!",
+    "nameLabel": "Vardas ir pavardė *",
+    "namePlaceholder": "Jūsų vardas",
+    "emailLabel": "El. pašto adresas *",
+    "emailPlaceholder": "jusu.elpastas@pavyzdys.lt",
+    "messageLabel": "Žinutė (neprivaloma)",
+    "messagePlaceholder": "Pasidalinkite, kodėl mus remiate…",
+    "cardLabel": "Kortelės duomenys *",
+    "anonymousNote": "Aukojate anonimiškai.",
+    "donateAnonymously": "Aukoti anonimiškai",
+    "provideInfo": "Įvesti savo informaciją"
+  },
+  "impact": {
+    "title": "Jūsų indėlis 🌟",
+    "item1": "€5 — dienos maistas 2 gyvūnams",
+    "item2": "€10 — medicinos reikmenys vienam gyvūnui",
+    "item3": "€20 — prisidedama prie prieglaudos komunalinių paslaugų",
+    "item4": "€50 — pagalba ekstremalios sveikatos priežiūros atveju",
+    "item5": "€100+ — pilna mėnesio priežiūra"
+  },
+  "cta": {
+    "processing": "Apdorojama…",
+    "donate": "Aukoti {{amount}}",
+    "selectAmount": "Pasirinkite sumą, kad tęstumėte"
+  },
+  "errors": {
+    "invalidAmount": "Pasirinkite arba įveskite galiojančią paramos sumą.",
+    "missingName": "Įveskite savo vardą.",
+    "missingEmail": "Įveskite savo el. paštą.",
+    "invalidEmail": "Įveskite teisingą el. pašto adresą.",
+    "stripeLoading": "Stripe vis dar kraunasi. Bandykite vėl po akimirkos.",
+    "cardNotReady": "Mokėjimo forma dar nepasiruošusi.",
+    "paymentFailed": "Mokėjimas nepavyko.",
+    "paymentMissingId": "Mokėjimas pavyko, bet trūksta patvirtinimo ID.",
+    "paymentUnknownStatus": "Mokėjimas užbaigtas su netikėta būsena: {{status}}.",
+    "paymentStart": "Nepavyko pradėti mokėjimo. Bandykite dar kartą."
+  },
+  "notConfigured": "Stripe dar nesukonfigūruotas. Nustatykite VITE_STRIPE_PUBLISHABLE_KEY frontend aplinkos faile.",
+  "notConfiguredTitle": "💝 Paremkite mūsų prieglaudą",
+  "anonymous": "Anoniminis",
+  "confirmation": {
+    "title": "🎉 Ačiū jums!",
+    "subtitle": "Jūsų parama sėkmingai apdorota",
+    "amountLabel": "Aukos suma",
+    "nameLabel": "Vardas:",
+    "emailLabel": "El. paštas:",
+    "pointsLabel": "Gauti taškai:",
+    "pointsValue": "⭐ {{count}} taškų",
+    "messageLabel": "Žinutė:",
+    "receipt": "Kvitas išsiųstas adresu <1>{{email}}</1>.",
+    "anonymousNote": "Ši parama pateikta anonimiškai.",
+    "thanks": "Ačiū už paramą! Jūsų auka tiesiogiai padės gyvūnams mūsų prieglaudoje.",
+    "done": "Baigta"
+  },
+  "level": {
+    "names": {
+      "1": "Pradedantis",
+      "2": "Rėmėjas",
+      "3": "Globėjas",
+      "4": "Čempionas",
+      "5": "Platininis rėmėjas"
+    },
+    "points_one": "Surinktas {{count}} taškas",
+    "points_few": "Surinkti {{count}} taškai",
+    "points_many": "Surinkta {{count}} taškų",
+    "points_other": "Surinkta {{count}} taškų",
+    "pointsToNext": "{{count}} taškų iki kito lygio",
+    "maxLevel": "Pasiektas aukščiausias lygis! 🎉",
+    "explanation": "Kaip rinkti taškus:",
+    "rule1": "€1 paaukotas  = 1 taškas",
+    "rule2": "Savanorystė taip pat didina jūsų rėmėjo juostą!"
+  }
+}

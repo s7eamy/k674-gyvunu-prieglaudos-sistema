@@ -1,0 +1,41 @@
+{
+  "aria": {
+    "dialog": "{{name}} išsami informacija",
+    "close": "Uždaryti langą",
+    "prev": "Ankstesnė nuotrauka",
+    "next": "Kita nuotrauka",
+    "stats": "Gyvūno duomenys"
+  },
+  "stats": {
+    "age": "Amžius",
+    "size": "Dydis",
+    "vaccinated": "Skiepytas",
+    "added": "Laukia draugo nuo"
+  },
+  "ageValue_one": "{{count}} metai",
+  "ageValue_few": "{{count}} metai",
+  "ageValue_many": "{{count}} metų",
+  "ageValue_other": "{{count}} metų",
+  "actions": {
+    "adopt": "Priglausti 🐾",
+    "adoptPending": "Prašymas pateiktas",
+    "adoptSubmitting": "Siunčiama…"
+  },
+  "sections": {
+    "temperament": "Temperamentas",
+    "about": "Apie"
+  },
+  "temperament_description": {
+    "calm": "Ramus ir taikingas — puikiai tiks ramiems namams.",
+    "friendly": "Myli visus ir mėgsta bendrauti.",
+    "energetic": "Kupinas energijos — puikus draugas aktyviems šeimininkams.",
+    "unknown": "Unikalus charakteris, laukiantis pažinties."
+  },
+  "badges": {
+    "adopted": "Priglaustas"
+  },
+  "alerts": {
+    "loginToAdopt": "Norėdami priglausti gyvūną, prisijunkite.",
+    "unexpected": "Įvyko netikėta klaida"
+  }
+}

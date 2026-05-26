@@ -1,0 +1,30 @@
+{
+  "brand": "PawFinder",
+  "links": {
+    "animals": "🐾 Gyvūnai",
+    "publicAnimals": "🐾 Viešas sąrašas",
+    "match": "💛 Rasti porą",
+    "posts": "✉️ Įrašai",
+    "volunteer": "📄 Savanoriauti",
+    "donate": "💝 Paremkite mus",
+    "merchandise": "🎽 Prekės",
+    "cart": "🛒 Krepšelis",
+    "leaderboard": "🏆 Lyderiai",
+    "adminDashboard": "Administravimas",
+    "browse": "Naršyti",
+    "help": "Padėti"
+  },
+  "auth": {
+    "login": "Prisijungti",
+    "register": "Registruotis",
+    "logout": "Atsijungti",
+    "profileTitle": "Peržiūrėti profilį"
+  },
+  "aria": {
+    "brand_home": "Eiti į pradžios puslapį",
+    "toggle_menu": "Atverti meniu",
+    "primary_nav": "Pagrindinė navigacija",
+    "authentication": "Prisijungimas",
+    "language_switcher": "Kalba"
+  }
+}

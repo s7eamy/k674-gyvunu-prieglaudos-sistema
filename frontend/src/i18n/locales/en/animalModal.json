@@ -1,0 +1,39 @@
+{
+  "aria": {
+    "dialog": "{{name}} details",
+    "close": "Close modal",
+    "prev": "Previous image",
+    "next": "Next image",
+    "stats": "Animal stats"
+  },
+  "stats": {
+    "age": "Age",
+    "size": "Size",
+    "vaccinated": "Vaccinated",
+    "added": "Added date"
+  },
+  "ageValue_one": "{{count}} year",
+  "ageValue_other": "{{count}} years",
+  "actions": {
+    "adopt": "Adopt Me 🐾",
+    "adoptPending": "Request Pending",
+    "adoptSubmitting": "Submitting…"
+  },
+  "sections": {
+    "temperament": "Temperament",
+    "about": "About"
+  },
+  "temperament_description": {
+    "calm": "Relaxed and easy-going — perfect for a quiet home.",
+    "friendly": "Loves everyone and thrives on social interaction.",
+    "energetic": "Full of life — a great companion for active owners.",
+    "unknown": "A unique personality waiting to meet you."
+  },
+  "badges": {
+    "adopted": "Adopted"
+  },
+  "alerts": {
+    "loginToAdopt": "Please log in to adopt animals.",
+    "unexpected": "An unexpected error occurred"
+  }
+}

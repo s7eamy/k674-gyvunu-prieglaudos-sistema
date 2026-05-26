@@ -1,4 +1,6 @@
-// Donation Confirmation Modal
+import { Trans, useTranslation } from 'react-i18next';
+import { useFormatters } from '../../i18n/formatters';
+
 interface DonationConfirmationModalProps {
   donation: {
     amount: number;
@@ -10,46 +12,47 @@ interface DonationConfirmationModalProps {
   onClose: () => void;
 }
 
-export default function DonationConfirmationModal({
-  donation,
-  onClose,
-}: DonationConfirmationModalProps) {
-  const donorName = donation.donorName || 'Anonymous';
+export default function DonationConfirmationModal({ donation, onClose }: DonationConfirmationModalProps) {
+  const { t } = useTranslation('donation');
+  const { formatCurrency } = useFormatters();
+  const donorName = donation.donorName || t('anonymous');
 
   return (
     <div className="modal-overlay">
       <div className="donation-confirmation-modal">
         <div className="donation-confirmation__header">
-          <h2>🎉 Thank You!</h2>
-          <p>Your donation was processed successfully</p>
+          <h2>{t('confirmation.title')}</h2>
+          <p>{t('confirmation.subtitle')}</p>
         </div>
 
         <div className="donation-confirmation__content">
           <div className="donation-confirmation__amount">
-            <span className="label">Donation Amount</span>
-            <span className="value">€{donation.amount.toFixed(2)}</span>
+            <span className="label">{t('confirmation.amountLabel')}</span>
+            <span className="value">{formatCurrency(donation.amount)}</span>
           </div>
 
           <div className="donation-confirmation__details">
             <div className="detail-row">
-              <span className="detail-label">Name:</span>
+              <span className="detail-label">{t('confirmation.nameLabel')}</span>
               <span className="detail-value">{donorName}</span>
             </div>
             {donation.donorEmail && (
               <div className="detail-row">
-                <span className="detail-label">Email:</span>
+                <span className="detail-label">{t('confirmation.emailLabel')}</span>
                 <span className="detail-value">{donation.donorEmail}</span>
               </div>
             )}
-            {donation.pointsAwarded && (
+            {donation.pointsAwarded ? (
               <div className="detail-row">
-                <span className="detail-label">Points Earned:</span>
-                <span className="detail-value detail-value--points">⭐ {donation.pointsAwarded} points</span>
+                <span className="detail-label">{t('confirmation.pointsLabel')}</span>
+                <span className="detail-value detail-value--points">
+                  {t('confirmation.pointsValue', { count: donation.pointsAwarded })}
+                </span>
               </div>
-            )}
+            ) : null}
             {donation.message && (
               <div className="detail-row detail-row--full">
-                <span className="detail-label">Message:</span>
+                <span className="detail-label">{t('confirmation.messageLabel')}</span>
                 <span className="detail-value">{donation.message}</span>
               </div>
             )}
@@ -58,20 +61,19 @@ export default function DonationConfirmationModal({
           <div className="donation-confirmation__message">
             {donation.donorEmail ? (
               <p>
-                We captured the receipt email <strong>{donation.donorEmail}</strong> for this donation.
+                <Trans i18nKey="confirmation.receipt" t={t} values={{ email: donation.donorEmail }}>
+                  We captured the receipt email <strong>{donation.donorEmail}</strong> for this donation.
+                </Trans>
               </p>
             ) : (
-              <p>This donation was submitted anonymously.</p>
+              <p>{t('confirmation.anonymousNote')}</p>
             )}
-            <p>
-              Thank you for your support! Your donation will directly help us care for animals
-              in our shelter.
-            </p>
+            <p>{t('confirmation.thanks')}</p>
           </div>
 
           <div className="donation-confirmation__actions">
             <button className="btn-primary" onClick={onClose}>
-              Done
+              {t('confirmation.done')}
             </button>
           </div>
         </div>

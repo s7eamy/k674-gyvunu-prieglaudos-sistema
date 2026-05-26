@@ -1,0 +1,12 @@
+{
+  "defaultTitle": "Subscribe to new animals",
+  "subtitle": "Set optional criteria to only receive relevant notifications.",
+  "animalType": "Animal type",
+  "either": "Either",
+  "size": "Size",
+  "temperament": "Temperament",
+  "saveError": "Failed to save subscription",
+  "unsubscribe": "Unsubscribe",
+  "cancel": "Cancel",
+  "save": "Save"
+}

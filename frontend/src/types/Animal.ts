@@ -9,6 +9,7 @@ export interface Animal {
     vaccinated: boolean;  // 0 = false, 1 = true
     temperament: string;  // calm, energetic, friendly
     description: string; 
+    description_lt: string; 
     adopted: boolean;  // 0 = available, 1 = adopted
     created_at: Date; // default = now()
     images?: { url: string; alt_text?: string }[];
