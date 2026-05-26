@@ -26,7 +26,7 @@ REGULAR_USER_DONATION_POINTS = 100
 IMAGE_BASE_PATH = "frontend/public/images/animals"
 IMAGE_BASE_URL = "/images/animals"
 
-_ANIMAL_MODEL_FIELDS = {"name", "type", "breed", "size", "age", "vaccinated", "temperament", "description", "adopted"}
+_ANIMAL_MODEL_FIELDS = {"name", "type", "breed", "size", "age", "vaccinated", "temperament", "description", "description_lt", "adopted"}
 
 # 3 cats, 4 dogs, 1 rabbit — 7 of 8 have images (87.5% ≈ 80%)
 SEED_ANIMALS = [
@@ -39,7 +39,8 @@ SEED_ANIMALS = [
         "age": 2,
         "vaccinated": 1,
         "temperament": "friendly",
-        "description": "Curious and affectionate, loves window naps and gentle playtime.",
+        "description": "Curious and affectionate, loves window naps and gentle playtime. Vaccinated, neutered.",
+        "description_lt": "Smalsi ir meili, mėgsta miegoti prie langų ir švelniai žaisti. Vakcinuota, kastruota.",
         "adopted": 0,
         "image_filename": "luna.jpg",
         "image_alt": "Luna the Domestic Shorthair cat",
@@ -52,7 +53,8 @@ SEED_ANIMALS = [
         "age": 6,
         "vaccinated": 1,
         "temperament": "calm",
-        "description": "Independent but sweet, enjoys quiet evenings by the fireplace.",
+        "description": "Independent but sweet, enjoys quiet evenings by the fireplace. Vaccinated, neutered.",
+        "description_lt": "Nepriklausomas, bet meilus, mėgsta ramius vakarus prie židinio.  Vakcinuotas, kastruotas.",
         "adopted": 0,
         "image_filename": "oliver.jpg",
         "image_alt": "Oliver the British Shorthair cat",
@@ -65,7 +67,8 @@ SEED_ANIMALS = [
         "age": 1,
         "vaccinated": 1,
         "temperament": "energetic",
-        "description": "Playful chatterbox who loves interactive toys.",
+        "description": "Playful chatterbox who loves interactive toys. Vaccinated, neutered.",
+        "description_lt": "Žaisminga, plepi, mėgsta interaktyvius žaislus. Vakcinuota, kastruota.",
         "adopted": 0,
         "image_filename": None,
         "image_alt": None,
@@ -79,7 +82,8 @@ SEED_ANIMALS = [
         "age": 3,
         "vaccinated": 1,
         "temperament": "friendly",
-        "description": "Happy-go-lucky family dog who loves fetch.",
+        "description": "Happy-go-lucky family dog who loves fetch. Vaccinated, neutered.",
+        "description_lt": "linksmas šuo, tinkamas šeimai, mėgsta atnešti numestus daiktus. Vakcinuotas, kastruotas.",
         "adopted": 0,
         "image_filename": "buddy.jpg",
         "image_alt": "Buddy the Labrador Retriever",
@@ -92,7 +96,8 @@ SEED_ANIMALS = [
         "age": 4,
         "vaccinated": 1,
         "temperament": "energetic",
-        "description": "Smart and active, thrives with training and regular play.",
+        "description": "Smart and active, thrives with training and regular play. Vaccinated, neutered.",
+        "description_lt": "Protingas ir aktyvus, klesti dresūros ir reguliaraus žaidimo metu. Vakcinuotas, kastruotas.",
         "adopted": 0,
         "image_filename": "max.jpg",
         "image_alt": "Max the German Shepherd",
@@ -105,7 +110,8 @@ SEED_ANIMALS = [
         "age": 2,
         "vaccinated": 1,
         "temperament": "friendly",
-        "description": "Nose-led explorer with a cheerful and sociable personality.",
+        "description": "Nose-led explorer with a cheerful and sociable personality. Vaccinated, neutered.",
+        "description_lt": "Tyrinėtoja, pasižymi linksmu ir draugišku charakteriu. Vakcinuota, kastruota.",
         "adopted": 0,
         "image_filename": "daisy.jpg",
         "image_alt": "Daisy the Beagle",
@@ -118,7 +124,8 @@ SEED_ANIMALS = [
         "age": 5,
         "vaccinated": 0,
         "temperament": "energetic",
-        "description": "Goofy and athletic, loves outdoor adventures.",
+        "description": "Goofy and athletic, loves outdoor adventures. Not vaccinated or neutered.",
+        "description_lt": "Atletiškas, mėgsta nuotykius gamtoje. Ne vakcinuotas ar kastruotas.",
         "adopted": 0,
         "image_filename": "rocky.jpg",
         "image_alt": "Rocky the Boxer",
@@ -132,7 +139,8 @@ SEED_ANIMALS = [
         "age": 1,
         "vaccinated": 1,
         "temperament": "calm",
-        "description": "Floppy-eared and gentle, enjoys leafy greens and quiet company.",
+        "description": "Floppy-eared and gentle, enjoys leafy greens and quiet company. Vaccinated, neutered.",
+        "description_lt": "Švelnus, mėgsta žalumynus ir ramią draugyją. Vakcinuotas, kastruotas.",
         "adopted": 0,
         "image_filename": "peanut.jpg",
         "image_alt": "Peanut the Holland Lop rabbit",

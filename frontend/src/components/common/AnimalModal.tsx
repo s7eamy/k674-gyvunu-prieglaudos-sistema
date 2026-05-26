@@ -22,11 +22,12 @@ const TEMPERAMENT_EMOJI: Record<string, string> = {
 };
 
 function AnimalModal({ animal, onClose, onAdopt, adoptionStatus }: AnimalModalProps) {
-  const { t } = useTranslation('animalModal');
+  const { t, i18n } = useTranslation('animalModal');
   const enumLabel = useEnumLabel();
   const { formatDate } = useFormatters();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLoadingAdopt, setIsLoadingAdopt] = useState(false);
+  const Locale = i18n.language.startsWith('lt') ? 'lt' : 'en';
 
   const handleAdopt = async () => {
     if (!animal || !onAdopt) return;
@@ -188,7 +189,7 @@ function AnimalModal({ animal, onClose, onAdopt, adoptionStatus }: AnimalModalPr
 
           <section className="animal-modal__section">
             <h3>{t('sections.about')}</h3>
-            <p>{animal.description}</p>
+            <p>{Locale === 'en' ? animal.description : animal.description_lt}</p>
           </section>
         </div>
       </div>

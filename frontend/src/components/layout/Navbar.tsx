@@ -49,8 +49,8 @@ function Navbar() {
   const isMerchandiseActive = location.pathname === '/merchandise';
   const isCartActive = location.pathname === '/cart';
   const isLeaderboardActive = location.pathname === '/leaderboard';
+  const isPostsActive = location.pathname === '/posts';
   const isAdminDashboardActive = location.pathname.startsWith('/admin');
-  const isAdminAddAnimalActive = location.pathname === '/admin/add-animal';
   const isAdmin = userRole === 'admin';
 
   return (
@@ -80,69 +80,84 @@ function Navbar() {
             {isAdmin ? (
               <>
                 <Link
-                  to="/admin"
-                  className={`navbar__link ${isAdminDashboardActive ? 'is-active' : ''}`}
-                >
+                  to="/admin"className={`navbar__dropdown-btn ${isAdminDashboardActive ? 'is-active' : ''}`}>
                   {t('links.adminDashboard')}
                 </Link>
+
+            <div className="navbar__dropdown">
+            <button className="navbar__dropdown-btn">{t('links.browse')} </button>
+              <div className="navbar__dropdown-content">
                 <Link
-                  to="/admin/add-animal"
-                  className={`navbar__link ${isAdminAddAnimalActive ? 'is-active' : ''}`}
-                >
-                  {t('links.addAnimal')}
+                  to="/"className={`navbar__link ${isAnimalsActive ? 'is-active' : ''}`}>{t('links.animals')}
                 </Link>
                 <Link
-                  to="/"
-                  className={`navbar__link ${isAnimalsActive ? 'is-active' : ''}`}
-                >
-                  {t('links.publicAnimals')}
+                  to="/match"className={`navbar__link ${isMatchActive ? 'is-active' : ''}`}>{t('links.match')}
                 </Link>
+                <Link
+                  to="/leaderboard"className={`navbar__link ${isLeaderboardActive ? 'is-active' : ''}`}>{t('links.leaderboard')}
+                </Link>
+                <Link
+                  to="/posts"className={`navbar__link ${isPostsActive ? 'is-active' : ''}`}>{t('links.posts')}
+                </Link>
+              </div>
+            </div>  
+
+            <div className="navbar__dropdown">
+            <button className="navbar__dropdown-btn">{t('links.help')}  </button>
+              <div className="navbar__dropdown-content">
+                <Link
+                  to="/volunteer"className={`navbar__link ${isVolunteerActive ? 'is-active' : ''}`}>{t('links.volunteer')}
+                </Link>
+                <Link
+                  to="/donate"className={`navbar__link ${isDonateActive ? 'is-active' : ''}`}>{t('links.donate')}
+                </Link>
+                <Link
+                  to="/merchandise"className={`navbar__link ${isMerchandiseActive ? 'is-active' : ''}`}>{t('links.merchandise')}
+                </Link>
+                <Link
+                  to="/cart"className={`navbar__link ${isCartActive ? 'is-active' : ''}`}>{t('links.cart')}
+                </Link>
+              </div>
+            </div>
               </>
             ) : (
-              <>
+            <>
+            <div className="navbar__dropdown">
+            <button className="navbar__dropdown-btn">{t('links.browse')}  </button>
+              <div className="navbar__dropdown-content">
                 <Link
-                  to="/"
-                  className={`navbar__link ${isAnimalsActive ? 'is-active' : ''}`}
-                >
-                  {t('links.animals')}
+                  to="/"className={`navbar__link ${isAnimalsActive ? 'is-active' : ''}`}>{t('links.animals')}
                 </Link>
                 <Link
-                  to="/match"
-                  className={`navbar__link ${isMatchActive ? 'is-active' : ''}`}
-                >
-                  {t('links.match')}
+                  to="/match"className={`navbar__link ${isMatchActive ? 'is-active' : ''}`}>{t('links.match')}
                 </Link>
                 <Link
-                  to="/volunteer"
-                  className={`navbar__link ${isVolunteerActive ? 'is-active' : ''}`}
-                >
-                  {t('links.volunteer')}
+                  to="/leaderboard"className={`navbar__link ${isLeaderboardActive ? 'is-active' : ''}`}>{t('links.leaderboard')}
                 </Link>
                 <Link
-                  to="/donate"
-                  className={`navbar__link ${isDonateActive ? 'is-active' : ''}`}
-                >
-                  {t('links.donate')}
+                  to="/posts"className={`navbar__link ${isPostsActive ? 'is-active' : ''}`}>{t('links.posts')}
+                </Link>
+              </div>
+            </div>  
+
+            <div className="navbar__dropdown">
+            <button className="navbar__dropdown-btn">{t('links.help')}  </button>
+              <div className="navbar__dropdown-content">
+                <Link
+                  to="/volunteer"className={`navbar__link ${isVolunteerActive ? 'is-active' : ''}`}>{t('links.volunteer')}
                 </Link>
                 <Link
-                  to="/merchandise"
-                  className={`navbar__link ${isMerchandiseActive ? 'is-active' : ''}`}
-                >
-                  {t('links.merchandise')}
+                  to="/donate"className={`navbar__link ${isDonateActive ? 'is-active' : ''}`}>{t('links.donate')}
                 </Link>
                 <Link
-                  to="/cart"
-                  className={`navbar__link ${isCartActive ? 'is-active' : ''}`}
-                >
-                  {t('links.cart')}
+                  to="/merchandise"className={`navbar__link ${isMerchandiseActive ? 'is-active' : ''}`}>{t('links.merchandise')}
                 </Link>
                 <Link
-                  to="/leaderboard"
-                  className={`navbar__link ${isLeaderboardActive ? 'is-active' : ''}`}
-                >
-                  {t('links.leaderboard')}
+                  to="/cart"className={`navbar__link ${isCartActive ? 'is-active' : ''}`}>{t('links.cart')}
                 </Link>
-              </>
+              </div>
+            </div> 
+            </>
             )}
           </nav>
 

@@ -63,7 +63,7 @@ def add_animal(data, files):
     """
     Add a new animal to the system.
     Required fields: name, type, breed, size, age, vaccinated, temperament
-    Optional fields: description
+    Optional fields: description, description_lt
     Returns (animal_dict, None) on success or (None, error_message) on failure.
     """
     # Validate required fields
@@ -98,6 +98,7 @@ def add_animal(data, files):
         vaccinated=vaccinated,
         temperament=data['temperament'],
         description=data.get('description', ''),
+        description_lt=data.get('description_lt', ''),
         adopted=0  # New animals are available by default
     )
     

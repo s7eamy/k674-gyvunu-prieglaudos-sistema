@@ -15,6 +15,7 @@ class Animal(db.Model):
     vaccinated = db.Column(db.Integer, default=0)  # 0 = false, 1 = true
     temperament = db.Column(db.Text)  # calm, energetic, friendly
     description = db.Column(db.Text)
+    description_lt = db.Column(db.Text) #lt translation
     adopted = db.Column(db.Integer, default=0)  # 0 = available, 1 = adopted
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     images = db.relationship('AnimalImage', backref='animal', cascade="all, delete-orphan")
@@ -31,6 +32,7 @@ class Animal(db.Model):
             'vaccinated': bool(self.vaccinated),
             'temperament': self.temperament,
             'description': self.description,
+            'description_lt': self.description_lt,
             'adopted': bool(self.adopted),
             'created_at': self.created_at.isoformat() if self.created_at else None,
             "images": [image.to_dict() for image in self.images]
