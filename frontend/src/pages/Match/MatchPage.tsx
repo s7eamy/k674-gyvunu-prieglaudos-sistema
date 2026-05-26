@@ -20,7 +20,7 @@ type QuestionId =
   | 'energy_match';
 
 const QUESTIONS: { id: QuestionId; hasSubtitle?: boolean; optionValues: string[] }[] = [
-  { id: 'animal_type', optionValues: ['dog', 'cat', 'either'] },
+  { id: 'animal_type', optionValues: ['dog', 'cat', 'cat_or_dog', 'other', 'any'] },
   { id: 'living_space', hasSubtitle: true, optionValues: ['apartment', 'house_no_yard', 'house_yard'] },
   { id: 'activity_level', hasSubtitle: true, optionValues: ['low', 'moderate', 'high'] },
   { id: 'experience', optionValues: ['first_time', 'some_experience', 'experienced'] },

@@ -2,7 +2,7 @@
 import type { Animal } from './Animal';
 
 export interface QuestionnaireAnswers {
-    animal_type: 'dog' | 'cat' | 'either';
+    animal_type: 'dog' | 'cat' | 'cat_or_dog' | 'other' | 'any';
     living_space: 'apartment' | 'house_no_yard' | 'house_yard';
     activity_level: 'low' | 'moderate' | 'high';
     experience: 'first_time' | 'some_experience' | 'experienced';
