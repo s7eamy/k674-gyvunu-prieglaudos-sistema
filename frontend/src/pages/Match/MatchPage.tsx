@@ -5,6 +5,7 @@ import { getUserAdoptionRequests } from '../../services/adoptionRequestService';
 import type { QuestionnaireAnswers, AnimalMatch } from '../../types/Match';
 import Navbar from '../../components/layout/Navbar';
 import AnimalCard from '../../components/common/AnimalCard';
+import AnimalModal from '../../components/common/AnimalModal';
 import { translateApiError } from '../../i18n/errorMap';
 
 type QuestionId =
@@ -33,13 +34,15 @@ const QUESTIONS: { id: QuestionId; hasSubtitle?: boolean; optionValues: string[]
 ];
 
 export default function MatchPage() {
-  const { t } = useTranslation('match');
+  const { t, i18n } = useTranslation('match');
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Partial<QuestionnaireAnswers>>({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [results, setResults] = useState<AnimalMatch[] | null>(null);
   const [adoptionStatusMap, setAdoptionStatusMap] = useState<Record<number, 'pending' | 'approved'>>({});
+  const [selectedAnimal, setSelectedAnimal] = useState<AnimalMatch | null>(null);
+  const locale = i18n.language.startsWith('lt') ? 'lt' : 'en';
 
   useEffect(() => {
     if (!results) return;
@@ -96,6 +99,7 @@ export default function MatchPage() {
     setLoading(false);
     setError(null);
     setResults(null);
+    setSelectedAnimal(null);
   };
 
   if (loading) {
@@ -205,7 +209,7 @@ export default function MatchPage() {
                     <div style={{ maxWidth: '350px', margin: '0 auto', padding: '20px 20px 10px 20px' }}>
                       <AnimalCard
                         animal={match}
-                        onAbout={() => {}}
+                        onAbout={(animal) => setSelectedAnimal(animal)}
                         isFavorited={false}
                         onFavorite={() => {}}
                         onFavoriteRemove={() => {}}
@@ -227,9 +231,9 @@ export default function MatchPage() {
                         </div>
                       </div>
 
-                      {match.description && (
+                      {((locale === 'lt' ? match.description_lt : match.description) || match.description) && (
                         <div style={{ marginBottom: '15px', lineHeight: '1.6', fontSize: '14px', color: '#555' }}>
-                          {match.description}
+                          {locale === 'lt' ? match.description_lt || match.description : match.description}
                         </div>
                       )}
                     </div>
@@ -256,6 +260,13 @@ export default function MatchPage() {
             {t('startOver')}
           </button>
         </div>
+        <AnimalModal
+          key={selectedAnimal?.id}
+          animal={selectedAnimal}
+          onClose={() => setSelectedAnimal(null)}
+          onAdopt={(animalId) => setAdoptionStatusMap((prev) => ({ ...prev, [animalId]: 'pending' }))}
+          adoptionStatus={selectedAnimal ? (adoptionStatusMap[selectedAnimal.id] ?? null) : null}
+        />
       </>
     );
   }
