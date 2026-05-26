@@ -15,6 +15,7 @@ class User(db.Model):
     donation_points = db.Column(db.Integer, default=0)
     volunteer_points = db.Column(db.Integer, default=0)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    avatar_filename = db.Column(db.Text, nullable=True)
     favorite_animals = db.relationship('Animal', secondary= user_favorite_animals)
 
     def to_dict(self):
@@ -23,6 +24,7 @@ class User(db.Model):
             'name': self.name,
             'email': self.email,
             'role': self.role,
+            'avatar_filename': self.avatar_filename,
             'donation_points': self.donation_points,
             'volunteer_points': self.volunteer_points,
             'created_at': self.created_at.isoformat() if self.created_at else None
