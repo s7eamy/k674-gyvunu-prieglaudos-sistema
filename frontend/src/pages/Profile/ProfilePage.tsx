@@ -16,13 +16,13 @@ import { deleteSubscription, getMySubscriptions, type Subscription } from '../..
 import type { Animal } from '../../types/Animal';
 import type { AdoptionRequest } from '../../types/AdoptionRequest';
 import type { VolunteerRegistration } from '../../types/VolunteerRegistration';
-import { getUserProfile, type UserProfile } from '../../services/userService';
+import { getUserProfile, uploadAvatar, deleteAvatar, type UserProfile } from '../../services/userService';
 import { useEnumLabel } from '../../i18n/useEnumLabel';
 import { useFormatters } from '../../i18n/formatters';
 import './ProfilePage.css';
 
 function ProfilePage() {
-  const { t } = useTranslation('profile');
+  const { t } = useTranslation(['profile', 'common']);
   const enumLabel = useEnumLabel();
   const { formatDate } = useFormatters();
   const navigate = useNavigate();
@@ -36,6 +36,7 @@ function ProfilePage() {
   const [selectedVolunteerRegistration, setSelectedVolunteerRegistration] = useState<VolunteerRegistration | null>(null);
   const [subscription, setSubscription] = useState<Subscription | null>(null);
   const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -130,7 +131,7 @@ function ProfilePage() {
 
   const registeredDate = profile.user.created_at
     ? formatDate(profile.user.created_at, { year: 'numeric', month: 'long', day: 'numeric' })
-    : t('common:labels.unknown', { defaultValue: 'Unknown' });
+    : t('labels.unknown', { ns: 'common', defaultValue: 'Unknown' });
 
   const parseList = (value?: string | null) =>
     value ? value.split(',').map((item) => item.trim()).filter(Boolean) : [];
@@ -152,7 +153,17 @@ function ProfilePage() {
       <main className="profile-page">
         <div className="profile-page__container">
           <header className="profile-page__header">
-            <div className="profile-page__avatar">{profile.user.name.charAt(0).toUpperCase()}</div>
+            <div className="profile-page__avatar">
+              {profile.user.avatar_filename ? (
+                <img
+                  className="profile-page__avatar-img"
+                  src={`${import.meta.env.VITE_API_URL || 'http://localhost:8081'}/api/auth/avatar/${profile.user.avatar_filename}`}
+                  alt={profile.user.name}
+                />
+              ) : (
+                profile.user.name.charAt(0).toUpperCase()
+              )}
+            </div>
             <div className="profile-page__header-content">
               <h1>{profile.user.name}</h1>
               <p className="profile-page__email">{profile.user.email}</p>
@@ -169,6 +180,46 @@ function ProfilePage() {
               >
                 {t('subscription.manage')}
               </button>
+              <div className="profile-page__avatar-actions">
+                <label className="navbar__btn navbar__btn--ghost" htmlFor="avatar-upload">
+                  {isUploading ? t('labels.uploading', { ns: 'common' }) : t('upload')}
+                </label>
+                <input
+                  id="avatar-upload"
+                  type="file"
+                  accept="image/png,image/jpeg"
+                  style={{ display: 'none' }}
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+                    setIsUploading(true);
+                    try {
+                      const res = await uploadAvatar(file);
+                      setProfile((prev) => prev ? { ...prev, user: { ...prev.user, avatar_filename: res.avatar_filename } } : prev);
+                    } catch (err) {
+                      console.error(err);
+                    } finally {
+                      setIsUploading(false);
+                    }
+                  }}
+                />
+                {profile.user.avatar_filename && (
+                  <button
+                    type="button"
+                    className="navbar__btn navbar__btn--ghost"
+                    onClick={async () => {
+                      try {
+                        await deleteAvatar();
+                        setProfile((prev) => prev ? { ...prev, user: { ...prev.user, avatar_filename: null } } : prev);
+                      } catch (err) {
+                        console.error(err);
+                      }
+                    }}
+                  >
+                    {t('remove')}
+                  </button>
+                )}
+              </div>
             </div>
           </header>
 
