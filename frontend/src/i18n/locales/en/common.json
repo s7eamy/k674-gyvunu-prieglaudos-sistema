@@ -32,7 +32,8 @@
     "total": "Total",
     "unknown": "Unknown",
     "optional": "optional",
-    "required": "required"
+    "required": "required",
+    "uploading": "Uploading..."
   },
   "states": {
     "empty": "Nothing to show yet.",
