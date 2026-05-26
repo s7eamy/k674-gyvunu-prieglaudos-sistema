@@ -87,8 +87,10 @@
       "age": "Age (years)",
       "vaccinated": "Vaccinated",
       "temperament": "Temperament",
-      "description": "Description (Optional)",
-      "descriptionPlaceholder": "Add any special notes about this animal…",
+      "description": "English description (Optional)",
+      "descriptionPlaceholder": "Add any special notes (personality, behaviour, health info) about this animal in english…",
+      "description_lt": "Lithuanian description (Optional)",
+      "description_ltPlaceholder": "Add any special notes (personality, behaviour, health info) about this animal in lithuanian…",
       "image": "Image Upload"
     },
     "validation": {
@@ -98,7 +100,9 @@
       "sizeRequired": "Size is required",
       "ageRequired": "Age is required",
       "ageInvalid": "Age must be a valid non-negative number",
-      "temperamentRequired": "Temperament is required"
+      "temperamentRequired": "Temperament is required",
+      "descriptionRequired": "If there is a lithuanian description, english must also be provided",
+      "description_ltRequired": "If there is an english description, lithuanian must also be provied"
     },
     "submit": "Add Animal",
     "submitting": "Adding Animal…",
