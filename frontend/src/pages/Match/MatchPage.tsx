@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { getMatches } from '../../services/matchService';
 import { getUserAdoptionRequests } from '../../services/adoptionRequestService';
 import type { QuestionnaireAnswers, AnimalMatch } from '../../types/Match';
+import type { Animal } from '../../types/Animal';
 import Navbar from '../../components/layout/Navbar';
 import AnimalCard from '../../components/common/AnimalCard';
 import AnimalModal from '../../components/common/AnimalModal';
@@ -41,7 +42,7 @@ export default function MatchPage() {
   const [error, setError] = useState<string | null>(null);
   const [results, setResults] = useState<AnimalMatch[] | null>(null);
   const [adoptionStatusMap, setAdoptionStatusMap] = useState<Record<number, 'pending' | 'approved'>>({});
-  const [selectedAnimal, setSelectedAnimal] = useState<AnimalMatch | null>(null);
+  const [selectedAnimal, setSelectedAnimal] = useState<Animal | null>(null);
   const locale = i18n.language.startsWith('lt') ? 'lt' : 'en';
 
   useEffect(() => {
