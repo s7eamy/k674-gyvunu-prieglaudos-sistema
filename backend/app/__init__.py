@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from flask import Flask
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
-from sqlalchemy import text
+from sqlalchemy import inspect, text
 from app.models import db
 
 jwt = JWTManager()
@@ -73,8 +73,19 @@ def create_app():
     # Import all models so db.create_all() picks them up
     from app.models import animal, donation, user, volunteer_registration, merchandise, post, adoption_request, subscription # noqa: F401
 
-    # Create tables if they dont exist
+    # Create tables if they dont exist and migrate missing avatar column
     with app.app_context():
         db.create_all()
+        inspector = inspect(db.engine)
+        if 'users' in inspector.get_table_names():
+            user_columns = {column['name'] for column in inspector.get_columns('users')}
+            if 'avatar_filename' not in user_columns:
+                db.session.execute(text('ALTER TABLE users ADD COLUMN avatar_filename TEXT'))
+                db.session.commit()
+
+   
+    avatars_dir = Path(app.instance_path) / 'avatars'
+    avatars_dir.mkdir(parents=True, exist_ok=True)
+    app.config['AVATAR_UPLOAD_FOLDER'] = str(avatars_dir)
     
     return app
