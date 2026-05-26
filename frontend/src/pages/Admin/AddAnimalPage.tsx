@@ -19,6 +19,7 @@ export default function AddAnimalPage() {
     vaccinated: 0,
     temperament: 'calm',
     description: '',
+    description_lt: '',
     images: [] as File[],
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -69,6 +70,14 @@ export default function AddAnimalPage() {
     if (!formData.temperament || formData.temperament === '') {
       newErrors.temperament = t('addAnimal.validation.temperamentRequired');
     }
+     
+    if (formData.description_lt === '' && formData.description !== ''){
+      newErrors.description_lt = t('addAnimal.validation.description_ltRequired');
+    }
+
+    if (formData.description_lt !== '' && formData.description === ''){
+      newErrors.description = t('addAnimal.validation.descriptionRequired');
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -110,6 +119,7 @@ export default function AddAnimalPage() {
     dataForImages.append('vaccinated', String(formData.vaccinated));
     dataForImages.append('temperament', formData.temperament);
     dataForImages.append('description', formData.description);
+    dataForImages.append('description_lt', formData.description_lt);
 
     if (formData.images && formData.images.length > 0) {
       formData.images.forEach((file) => {
@@ -129,6 +139,7 @@ export default function AddAnimalPage() {
         vaccinated: 0,
         temperament: 'calm',
         description: '',
+        description_lt: '',
         images: [],
       });
     } catch (error: unknown) {
@@ -279,6 +290,20 @@ export default function AddAnimalPage() {
                   rows={4}
                 />
                 {errors.description && <p className="form-error">{errors.description}</p>}
+              </div>
+
+              <div className="form-field">
+                <label htmlFor="description_lt">{t('addAnimal.fields.description_lt')}</label>
+                <textarea
+                  id="description_lt"
+                  name="description_lt"
+                  value={formData.description_lt}
+                  onChange={handleChange}
+                  disabled={isSubmitting}
+                  placeholder={t('addAnimal.fields.description_ltPlaceholder')}
+                  rows={4}
+                />
+                {errors.description_lt && <p className="form-error">{errors.description_lt}</p>}
               </div>
 
               <div className="form-field">

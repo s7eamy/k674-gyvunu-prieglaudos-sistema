@@ -91,8 +91,10 @@
       "age": "Amžius (metais)",
       "vaccinated": "Skiepytas",
       "temperament": "Temperamentas",
-      "description": "Aprašymas (neprivaloma)",
-      "descriptionPlaceholder": "Pridėkite specialių pastabų apie šį gyvūną…",
+      "description": "Angliškas aprašymas (neprivaloma)",
+      "descriptionPlaceholder": "Pridėkite specialių pastabų apie šį gyvūną anglų kalba…",
+      "description_lt": "Lietuviškas aprašymas (neprivaloma)",
+      "description_ltPlaceholder": "Pridėkite specialių pastabų apie šį gyvūną lietuvių kalba…",
       "image": "Nuotraukos įkėlimas"
     },
     "validation": {
@@ -102,7 +104,9 @@
       "sizeRequired": "Dydis privalomas",
       "ageRequired": "Amžius privalomas",
       "ageInvalid": "Amžius turi būti galiojantis neneigiamas skaičius",
-      "temperamentRequired": "Temperamentas privalomas"
+      "temperamentRequired": "Temperamentas privalomas",
+      "descriptionRequired": "Jei pateiktas lietuviškas aprašymas, reikia pateikti anglišką",
+      "description_ltRequired": "Jei pateiktas angliškas aprašymas, reikia pateikti lietuvišką"
     },
     "submit": "Pridėti gyvūną",
     "submitting": "Pridedama…",
