@@ -24,7 +24,9 @@
       "options": {
         "dog": "🐕 Šuns",
         "cat": "🐈 Katės",
-        "either": "🐾 Atviras abiem"
+        "cat_or_dog": "🐈 Katės arba 🐕 Šuns",
+        "other": "🐰 Kitos rūšies",
+        "any": "🐾 Visų rūšių"
       }
     },
     "living_space": {
