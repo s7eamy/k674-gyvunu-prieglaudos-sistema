@@ -65,6 +65,13 @@ def get_donor_level(user_id):
     return _build_donor_level(total_points)
 
 
+def get_user_donation_history(user_id):
+    return Donation.query.filter(
+        Donation.user_id == user_id,
+        Donation.payment_status == 'succeeded',
+    ).order_by(Donation.paid_at.desc()).all()
+
+
 def create_donation_payment_intent(data, user_id=None):
     _set_stripe_key()
 
