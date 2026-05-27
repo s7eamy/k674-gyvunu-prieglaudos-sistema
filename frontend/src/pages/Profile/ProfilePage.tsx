@@ -48,6 +48,8 @@ function ProfilePage() {
       try {
         const data = await getUserProfile();
         setProfile(data);
+        localStorage.setItem('user_avatar_filename', data.user.avatar_filename || '');
+        window.dispatchEvent(new Event('avatar-updated'));
       } catch {
         setError(t('error'));
       } finally {
@@ -196,6 +198,8 @@ function ProfilePage() {
                     try {
                       const res = await uploadAvatar(file);
                       setProfile((prev) => prev ? { ...prev, user: { ...prev.user, avatar_filename: res.avatar_filename } } : prev);
+                      localStorage.setItem('user_avatar_filename', res.avatar_filename);
+                      window.dispatchEvent(new Event('avatar-updated'));
                     } catch (err) {
                       console.error(err);
                     } finally {
@@ -210,8 +214,8 @@ function ProfilePage() {
                     onClick={async () => {
                       try {
                         await deleteAvatar();
-                        setProfile((prev) => prev ? { ...prev, user: { ...prev.user, avatar_filename: null } } : prev);
-                      } catch (err) {
+                        setProfile((prev) => prev ? { ...prev, user: { ...prev.user, avatar_filename: null } } : prev);                        localStorage.removeItem('user_avatar_filename');
+                        window.dispatchEvent(new Event('avatar-updated'));                      } catch (err) {
                         console.error(err);
                       }
                     }}
