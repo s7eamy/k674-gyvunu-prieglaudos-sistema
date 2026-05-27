@@ -5,6 +5,7 @@ from app.controllers.donation_controller import (
     create_donation_payment_intent,
     finalize_donation_payment,
     get_donor_level,
+    get_user_donation_history,
 )
 
 donation_bp = Blueprint('donation', __name__)
@@ -35,3 +36,11 @@ def finalize_donation_payment_route():
     payment_intent_id = (data.get('paymentIntentId') or '').strip()
     result = finalize_donation_payment(payment_intent_id, user_id=int(user_id) if user_id else None)
     return jsonify(result), 200
+
+
+@donation_bp.route('/history', methods=['GET'])
+@jwt_required()
+def get_donation_history_route():
+    user_id = get_jwt_identity()
+    donations = get_user_donation_history(int(user_id))
+    return jsonify({'donations': [donation.to_dict() for donation in donations]}), 200

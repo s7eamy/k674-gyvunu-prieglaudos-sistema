@@ -13,9 +13,11 @@ import { getFavoriteAnimals } from '../../services/animalService';
 import { getUserAdoptionRequests } from '../../services/adoptionRequestService';
 import { getUserVolunteerRegistrations } from '../../services/volunteerRegistrationService';
 import { deleteSubscription, getMySubscriptions, type Subscription } from '../../services/subscriptionService';
+import { getDonationHistory } from '../../services/donorService';
 import type { Animal } from '../../types/Animal';
 import type { AdoptionRequest } from '../../types/AdoptionRequest';
 import type { VolunteerRegistration } from '../../types/VolunteerRegistration';
+import type { Donation } from '../../types/Donation';
 import { getUserProfile, uploadAvatar, deleteAvatar, type UserProfile } from '../../services/userService';
 import { useEnumLabel } from '../../i18n/useEnumLabel';
 import { useFormatters } from '../../i18n/formatters';
@@ -32,6 +34,7 @@ function ProfilePage() {
   const [favoriteAnimals, setFavoriteAnimals] = useState<Animal[]>([]);
   const [adoptionRequests, setAdoptionRequests] = useState<AdoptionRequest[]>([]);
   const [volunteerRegistrations, setVolunteerRegistrations] = useState<VolunteerRegistration[]>([]);
+  const [donationHistory, setDonationHistory] = useState<Donation[]>([]);
   const [selectedAnimal, setSelectedAnimal] = useState<Animal | null>(null);
   const [selectedVolunteerRegistration, setSelectedVolunteerRegistration] = useState<VolunteerRegistration | null>(null);
   const [subscription, setSubscription] = useState<Subscription | null>(null);
@@ -107,6 +110,19 @@ function ProfilePage() {
       }
     };
     fetchVolunteerRegistrations();
+  }, []);
+
+  useEffect(() => {
+    const fetchDonationHistory = async () => {
+      try {
+        const response = await getDonationHistory();
+        setDonationHistory(response.donations);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchDonationHistory();
   }, []);
 
   if (isLoading) {
@@ -311,6 +327,36 @@ function ProfilePage() {
                   onAbout={(v) => setSelectedVolunteerRegistration(v)}
                 />
               ))}
+            </div>
+          )}
+
+          <header className="profile-page__animal-header">
+            <h1>{t('donationHistory.title')}</h1>
+            <p>{t('donationHistory.count', { count: donationHistory.length })}</p>
+          </header>
+
+          {donationHistory.length === 0 ? (
+            <p className="animals-page__empty">{t('donationHistory.empty')}</p>
+          ) : (
+            <div className="profile-page__donation-history">
+              <div className="profile-page__donation-history-grid">
+                {donationHistory.map((donation) => (
+                  <div key={donation.id} className="profile-page__donation-card">
+                    <div className="profile-page__donation-card-header">
+                      <span className="profile-page__donation-amount">
+                        {donation.currency.toUpperCase()} {donation.amount.toFixed(2)}
+                      </span>
+                      <span className={`profile-page__donation-status profile-page__donation-status--${donation.payment_status}`}>
+                        {donation.payment_status}
+                      </span>
+                    </div>
+                    <div className="profile-page__donation-details">
+                      <span>{t('donationHistory.paidAt', { date: formatDate(donation.paid_at) })}</span>
+                      <span>{donation.message || t('donationHistory.anonymous')}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>
