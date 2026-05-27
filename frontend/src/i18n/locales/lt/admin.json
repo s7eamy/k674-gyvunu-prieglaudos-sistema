@@ -4,6 +4,7 @@
     "title": "Pasirinkite valdymo sritį",
     "subtitle": "Naudokitės žemiau esančiomis nuorodomis, kad greitai pasiektumėte reikiamus administratoriaus įrankius. Pagrindiniai veiksmai jau paruošti, kiti pasirengę kaip nuorodos.",
     "ariaShortcuts": "Administratoriaus nuorodos",
+    "loginPrompt": "Norėdami matyti šį puslapį, prisijunkite kaip administratorius.",
     "badges": {
       "active": "Aktyvu",
       "soon": "Greitai"
@@ -12,7 +13,7 @@
       "default": "Atidaryti",
       "manageRegistrations": "Tvarkyti registracijas",
       "createPost": "Sukurti įrašą",
-      "manageAdoptions": "Tvarkyti priglobimo prašymus",
+      "manageAdoptions": "Tvarkyti prašymus",
       "addAnimal": "Pridėti gyvūną",
       "openPlaceholder": "Atidaryti vietą"
     },
@@ -38,8 +39,8 @@
         "description": "Paruoškite prekių sąrašus ir atnaujinkite parduotuvės turinį."
       },
       "donations": {
-        "title": "Aukų valdymas",
-        "description": "Sekite aukų rinkimo įrankius ir paramos užduotis."
+        "title": "Paramų valdymas",
+        "description": "Sekite paramų rinkimo įrankius ir paramos užduotis."
       },
       "users": {
         "title": "Vartotojų ir administratorių valdymas",
@@ -152,9 +153,9 @@
       "note": "Šiuo metu prekes galima įsigyti viešame prekių puslapyje."
     },
     "donations": {
-      "title": "Aukų valdymas",
-      "description": "Šis skyrius valdys aukų valdymo įrankius ir paramos darbus.",
-      "note": "Lankytojai aukoti gali viešame aukų puslapyje."
+      "title": "Paramų valdymas",
+      "description": "Šis skyrius valdys paramų valdymo įrankius ir paramos darbus.",
+      "note": "Lankytojai gali paremti prieglaudą viešame puslapyje."
     },
     "users": {
       "title": "Vartotojų / administratorių valdymas",

@@ -126,7 +126,7 @@ function AnimalModal({ animal, onClose, onAdopt, adoptionStatus }: AnimalModalPr
             </div>
           )}
 
-          <span className={`animal-modal__type-badge animal-modal__type-badge--${animalType || 'other'}`}>
+          <span className={`animal-modal__type-badge animal-modal__type-badge--${['cat', 'dog'].includes(animalType) ? animalType : 'other'}`}>
             {enumLabel('animal_type', animalType, 'animal')}
           </span>
           {isAdopted ? <span className="animal-modal__adopted-badge">{t('badges.adopted')}</span> : null}

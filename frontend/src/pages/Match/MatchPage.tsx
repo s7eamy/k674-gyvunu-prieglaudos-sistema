@@ -276,7 +276,8 @@ export default function MatchPage() {
     <>
       <Navbar />
       <div style={{
-        maxWidth: '600px',
+        maxWidth: '900px',
+        minWidth: '800px',
         margin: '0 auto',
         padding: '40px 20px',
         color: '#1f2937',
@@ -309,6 +310,7 @@ export default function MatchPage() {
                 borderRadius: '8px',
                 textAlign: 'left',
                 transition: 'all 0.2s ease',
+                height: '80px',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = '#e8e8e8';

@@ -1,3 +1,4 @@
+// volunteer registrations page
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -14,8 +15,8 @@ export default function AdminPage() {
   const [volunteerRegistrations, setVolunteerRegistrations] = useState<VolunteerRegistration[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const [selectedVolunteerRegistration, setSelectedVolunteerRegistration] = useState<VolunteerRegistration | null>(null);
-  const [IsAdmin, setIsAdmin] = useState(true);
-  const [LoggedIn, setLoggedIn] = useState(true);
+  const [IsAdmin, setIsAdmin] = useState(false);
+  const [LoggedIn, setLoggedIn] = useState(false);
 
   const groupedByUser = volunteerRegistrations.reduce((acc, registration) => {
     const userId = registration.user_id;
@@ -36,6 +37,8 @@ export default function AdminPage() {
         const [registrations, AllUsers] = await Promise.all([getAll(), getUsers()]);
         setVolunteerRegistrations(registrations);
         setUsers(AllUsers);
+        setLoggedIn(true);
+        setIsAdmin(true);
       } catch (error) {
         if (error instanceof Error && error.message === 'NOT_LOGGED_IN') {
           setLoggedIn(false);

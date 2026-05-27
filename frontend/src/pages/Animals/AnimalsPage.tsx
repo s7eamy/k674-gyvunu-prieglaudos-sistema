@@ -23,7 +23,7 @@ export default function AnimalsPage() {
     type: '',
     size: '',
     temperament: '',
-    vaccinated: undefined,
+    vaccinated: 1,
     adopted: 0,
     ageMin: undefined,
     ageMax: undefined,
@@ -140,8 +140,16 @@ export default function AnimalsPage() {
                 <div className="featured-card">
                   <div className="featured-card__label">{t('featured.label')}</div>
 
-                  <div className="featured-card__image">
-                    <span className="featured-card__emoji">{getAnimalEmoji(animals[0].type)}</span>
+                                    {/* allows featured animal to display image */} 
+                  <div className="featured-card__image"> 
+                    {!animals[0]?.images || animals[0].images?.length === 0 ? 
+                     <span className="featured-card__emoji">{getAnimalEmoji(animals[0].type)}</span>
+                     : <img
+                      src={animals[0].images[0].url}
+                      alt={animals[0].images[0].alt_text || animals[0].name}
+                      className="animal-card__image"
+                    />
+                     }
                   </div>
 
                   <div className="featured-card__body">

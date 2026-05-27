@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import Navbar from '../../components/layout/Navbar';
 import AdminShortcutCard from '../../components/common/AdminShortcutCard';
+import {useState, useEffect} from 'react';
+import {getUsers} from '../../services/adminService';
 import './AdminDashboardPage.css';
 
 type ShortcutKey = 'volunteer' | 'post' | 'adoption' | 'animals' | 'merchandise' | 'donations' | 'users';
@@ -17,10 +19,48 @@ const SHORTCUTS: { id: ShortcutKey; to: string; icon: string; badge: 'active' | 
 
 export default function AdminDashboardPage() {
   const { t } = useTranslation('admin');
+    const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoading, setisLoading] = useState(true);
+
+  useEffect(() => {
+      const checkAdminAccess = async () => {
+        try {
+          await getUsers();
+          setIsAdmin(true);
+          setLoggedIn(true);
+        } catch (error) {
+          if (error instanceof Error && error.message === 'NOT_LOGGED_IN') {
+            setLoggedIn(false);
+          } else if (error instanceof Error && error.message === 'USER_NOT_ADMIN') {
+            setIsAdmin(false);
+          } else {
+            console.error('Admin access check failed', error);
+          }
+        } finally{
+          setisLoading(false);
+        }
+        
+      };
+      
+      checkAdminAccess();
+    }, []);
+
+  if (isLoading) {
+    return <><Navbar />
+    <div className="admin-dashboard__loading">Loading...</div></>
+  }
+
+  if (!isLoggedIn || !isAdmin) {
+    return <><Navbar />
+     <p className="add-animal-empty">{t('dashboard.loginPrompt')}</p>
+     </>
+  }
 
   return (
     <>
       <Navbar />
+      {isAdmin && isLoggedIn && (
       <main className="admin-dashboard">
         <section className="admin-dashboard__hero">
           <p className="admin-dashboard__eyebrow">{t('dashboard.eyebrow')}</p>
@@ -42,6 +82,7 @@ export default function AdminDashboardPage() {
           ))}
         </section>
       </main>
+      )}
     </>
   );
 }

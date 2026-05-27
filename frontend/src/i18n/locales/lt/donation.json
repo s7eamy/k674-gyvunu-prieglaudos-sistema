@@ -1,7 +1,7 @@
 {
   "hero": {
     "title": "Paremkite mūsų prieglaudą",
-    "subtitle": "Jūsų parama padeda užtikrinti maistą, medicininę priežiūrą ir saugius namus gyvūnams. Kiekviena auka turi reikšmę.",
+    "subtitle": "Jūsų parama padeda užtikrinti maistą, medicininę priežiūrą ir saugius namus gyvūnams. Kiekviena parama turi reikšmę.",
     "stats": {
       "helped": "Padėta gyvūnų",
       "raised": "Surinkta šiemet",
@@ -26,8 +26,8 @@
     "messageLabel": "Žinutė (neprivaloma)",
     "messagePlaceholder": "Pasidalinkite, kodėl mus remiate…",
     "cardLabel": "Kortelės duomenys *",
-    "anonymousNote": "Aukojate anonimiškai.",
-    "donateAnonymously": "Aukoti anonimiškai",
+    "anonymousNote": "Remiate anonimiškai.",
+    "donateAnonymously": "Paremti anonimiškai",
     "provideInfo": "Įvesti savo informaciją"
   },
   "impact": {
@@ -40,7 +40,7 @@
   },
   "cta": {
     "processing": "Apdorojama…",
-    "donate": "Aukoti {{amount}}",
+    "donate": "Paramos suma {{amount}}",
     "selectAmount": "Pasirinkite sumą, kad tęstumėte"
   },
   "errors": {
@@ -61,7 +61,7 @@
   "confirmation": {
     "title": "🎉 Ačiū jums!",
     "subtitle": "Jūsų parama sėkmingai apdorota",
-    "amountLabel": "Aukos suma",
+    "amountLabel": "Paramos suma",
     "nameLabel": "Vardas:",
     "emailLabel": "El. paštas:",
     "pointsLabel": "Gauti taškai:",
@@ -69,7 +69,7 @@
     "messageLabel": "Žinutė:",
     "receipt": "Kvitas išsiųstas adresu <1>{{email}}</1>.",
     "anonymousNote": "Ši parama pateikta anonimiškai.",
-    "thanks": "Ačiū už paramą! Jūsų auka tiesiogiai padės gyvūnams mūsų prieglaudoje.",
+    "thanks": "Ačiū už paramą! Jūsų parama tiesiogiai padės gyvūnams mūsų prieglaudoje.",
     "done": "Baigta"
   },
   "level": {

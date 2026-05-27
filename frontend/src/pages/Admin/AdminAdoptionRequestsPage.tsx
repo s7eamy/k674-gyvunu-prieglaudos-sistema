@@ -14,8 +14,8 @@ export default function AdminAdoptionRequestsPage() {
   const enumLabel = useEnumLabel();
   const { formatDate } = useFormatters();
   const [requests, setRequests] = useState<AdoptionRequest[]>([]);
-  const [isAdmin, setIsAdmin] = useState(true);
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [loadingIds, setLoadingIds] = useState<Set<number>>(new Set());
 
   useEffect(() => {
@@ -23,6 +23,8 @@ export default function AdminAdoptionRequestsPage() {
       try {
         const data = await getAdminAdoptionRequests();
         setRequests(data);
+        setLoggedIn(true);
+        setIsAdmin(true);
       } catch (error) {
         if (error instanceof Error && error.message === 'NOT_LOGGED_IN') {
           setLoggedIn(false);
