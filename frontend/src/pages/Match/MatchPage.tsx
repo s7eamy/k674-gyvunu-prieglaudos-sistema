@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getMatches } from '../../services/matchService';
-import { getUserAdoptionRequests, createAdoptionRequest } from '../../services/adoptionRequestService';
+import { getUserAdoptionRequests } from '../../services/adoptionRequestService';
 import type { QuestionnaireAnswers, AnimalMatch } from '../../types/Match';
+import type { Animal } from '../../types/Animal';
 import Navbar from '../../components/layout/Navbar';
-import { useEnumLabel } from '../../i18n/useEnumLabel';
+import AnimalCard from '../../components/common/AnimalCard';
+import AnimalModal from '../../components/common/AnimalModal';
 import { translateApiError } from '../../i18n/errorMap';
 
 type QuestionId =
@@ -33,14 +35,15 @@ const QUESTIONS: { id: QuestionId; hasSubtitle?: boolean; optionValues: string[]
 ];
 
 export default function MatchPage() {
-  const { t } = useTranslation('match');
-  const enumLabel = useEnumLabel();
+  const { t, i18n } = useTranslation('match');
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Partial<QuestionnaireAnswers>>({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [results, setResults] = useState<AnimalMatch[] | null>(null);
   const [adoptionStatusMap, setAdoptionStatusMap] = useState<Record<number, 'pending' | 'approved'>>({});
+  const [selectedAnimal, setSelectedAnimal] = useState<Animal | null>(null);
+  const locale = i18n.language.startsWith('lt') ? 'lt' : 'en';
 
   useEffect(() => {
     if (!results) return;
@@ -62,19 +65,6 @@ export default function MatchPage() {
     };
     fetchAdoptionRequests();
   }, [results]);
-
-  const handleAdopt = async (animalId: number) => {
-    try {
-      await createAdoptionRequest(animalId);
-      setAdoptionStatusMap((prev) => ({ ...prev, [animalId]: 'pending' }));
-    } catch (err: unknown) {
-      if (err instanceof Error && err.message === 'NOT_LOGGED_IN') {
-        alert(t('alerts.loginToAdopt'));
-      } else {
-        alert(translateApiError(err));
-      }
-    }
-  };
 
   const currentQuestion = QUESTIONS[step];
   const totalSteps = QUESTIONS.length;
@@ -110,6 +100,7 @@ export default function MatchPage() {
     setLoading(false);
     setError(null);
     setResults(null);
+    setSelectedAnimal(null);
   };
 
   if (loading) {
@@ -175,7 +166,7 @@ export default function MatchPage() {
       <>
         <Navbar />
         <div style={{
-          maxWidth: '800px',
+          maxWidth: '1000px',
           margin: '0 auto',
           padding: '40px 20px',
           color: '#1f2937',
@@ -195,7 +186,6 @@ export default function MatchPage() {
             <div style={{ marginBottom: '40px' }}>
               {results.map((match, index) => {
                 const matchPercent = Math.min(Math.round((match.match_score / 100) * 100), 100);
-                const ageLabel = t('results.ageLabel', { count: match.age });
 
                 return (
                   <div
@@ -203,58 +193,51 @@ export default function MatchPage() {
                     style={{
                       border: '1px solid #ddd',
                       borderRadius: '8px',
-                      padding: '20px',
+                      padding: '0',
                       marginBottom: '20px',
                       backgroundColor: '#f9f9f9',
                       color: '#1f2937',
+                      overflow: 'hidden',
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
                     }}
                   >
-                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                      <span style={{ fontSize: '24px', marginRight: '10px' }}>{medals[index] || ''}</span>
-                      <span style={{ fontWeight: 'bold', fontSize: '18px' }}>{match.name}</span>
+                    {/* Medal badge positioned absolutely */}
+                    <div style={{ position: 'absolute', fontSize: '28px', marginTop: '10px', marginLeft: '10px', zIndex: 10 }}>
+                      {medals[index] || ''}
                     </div>
 
-                    <div style={{ color: '#666', marginBottom: '15px', fontSize: '14px' }}>
-                      {match.breed || enumLabel('animal_type', match.type)} · {enumLabel('animal_size', match.size)} · {match.age} {ageLabel}
+                    {/* Animal Card */}
+                    <div style={{ maxWidth: '350px', margin: '0 auto', padding: '20px 20px 10px 20px' }}>
+                      <AnimalCard
+                        animal={match}
+                        onAbout={(animal) => setSelectedAnimal(animal)}
+                        isFavorited={false}
+                        onFavorite={() => {}}
+                        onFavoriteRemove={() => {}}
+                        adoptionStatus={adoptionStatusMap[match.id] ?? null}
+                        onAdoptionRequest={(animalId) => {
+                          setAdoptionStatusMap((prev) => ({ ...prev, [animalId]: 'pending' }));
+                        }}
+                      />
                     </div>
 
-                    <div style={{ marginBottom: '15px' }}>
-                      <div style={{ marginBottom: '5px', fontWeight: 'bold' }}>
-                        {t('results.matchPercent', { percent: matchPercent })}
+                    {/* Match Percentage Bar and Info */}
+                    <div style={{ padding: '20px' }}>
+                      <div style={{ marginBottom: '15px' }}>
+                        <div style={{ marginBottom: '8px', fontWeight: 'bold', fontSize: '16px' }}>
+                          {t('results.matchPercent', { percent: matchPercent })}
+                        </div>
+                        <div style={{ width: '100%', height: '18px', backgroundColor: '#e0e0e0', borderRadius: '9px', overflow: 'hidden' }}>
+                          <div style={{ width: `${matchPercent}%`, height: '100%', backgroundColor: '#4caf50', transition: 'width 0.3s ease' }} />
+                        </div>
                       </div>
-                      <div style={{ width: '100%', height: '12px', backgroundColor: '#e0e0e0', borderRadius: '6px', overflow: 'hidden' }}>
-                        <div style={{ width: `${matchPercent}%`, height: '100%', backgroundColor: '#4caf50', transition: 'width 0.3s ease' }} />
-                      </div>
-                    </div>
 
-                    <div style={{ marginBottom: '15px', lineHeight: '1.6' }}>{match.description}</div>
-
-                    <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '15px' }}>
-                      <span style={{ display: 'inline-block', backgroundColor: '#e3f2fd', padding: '4px 12px', borderRadius: '20px', fontSize: '14px' }}>
-                        {enumLabel('animal_temperament', match.temperament)}
-                      </span>
-                      {match.vaccinated && (
-                        <span style={{ display: 'inline-block', backgroundColor: '#c8e6c9', padding: '4px 12px', borderRadius: '20px', fontSize: '14px' }}>
-                          {t('results.vaccinatedBadge')}
-                        </span>
+                      {((locale === 'lt' ? match.description_lt : match.description) || match.description) && (
+                        <div style={{ marginBottom: '15px', lineHeight: '1.6', fontSize: '14px', color: '#555' }}>
+                          {locale === 'lt' ? match.description_lt || match.description : match.description}
+                        </div>
                       )}
                     </div>
-
-                    <button
-                      onClick={() => handleAdopt(match.id)}
-                      disabled={adoptionStatusMap[match.id] === 'pending'}
-                      style={{
-                        padding: '10px 20px',
-                        fontSize: '16px',
-                        cursor: adoptionStatusMap[match.id] === 'pending' ? 'not-allowed' : 'pointer',
-                        backgroundColor: adoptionStatusMap[match.id] === 'pending' ? '#ccc' : '#ff9800',
-                        color: adoptionStatusMap[match.id] === 'pending' ? '#777' : 'white',
-                        border: 'none',
-                        borderRadius: '4px',
-                      }}
-                    >
-                      {adoptionStatusMap[match.id] === 'pending' ? t('results.adoptPending') : t('results.adopt')}
-                    </button>
                   </div>
                 );
               })}
@@ -278,6 +261,13 @@ export default function MatchPage() {
             {t('startOver')}
           </button>
         </div>
+        <AnimalModal
+          key={selectedAnimal?.id}
+          animal={selectedAnimal}
+          onClose={() => setSelectedAnimal(null)}
+          onAdopt={(animalId) => setAdoptionStatusMap((prev) => ({ ...prev, [animalId]: 'pending' }))}
+          adoptionStatus={selectedAnimal ? (adoptionStatusMap[selectedAnimal.id] ?? null) : null}
+        />
       </>
     );
   }
