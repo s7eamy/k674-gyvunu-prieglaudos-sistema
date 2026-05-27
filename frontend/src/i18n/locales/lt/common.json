@@ -32,7 +32,8 @@
     "total": "Iš viso",
     "unknown": "Nežinoma",
     "optional": "neprivaloma",
-    "required": "privaloma"
+    "required": "privaloma",
+    "uploading": "Įkeliama..."
   },
   "states": {
     "empty": "Kol kas nieko nėra.",

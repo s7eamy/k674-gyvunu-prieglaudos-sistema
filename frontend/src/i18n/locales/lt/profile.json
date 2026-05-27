@@ -38,5 +38,7 @@
     "count_many": "{{count}} savanorysčių",
     "count_other": "{{count}} savanorystės",
     "empty": "Savanorystės pamainų dar nėra. Eikite į savanorystės puslapį ir užsiregistruokite."
-  }
+  },
+  "upload": "Įkelti nuotrauką",
+  "remove": "Pašalinti nuotrauką"
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { logout } from '../../services/authService';
+import { getUserProfile } from '../../services/userService';
 import LanguageSwitcher from './LanguageSwitcher';
 import './Navbar.css';
 
@@ -13,15 +14,47 @@ function Navbar() {
   const [userRole, setUserRole] = useState<string>('');
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>('');
+  const [userAvatarFilename, setUserAvatarFilename] = useState<string>('');
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
     const storedRole = localStorage.getItem('user_role') || '';
     const storedName = localStorage.getItem('user_name') || '';
+    const storedAvatar = localStorage.getItem('user_avatar_filename') || '';
     setIsAuthenticated(Boolean(token));
     setUserRole(storedRole);
     setUserName(storedName);
+    setUserAvatarFilename(storedAvatar);
   }, [location.pathname]);
+
+  useEffect(() => {
+    const handleAvatarUpdated = () => {
+      setUserAvatarFilename(localStorage.getItem('user_avatar_filename') || '');
+    };
+
+    window.addEventListener('avatar-updated', handleAvatarUpdated);
+    return () => window.removeEventListener('avatar-updated', handleAvatarUpdated);
+  }, []);
+
+  useEffect(() => {
+    const loadAvatar = async () => {
+      const token = localStorage.getItem('access_token');
+      if (!token) {
+        return;
+      }
+
+      try {
+        const profile = await getUserProfile();
+        const avatarName = profile.user.avatar_filename || '';
+        setUserAvatarFilename(avatarName);
+        localStorage.setItem('user_avatar_filename', avatarName);
+      } catch {
+        // ignore failed profile fetch
+      }
+    };
+
+    void loadAvatar();
+  }, [isAuthenticated]);
 
   useEffect(() => {
     setIsMenuOpen(false);
@@ -36,6 +69,7 @@ function Navbar() {
       localStorage.removeItem('access_token');
       localStorage.removeItem('user_role');
       localStorage.removeItem('user_name');
+      localStorage.removeItem('user_avatar_filename');
       setIsAuthenticated(false);
       setUserRole('');
       navigate('/');
@@ -169,7 +203,15 @@ function Navbar() {
                   {t('auth.logout')}
                 </button>
                 <Link to="/profile" className="navbar__profile-circle" title={t('auth.profileTitle')}>
-                  {userName.charAt(0).toUpperCase()}
+                  {userAvatarFilename ? (
+                    <img
+                      className="navbar__profile-image"
+                      src={`${import.meta.env.VITE_API_URL || 'http://localhost:8081'}/api/auth/avatar/${userAvatarFilename}`}
+                      alt={userName}
+                    />
+                  ) : (
+                    userName.charAt(0).toUpperCase()
+                  )}
                 </Link>
               </>
             ) : (

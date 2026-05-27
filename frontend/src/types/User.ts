@@ -3,6 +3,7 @@ export interface User {
   id: number;
   name: string;
   email: string;
+  avatar_filename?: string | null;
   role: string;
   donation_points: number;
   volunteer_points: number;

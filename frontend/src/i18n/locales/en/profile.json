@@ -32,5 +32,7 @@
     "count_one": "{{count}} volunteering",
     "count_other": "{{count}} volunteerings",
     "empty": "No volunteering sessions yet. Go to the volunteering page and make a registration to get started."
-  }
+  },
+  "upload": "Upload photo",
+  "remove": "Remove photo"
 }
