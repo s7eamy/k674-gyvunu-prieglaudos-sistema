@@ -49,10 +49,13 @@
 
 .animal-modal__hero {
   position: relative;
-  height: 220px;
+  height: 420px;
   width: 100%;
   background: linear-gradient(140deg, #ece9e4 0%, #ddd7cf 100%);
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .animal-modal__carousel {
  position: relative;
@@ -157,6 +160,7 @@
   color: var(--color-warm-dark);
   font-size: 2rem;
   line-height: 1.05;
+  text-align: left;
 }
 
 .animal-modal__breed {

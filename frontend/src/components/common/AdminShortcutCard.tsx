@@ -23,15 +23,18 @@ export default function AdminShortcutCard({
   const displayAction = actionLabel ?? t('dashboard.actions.default');
   return (
     <Link to={to} className="admin-shortcut-card">
-      <span className="admin-shortcut-card__icon" aria-hidden="true">
-        {icon}
-      </span>
+       <div className="admin-shortcut-card__header">
+        <span className="admin-shortcut-card__icon" aria-hidden="true">
+        {icon} 
+        </span>  
+        {badge && <span className="admin-shortcut-card__badge">{badge}</span>}
+      </div>
       <div className="admin-shortcut-card__content">
         <div className="admin-shortcut-card__title-row">
           <h2>{title}</h2>
-          {badge && <span className="admin-shortcut-card__badge">{badge}</span>}
+         
         </div>
-        <p>{description}</p>
+        <p style={{ textAlign: 'left' }}>{description}</p>
       </div>
       <span className="admin-shortcut-card__action">{displayAction}</span>
     </Link>

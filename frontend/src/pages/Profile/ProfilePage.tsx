@@ -240,7 +240,7 @@ function ProfilePage() {
           </section>
 
           <section className="profile-page__adoption-requests">
-            <header className="animals-page__header">
+            <header className="profile-page__animal-header">
               <h1>{t('adoption.title')}</h1>
               <p>{t('adoption.count', { count: adoptionRequests.length })}</p>
             </header>
@@ -267,7 +267,7 @@ function ProfilePage() {
             )}
           </section>
 
-          <header className="animals-page__header">
+          <header className="profile-page__animal-header">
             <h1>{t('favorites.title')}</h1>
             <p>{t('favorites.count', { count: favoriteAnimals.length })}</p>
           </header>
@@ -295,7 +295,7 @@ function ProfilePage() {
             </section>
           )}
 
-          <header className="animals-page__header">
+          <header className="profile-page__animal-header">
             <h1>{t('volunteering.title')}</h1>
             <p>{t('volunteering.count', { count: volunteerRegistrations.length })}</p>
           </header>

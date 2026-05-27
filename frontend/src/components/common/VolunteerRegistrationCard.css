@@ -1,5 +1,5 @@
 .volunteer-card {
-  display: flex;
+  display: grid;
   flex-direction: column;
   border: 1px solid var(--color-border);
   border-radius: 16px;
@@ -7,6 +7,7 @@
   background: var(--color-card-bg);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(44, 26, 14, 0.08);
   transition: transform 180ms ease, box-shadow 180ms ease;
+  max-width: 340px;
 }
 
 .volunteer-card:hover {

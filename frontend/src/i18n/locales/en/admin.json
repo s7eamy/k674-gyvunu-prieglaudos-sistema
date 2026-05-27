@@ -4,6 +4,7 @@
     "title": "Choose a management area",
     "subtitle": "Use the shortcuts below to jump straight to the admin tools you need. The most common workflows are ready now, and the rest are prepared as dashboard links.",
     "ariaShortcuts": "Admin shortcuts",
+    "loginPrompt": "Please login as admin to see this dashboard",
     "badges": {
       "active": "Active",
       "soon": "Soon"

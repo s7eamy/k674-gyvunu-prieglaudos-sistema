@@ -29,7 +29,6 @@ def score_animal(animal, answers):
     size = animal.size or ""
     
     living_space_multiplier = 0.0
-    print(animal_type_score)
     if living_space == "apartment":
         if size == "small":
             living_space_multiplier = 1.0

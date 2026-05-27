@@ -18,13 +18,15 @@ export default function PostCreationPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
-  const [isAdmin, setIsAdmin] = useState(true);
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     const checkAdminAccess = async () => {
       try {
         await getUsers();
+        setLoggedIn(true);
+        setIsAdmin(true);
       } catch (error) {
         if (error instanceof Error && error.message === 'NOT_LOGGED_IN') {
           setLoggedIn(false);

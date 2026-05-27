@@ -90,7 +90,7 @@ function AnimalCard({ animal, onAbout, isFavorited, onFavorite, onFavoriteRemove
           />
         )}
 
-        <span className={`animal-card__type-badge animal-card__type-badge--${animalType || 'other'}`}>
+        <span className={`animal-card__type-badge animal-card__type-badge--${['cat', 'dog'].includes(animalType) ? animalType : 'other'}`}>
           {enumLabel('animal_type', animalType, 'animal')}
         </span>
         <span className="animal-card__favorite-badge">

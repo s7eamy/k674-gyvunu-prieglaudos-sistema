@@ -1,7 +1,7 @@
 .merchandise-page {
+  width: 130%;
   padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  margin-inline: -10rem;
 }
 
 /* Hero Section */
@@ -89,7 +89,7 @@
 
 .stat-number {
   color: #E8856A;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Optima', serif;
   font-size: 2.4rem;
   font-weight: 700;
 }
