@@ -39,6 +39,16 @@
     "count_other": "{{count}} savanorystės",
     "empty": "Savanorystės pamainų dar nėra. Eikite į savanorystės puslapį ir užsiregistruokite."
   },
+  "donationHistory": {
+    "title": "Aukojimo istorija",
+    "count_one": "{{count}} auka",
+    "count_few": "{{count}} aukos",
+    "count_many": "{{count}} aukų",
+    "count_other": "{{count}} aukos",
+    "empty": "Dar nėra aukų. Atlikite auką, kad čia pamatytumėte istoriją.",
+    "paidAt": "Apmokėta {{date}}",
+    "anonymous": "Žinutė neparašyta"
+  },
   "upload": "Įkelti nuotrauką",
   "remove": "Pašalinti nuotrauką"
 }

@@ -33,6 +33,14 @@
     "count_other": "{{count}} volunteerings",
     "empty": "No volunteering sessions yet. Go to the volunteering page and make a registration to get started."
   },
+  "donationHistory": {
+    "title": "Donation History",
+    "count_one": "{{count}} donation",
+    "count_other": "{{count}} donations",
+    "empty": "No donations yet. Complete a donation to see your history here.",
+    "paidAt": "Paid on {{date}}",
+    "anonymous": "No message provided"
+  },
   "upload": "Upload photo",
   "remove": "Remove photo"
 }
