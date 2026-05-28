@@ -2,6 +2,7 @@ import 'i18next';
 
 import type common from './locales/en/common.json';
 import type navbar from './locales/en/navbar.json';
+import type landing from './locales/en/landing.json';
 import type auth from './locales/en/auth.json';
 import type animals from './locales/en/animals.json';
 import type animalModal from './locales/en/animalModal.json';
@@ -23,6 +24,7 @@ declare module 'i18next' {
     resources: {
       common: typeof common;
       navbar: typeof navbar;
+      landing: typeof landing;
       auth: typeof auth;
       animals: typeof animals;
       animalModal: typeof animalModal;

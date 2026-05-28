@@ -1,7 +1,9 @@
 .merchandise-page {
-  width: 130%;
+  /* Keep page content centered and constrained while allowing full-bleed hero */
+  max-width: 1400px;
   padding: 2rem;
-  margin-inline: -10rem;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 /* Hero Section */

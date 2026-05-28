@@ -1,0 +1,59 @@
+{
+  "brand": "PawFinder",
+  "aria": {
+    "brand_home": "Go to the PawFinder front page",
+    "profile": "View profile"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "profileTitle": "View profile"
+  },
+  "hero": {
+    "eyebrow": "Welcome to PawFinder",
+    "title": "Every paw has a path. Choose yours.",
+    "tagline": "Browse adoptable animals, find your best match, support the shelter, or join the PawFinder community.",
+    "browseAnimals": "Browse animals",
+    "takeQuiz": "Take the quiz"
+  },
+  "featureCards": {
+    "adoptionLabel": "Adoption",
+    "browseTitle": "Browse Animals",
+    "browseDescription": "Meet cats and dogs waiting for a loving home. Filter by type, size, age, temperament, and more.",
+    "browseAction": "Meet the animals",
+    "matchLabel": "Find your match",
+    "matchTitle": "Compatibility Quiz",
+    "matchDescription": "Answer a few quick questions about your lifestyle, home, and preferences.",
+    "matchAction": "Start the quiz"
+  },
+  "support": {
+    "eyebrow": "Support",
+    "title": "More ways to support the shelter"
+  },
+  "supportCards": {
+    "donateTitle": "Donate",
+    "donateDescription": "Help provide food, medical care, and safe shelter for animals in need.",
+    "donateAction": "Donate now",
+    "merchandiseTitle": "Merchandise",
+    "merchandiseDescription": "Shop PawFinder merch that directly supports animal care.",
+    "merchandiseAction": "Shop merch",
+    "volunteerTitle": "Volunteer",
+    "volunteerDescription": "Choose tasks, schedule your time, and help animals in person.",
+    "volunteerAction": "Sign up to help"
+  },
+  "highlights": {
+    "adoptTitle": "Adopt with confidence",
+    "adoptDescription": "Use browsing and matching tools to find the right companion.",
+    "supportTitle": "Support shelter care",
+    "supportDescription": "Donations, merch, and volunteering help animals directly.",
+    "communityTitle": "Earn community points",
+    "communityDescription": "Volunteering and donations contribute to community progress."
+  },
+  "community": {
+    "eyebrow": "Community",
+    "title": "Already part of the PawFinder community?",
+    "text": "Read updates, share posts, and see how supporters are making an impact.",
+    "postsAction": "View posts",
+    "leaderboardAction": "See leaderboard"
+  }
+}

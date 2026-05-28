@@ -52,7 +52,7 @@ export default function LoginPage() {
       localStorage.setItem('user_avatar_filename', response.user.avatar_filename || '');
       setName('');
       setPassword('');
-      navigate('/');
+      navigate('/animals');
     } catch (error: unknown) {
       setErrors({ general: translateApiError(error) });
     } finally {

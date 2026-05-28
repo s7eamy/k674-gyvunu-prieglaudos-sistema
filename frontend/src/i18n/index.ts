@@ -4,6 +4,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 
 import commonEn from './locales/en/common.json';
 import navbarEn from './locales/en/navbar.json';
+import landingEn from './locales/en/landing.json';
 import authEn from './locales/en/auth.json';
 import animalsEn from './locales/en/animals.json';
 import animalModalEn from './locales/en/animalModal.json';
@@ -21,6 +22,7 @@ import subscribeEn from './locales/en/subscribe.json';
 
 import commonLt from './locales/lt/common.json';
 import navbarLt from './locales/lt/navbar.json';
+import landingLt from './locales/lt/landing.json';
 import authLt from './locales/lt/auth.json';
 import animalsLt from './locales/lt/animals.json';
 import animalModalLt from './locales/lt/animalModal.json';
@@ -43,6 +45,7 @@ const resources = {
   en: {
     common: commonEn,
     navbar: navbarEn,
+    landing: landingEn,
     auth: authEn,
     animals: animalsEn,
     animalModal: animalModalEn,
@@ -61,6 +64,7 @@ const resources = {
   lt: {
     common: commonLt,
     navbar: navbarLt,
+    landing: landingLt,
     auth: authLt,
     animals: animalsLt,
     animalModal: animalModalLt,
@@ -89,6 +93,7 @@ void i18n
     ns: [
       'common',
       'navbar',
+      'landing',
       'auth',
       'animals',
       'animalModal',

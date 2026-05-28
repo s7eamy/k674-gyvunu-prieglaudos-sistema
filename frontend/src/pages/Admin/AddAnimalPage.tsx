@@ -335,7 +335,7 @@ export default function AddAnimalPage() {
           <br />
           <button
             type="button"
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/animals')}
             className="add-animal-form__secondary"
           >
             {t('addAnimal.viewAll')}
