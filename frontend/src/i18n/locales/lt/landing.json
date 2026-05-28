@@ -1,0 +1,59 @@
+{
+  "brand": "PawFinder",
+  "aria": {
+    "brand_home": "Eiti į PawFinder pradžios puslapį",
+    "profile": "Peržiūrėti profilį"
+  },
+  "auth": {
+    "login": "Prisijungti",
+    "register": "Registruotis",
+    "profileTitle": "Peržiūrėti profilį"
+  },
+  "hero": {
+    "eyebrow": "Sveiki atvykę į PawFinder",
+    "title": "Atraskite savo būdą padėti gyvūnams rasti namus.",
+    "tagline": "Peržiūrėkite namų ieškančius gyvūnus, raskite sau tinkamą draugą, paremkite prieglaudą arba prisijunkite prie PawFinder bendruomenės.",
+    "browseAnimals": "Peržiūrėti gyvūnus",
+    "takeQuiz": "Atlikti testą"
+  },
+  "featureCards": {
+    "adoptionLabel": "Ieško namų",
+    "browseTitle": "Peržiūrėti gyvūnus",
+    "browseDescription": "Susipažinkite su katėmis ir šunimis, kurie laukia mylinčių namų. Filtruokite pagal rūšį, dydį, amžių, būdą ir kt.",
+    "browseAction": "Susipažinti su gyvūnais",
+    "matchLabel": "Raskite draugą",
+    "matchTitle": "Suderinamumo testas",
+    "matchDescription": "Atsakykite į kelis trumpus klausimus apie savo gyvenimo būdą, namus ir lūkesčius.",
+    "matchAction": "Pradėti testą"
+  },
+  "support": {
+    "eyebrow": "Prisidėkite",
+    "title": "Daugiau būdų padėti prieglaudai"
+  },
+  "supportCards": {
+    "donateTitle": "Aukoti",
+    "donateDescription": "Padėkite pasirūpinti maistu, gydymu ir saugia pastoge gyvūnams, kuriems reikia pagalbos.",
+    "donateAction": "Aukoti dabar",
+    "merchandiseTitle": "Atributika",
+    "merchandiseDescription": "Įsigykite PawFinder atributikos – kiekvienas pirkinys prisideda prie gyvūnų priežiūros.",
+    "merchandiseAction": "Pirkti atributiką",
+    "volunteerTitle": "Savanoriauti",
+    "volunteerDescription": "Pasirinkite užduotis, susiplanuokite laiką ir padėkite gyvūnams prieglaudoje.",
+    "volunteerAction": "Tapti savanoriu"
+  },
+  "highlights": {
+    "adoptTitle": "Rinkitės užtikrintai",
+    "adoptDescription": "Naršymo ir suderinimo įrankiai padės rasti tinkamą draugą.",
+    "supportTitle": "Padėkite rūpintis gyvūnais",
+    "supportDescription": "Aukos, atributika ir savanorystė tiesiogiai padeda prieglaudos gyvūnams.",
+    "communityTitle": "Rinkite bendruomenės taškus",
+    "communityDescription": "Savanorystė ir aukos prisideda prie bendruomenės pažangos."
+  },
+  "community": {
+    "eyebrow": "Bendruomenė",
+    "title": "Jau esate PawFinder bendruomenės dalis?",
+    "text": "Skaitykite naujienas, dalinkitės įrašais ir matykite, kaip rėmėjai bei savanoriai kuria pokytį.",
+    "postsAction": "Peržiūrėti įrašus",
+    "leaderboardAction": "Žiūrėti lyderių lentelę"
+  }
+}

@@ -76,7 +76,7 @@ function Navbar() {
     }
   };
 
-  const isAnimalsActive = location.pathname === '/';
+  const isAnimalsActive = location.pathname === '/animals';
   const isMatchActive = location.pathname === '/match';
   const isVolunteerActive = location.pathname === '/volunteer';
   const isDonateActive = location.pathname === '/donate';
@@ -122,7 +122,7 @@ function Navbar() {
             <button className="navbar__dropdown-btn">{t('links.browse')} </button>
               <div className="navbar__dropdown-content">
                 <Link
-                  to="/"className={`navbar__link ${isAnimalsActive ? 'is-active' : ''}`}>{t('links.animals')}
+                  to="/animals"className={`navbar__link ${isAnimalsActive ? 'is-active' : ''}`}>{t('links.animals')}
                 </Link>
                 <Link
                   to="/match"className={`navbar__link ${isMatchActive ? 'is-active' : ''}`}>{t('links.match')}
@@ -160,7 +160,7 @@ function Navbar() {
             <button className="navbar__dropdown-btn">{t('links.browse')}  </button>
               <div className="navbar__dropdown-content">
                 <Link
-                  to="/"className={`navbar__link ${isAnimalsActive ? 'is-active' : ''}`}>{t('links.animals')}
+                  to="/animals"className={`navbar__link ${isAnimalsActive ? 'is-active' : ''}`}>{t('links.animals')}
                 </Link>
                 <Link
                   to="/match"className={`navbar__link ${isMatchActive ? 'is-active' : ''}`}>{t('links.match')}
